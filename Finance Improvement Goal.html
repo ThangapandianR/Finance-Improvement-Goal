@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top 1% Finance — Master Tracker</title>
+<style>
+:root{--bg:#0b1020;--card:#151d38;--card2:#1b2444;--line:#26315a;--txt:#e7ecff;--mut:#8b97c4;--dim:#5f6b96;--acc:#4f8cff;--acc2:#22d3a6;--warn:#ffb020;--bad:#ff5d6c;--gold:#ffd166;--r:14px;--sh:0 6px 24px rgba(0,0,0,.35)}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{background:radial-gradient(1200px 600px at 15% -10%,#1a2550 0%,transparent 55%),radial-gradient(900px 500px at 95% 0%,#123a3a 0%,transparent 50%),var(--bg);color:var(--txt);font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1320px;margin:0 auto;padding:18px 18px 110px}
+header{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;padding:18px 22px;margin-bottom:16px;background:linear-gradient(135deg,rgba(79,140,255,.14),rgba(34,211,166,.07));border:1px solid var(--line);border-radius:18px;box-shadow:var(--sh)}
+.brand h1{margin:0;font-size:18px;letter-spacing:-.3px}
+.brand p{margin:3px 0 0;font-size:12.5px;color:var(--mut)}
+.brand .who{color:var(--gold);font-weight:600}
+.hstats{display:flex;gap:9px;flex-wrap:wrap}
+.hstat{background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;padding:8px 13px;text-align:center;min-width:74px}
+.hstat b{display:block;font-size:18px;line-height:1.15}.hstat span{font-size:9.5px;color:var(--mut);text-transform:uppercase;letter-spacing:.7px}
+nav{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;margin-bottom:18px;padding-bottom:4px;scrollbar-width:thin}
+nav::-webkit-scrollbar{height:5px}nav::-webkit-scrollbar-thumb{background:#26315a;border-radius:99px}
+nav button{background:var(--card);border:1px solid var(--line);color:var(--mut);padding:9px 16px;border-radius:999px;cursor:pointer;font-size:13.5px;font-weight:600;transition:.15s;font-family:inherit;white-space:nowrap}
+nav button:hover{color:var(--txt);border-color:#3a4a80}
+nav button.on{background:linear-gradient(135deg,var(--acc),#3a6fe0);color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(79,140,255,.35)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--sh)}
+.card h3{margin:0 0 4px;font-size:15px;letter-spacing:-.2px}
+.card .sub{color:var(--mut);font-size:12.5px;margin:0 0 14px}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.g5{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}.hide{display:none !important}
+.kpi{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:var(--r);padding:15px 17px}
+.kpi .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--mut);font-weight:700}
+.kpi .val{font-size:27px;font-weight:800;letter-spacing:-1px;margin-top:5px;line-height:1}
+.kpi .note{font-size:11.5px;color:var(--dim);margin-top:5px}
+.bar{height:8px;background:#0a1024;border-radius:99px;overflow:hidden;border:1px solid #1e2a4e}
+.bar>i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .4s}
+.bar.thin{height:6px}
+.cats{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.cats.scrollable{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.cats::-webkit-scrollbar{height:5px}.cats::-webkit-scrollbar-thumb{background:#26315a;border-radius:99px}
+.cats button{background:var(--card2);border:1px solid var(--line);color:var(--mut);padding:7px 14px;border-radius:999px;cursor:pointer;font-size:12.5px;font-weight:600;font-family:inherit;transition:.15s;white-space:nowrap}
+.cats button:hover{color:var(--txt);border-color:#3a4a80}
+.cats button.on{background:linear-gradient(135deg,var(--acc),#3a6fe0);color:#fff;border-color:transparent}
+.res{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:9px;transition:.13s}
+.res:hover{border-color:#3a4a80;background:#1e2848}
+.res.logged{border-color:rgba(34,211,166,.5);background:rgba(34,211,166,.055)}
+.res.pinned{border-left:3px solid var(--gold)}
+.res.edited{border-right:3px solid var(--warn)}
+.res.done{opacity:.78}
+.res-top{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:4px}
+.res-title{font-weight:700;font-size:14px}
+.res-by{color:var(--mut);font-size:12.5px}
+.res-desc{font-size:12.6px;color:#b9c3e6;line-height:1.5;margin:3px 0 7px}
+.res-progress{background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.35);border-radius:8px;padding:6px 10px;margin:6px 0;font-size:12px;color:var(--gold)}
+.res-meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:11px;color:var(--dim)}
+.res-meta .sess{color:var(--acc2);font-weight:700}.res-meta .mins{color:var(--gold);font-weight:700}.res-meta .today-tag{color:var(--acc2);font-weight:700}
+.pin-btn{background:transparent;border:1px solid var(--line);color:var(--dim);border-radius:8px;padding:3px 8px;cursor:pointer;font-size:13px;font-family:inherit;opacity:.55;transition:.13s}
+.pin-btn.on{background:rgba(255,209,102,.18);border-color:rgba(255,209,102,.55);opacity:1}
+.logbox{display:flex;align-items:center;gap:5px;background:#0a1024;border:1px solid var(--line);border-radius:10px;padding:3px 4px 3px 9px}
+.logbox.on{border-color:rgba(34,211,166,.6);background:rgba(34,211,166,.10)}
+.logbox input{width:52px;background:transparent;border:none;color:var(--txt);font-size:13px;font-weight:800;text-align:right;padding:0;outline:none;font-family:inherit;-moz-appearance:textfield}
+.logbox input::-webkit-outer-spin-button,.logbox input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.logbox input::placeholder{color:var(--dim);font-weight:600;font-size:11px}
+.logbox .unit{font-size:10.5px;color:var(--dim);font-weight:700}
+.logbox .btn{padding:5px 10px;font-size:11.5px;border-radius:8px}
+.btn-undo{background:linear-gradient(135deg,#ff5d6c,#d63a4a)!important;color:#fff!important;border:none!important}
+.timer-btn{background:transparent;border:1px solid rgba(255,209,102,.4);color:var(--gold);border-radius:8px;padding:4px 9px;cursor:pointer;font-size:12px;font-family:inherit;transition:.13s}
+.timer-btn:hover{background:rgba(255,209,102,.15)}
+.edit-btn{background:transparent;border:1px solid rgba(79,140,255,.4);color:var(--acc);border-radius:8px;padding:4px 9px;cursor:pointer;font-size:12px;font-family:inherit;transition:.13s}
+.edit-btn:hover{background:rgba(79,140,255,.15)}
+.chip{display:inline-block;padding:2px 9px;border-radius:99px;font-size:10px;font-weight:800;white-space:nowrap}
+.p-must{background:rgba(255,209,102,.16);color:var(--gold);border:1px solid rgba(255,209,102,.4)}
+.p-rec{background:rgba(79,140,255,.14);color:#8fb6ff;border:1px solid rgba(79,140,255,.35)}
+.p-ess{background:rgba(255,93,108,.14);color:#ff93a0;border:1px solid rgba(255,93,108,.35)}
+.p-high{background:rgba(34,211,166,.13);color:#5ff0c8;border:1px solid rgba(34,211,166,.32)}
+.p-med{background:rgba(139,151,196,.13);color:var(--mut);border:1px solid rgba(139,151,196,.3)}
+.st{display:inline-block;padding:3.5px 11px;border-radius:8px;font-size:10.5px;font-weight:800;border:1px solid;white-space:nowrap}
+.st-0{background:transparent;color:var(--dim);border-color:#2c3a68}
+.st-1{background:rgba(255,176,32,.15);color:var(--warn);border-color:rgba(255,176,32,.45)}
+.st-2{background:rgba(34,211,166,.16);color:var(--acc2);border-color:rgba(34,211,166,.5)}
+.btn{background:linear-gradient(135deg,var(--acc),#3a6fe0);color:#fff;border:none;padding:9px 16px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--mut)}
+.btn.ghost:hover{color:var(--txt);border-color:#3a4a80;transform:none}
+.btn.sm{padding:6px 12px;font-size:11.5px}
+.btn.xs{padding:3px 8px;font-size:10.5px;border-radius:6px}
+.btn.danger{background:linear-gradient(135deg,#ff5d6c,#d63a4a)}
+.btn.log{background:linear-gradient(135deg,#22d3a6,#0fa87f);color:#04241a}
+.btn.complete{background:linear-gradient(135deg,#4f8cff,#3a6fe0);color:#fff}
+input[type=text],input[type=search],input[type=number],input[type=time],input[type=date],textarea,select{background:#0a1024;border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px 12px;font-size:13.5px;font-family:inherit;width:100%;outline:none;transition:.15s}
+input:focus,textarea:focus,select:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(79,140,255,.15)}
+textarea{resize:vertical;min-height:60px;line-height:1.5}
+label.fl{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);font-weight:800;margin:0 0 6px}
+.empty{text-align:center;padding:34px 18px;color:var(--dim);font-size:13.5px}
+.pill{font-size:11px;color:var(--mut);background:rgba(255,255,255,.05);padding:3px 10px;border-radius:99px;border:1px solid var(--line)}
+hr{border:none;border-top:1px solid #1e2a4e;margin:14px 0}
+.tiny{font-size:11.5px;color:var(--dim);line-height:1.5}
+.today-box{background:linear-gradient(135deg,rgba(34,211,166,.10),rgba(79,140,255,.06));border:1px solid rgba(34,211,166,.35);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+.today-box .tlabel{font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--acc2);font-weight:800;margin-bottom:6px}
+.today-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.today-chip{background:rgba(34,211,166,.18);border:1px solid rgba(34,211,166,.45);color:#5ff0c8;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
+.today-chip b{color:#fff;margin-left:5px}
+.heat{display:grid;grid-template-columns:repeat(auto-fill,minmax(22px,1fr));gap:5px}
+.heat>div{aspect-ratio:1;border-radius:6px;border:1px solid rgba(255,255,255,.06)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.hide{display:none}
+.modal-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;max-width:540px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.7)}
+.modal-card h3{margin:0 0 4px;font-size:16px}
+.modal-sub{font-size:12.5px;color:var(--mut);margin:0 0 16px}
+.undo-entry{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--card2)}
+.undo-entry.today{border-color:rgba(34,211,166,.55);background:rgba(34,211,166,.07)}
+.undo-date{flex:1;font-size:13px;color:var(--mut);display:flex;flex-direction:column;gap:2px}
+.undo-date .today-lbl{font-size:10px;color:var(--acc2);font-weight:800}
+.undo-entry input{width:72px;background:#0a1024;border:1px solid var(--line);color:var(--gold);border-radius:8px;padding:5px 8px;font-size:13.5px;font-weight:800;text-align:right;font-family:inherit;-moz-appearance:textfield}
+.undo-entry input::-webkit-outer-spin-button,.undo-entry input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.undo-unit{font-size:10.5px;color:var(--dim);font-weight:700}
+.modal-footer{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.modal-total{font-size:12px;color:var(--mut)}
+.modal-total b{color:var(--gold)}
+.sheet-wrap{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.sheet-toolbar{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--card2)}
+.sheet-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.sheet-scroll{overflow:auto;max-height:calc(100vh - 260px)}
+table.sheet{border-collapse:separate;border-spacing:0;font-size:12.3px;width:100%;min-width:1750px}
+table.sheet th{position:sticky;top:0;z-index:2;background:#121a34;color:var(--mut);font-size:10px;text-transform:uppercase;font-weight:800;padding:10px;text-align:left;border-bottom:2px solid #2a3763;white-space:nowrap}
+table.sheet td{padding:9px 10px;border-bottom:1px solid #1a2444;vertical-align:top;line-height:1.45}
+table.sheet tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
+table.sheet tbody tr.pinned-row{background:rgba(255,209,102,.05)}
+table.sheet tbody tr.custom-row{background:rgba(34,211,166,.04)}
+table.sheet tbody tr.edited-row{background:rgba(255,176,32,.04)}
+table.sheet td.num{color:var(--dim);font-weight:700;font-size:11px;text-align:right}
+table.sheet td.item{font-weight:700}
+table.sheet td.desc{color:#b9c3e6;font-size:11.8px;min-width:320px}
+table.sheet td.prov{color:var(--mut);font-size:11.5px}
+table.sheet td.pillar{font-size:11px;color:var(--acc);font-weight:700}
+table.sheet td.cat{font-size:11px;color:var(--mut)}
+table.sheet td.tl,table.sheet td.cost{font-size:11px;color:var(--mut);white-space:nowrap}
+table.sheet td.status{white-space:nowrap}
+table.sheet td.notes{min-width:170px}
+table.sheet td.notes textarea{min-height:34px;font-size:11.5px;padding:5px 8px;border-radius:7px}
+.sheet-footer{padding:10px 16px;border-top:1px solid var(--line);background:var(--card2);display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--mut)}
+.report-table{width:100%;font-size:12.5px}
+.report-table th{font-size:10px;text-transform:uppercase;color:var(--mut);padding:8px;text-align:left;border-bottom:1px solid #1e2a4e;font-weight:800}
+.report-table td{padding:9px 8px;border-bottom:1px solid #1a2444;vertical-align:top}
+.digest{background:linear-gradient(135deg,rgba(79,140,255,.18),rgba(34,211,166,.12));border:1px solid rgba(79,140,255,.4);border-radius:12px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px}
+.digest-icon{font-size:24px}
+.digest-body{flex:1}
+.digest-title{font-size:14px;font-weight:800;margin-bottom:4px}
+.digest-text{font-size:12.5px;color:var(--mut);line-height:1.55}
+.digest-close{background:transparent;border:none;color:var(--dim);font-size:18px;cursor:pointer;padding:0 6px}
+.fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--acc2),#0fa87f);color:#fff;border:none;font-size:26px;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(34,211,166,.45);z-index:500;transition:.15s;display:grid;place-items:center}
+.fab:hover{transform:scale(1.08)}
+.timer-display{font-size:64px;font-weight:800;text-align:center;letter-spacing:-2px;color:var(--gold);margin:20px 0;font-variant-numeric:tabular-nums}
+.timer-presets{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.timer-presets button{background:var(--card2);border:1px solid var(--line);color:var(--mut);padding:8px 16px;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:700;font-size:13px}
+.timer-presets button:hover{border-color:var(--acc);color:var(--txt)}
+.fc{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.fc-q{font-weight:700;font-size:14px;margin-bottom:6px}
+.fc-a{font-size:13px;color:#b9c3e6;padding:10px;background:#0a1024;border-radius:8px;margin-top:8px;white-space:pre-wrap}
+.fc-meta{font-size:11px;color:var(--dim);display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.fc-grade{display:flex;gap:6px;margin-top:10px}
+.fc-grade button{flex:1;padding:7px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--mut);cursor:pointer;font-family:inherit;font-size:11px;font-weight:700}
+.fc-grade button:hover{background:rgba(255,255,255,.05)}
+.fc-grade .g0{border-color:rgba(255,93,108,.5);color:var(--bad)}
+.fc-grade .g2{border-color:rgba(255,176,32,.5);color:var(--warn)}
+.fc-grade .g4{border-color:rgba(34,211,166,.5);color:var(--acc2)}
+.goal{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.goal-header{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.goal-title{font-weight:700;font-size:14px}
+.goal-deadline{font-size:11px;color:var(--mut)}
+.goal-kr{padding:6px 0;border-top:1px solid #1a2444;font-size:12.5px;display:flex;align-items:center;gap:8px}
+@media print{
+  body{background:#fff!important;color:#000!important}
+  header,nav,.fab,.cats,.digest,.modal-overlay,.logbox,.pin-btn,.timer-btn,.edit-btn,.btn,button,.st,.chip,.bar,input,select,textarea{display:none!important}
+  .wrap{padding:0!important;max-width:100%!important;margin:0!important}
+  .card{background:#fff!important;border:1px solid #ccc!important;box-shadow:none!important;color:#000!important;page-break-inside:avoid;margin-bottom:12px!important}
+  .kpi{background:#f5f5f5!important;border:1px solid #ccc!important;color:#000!important}
+  .kpi .lbl,.kpi .note,.sub,.tiny,.res-meta{color:#555!important}
+  .report-table th,.report-table td{border-color:#ccc!important;color:#000!important}
+  .res,.fc,.goal,.sheet-wrap{background:#fff!important;border:1px solid #ccc!important;color:#000!important}
+  a{color:#0066cc!important}h3{color:#000!important}#reportCats{display:none!important}
+}
+@media(max-width:680px){.wrap{padding:12px 12px 110px}header{padding:15px}.kpi .val{font-size:23px}.res-top{gap:6px}.logbox input{width:44px}.logbox .btn{padding:5px 8px;font-size:11px}.fab{bottom:18px;right:18px;width:50px;height:50px;font-size:22px}.timer-display{font-size:48px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand"><h1>🎯 Top 1% Finance — Master Tracker</h1><p><span class="who">Thangapandian Roosvelt</span> · CIMA · UAE &amp; India · Finance Manager → CFO</p></div>
+  <div class="hstats" id="hstats"></div>
+</header>
+<nav id="nav"></nav>
+<main>
+<section id="tab-lib">
+  <div id="backupBanner" class="hide"></div>
+  <div id="digestBox"></div>
+  <div class="today-box" id="todayBox"></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="row" style="gap:10px;align-items:flex-end">
+      <div style="flex:1 1 220px"><label class="fl">Search</label><input type="search" id="libSearch" placeholder="Search resources… (press / to focus)" oninput="renderLib()"></div>
+      <div style="flex:0 1 170px"><label class="fl">Filter</label><select id="priFilter" onchange="renderLib()"><option value="">All priorities</option><option value="pinned">📌 Pinned only</option><option value="must">★ Must Read</option><option value="rec">Recommended</option><option value="ess">Essential</option><option value="high">High Value</option><option value="med">Important</option></select></div>
+      <div style="flex:0 1 170px"><label class="fl">Sort by</label><select id="libSort" onchange="renderLib()"><option value="default">Status / category</option><option value="priority">Priority (Must first)</option><option value="time">Most time logged</option><option value="recent">Recently logged</option><option value="az">Title A–Z</option></select></div>
+      <button class="btn" onclick="toggleAdd()">+ Add custom</button>
+    </div>
+    <div id="addForm" class="hide" style="margin-top:14px;padding-top:14px;border-top:1px solid #1e2a4e">
+      <div class="grid g3">
+        <div><label class="fl">Category</label><select id="fCat"><option>Books</option><option>YouTube</option><option>Publications</option><option>Podcasts</option><option>Certifications</option><option>Technical</option><option>Leadership</option><option>Networking</option><option>Tech &amp; AI</option><option>Filings &amp; Statements</option><option>Habits</option><option>Career</option><option>Reference</option><option>Habit Matrix</option></select></div>
+        <div><label class="fl">Title *</label><input type="text" id="fTitle" placeholder="Title"></div>
+        <div><label class="fl">Provider</label><input type="text" id="fBy" placeholder="Author/Provider"></div>
+      </div>
+      <div class="grid g3" style="margin-top:10px">
+        <div><label class="fl">Priority</label><select id="fPri"><option value="must">★ Must</option><option value="rec" selected>Recommended</option><option value="ess">Essential</option><option value="high">High Value</option><option value="med">Important</option></select></div>
+        <div><label class="fl">Link</label><input type="text" id="fUrl" placeholder="https://…"></div>
+        <div><label class="fl">Subcategory</label><input type="text" id="fSub" placeholder="Optional"></div>
+      </div>
+      <div style="margin-top:10px"><label class="fl">Description</label><textarea id="fDesc" placeholder="Description"></textarea></div>
+      <div class="row" style="margin-top:10px"><button class="btn" onclick="addCustom()">Save</button><button class="btn ghost" onclick="toggleAdd()">Cancel</button></div>
+    </div>
+  </div>
+  <div class="cats" id="cats"></div>
+  <div class="row" style="margin-bottom:10px">
+    <span class="pill" id="libCount">0 resources</span>
+    <span class="pill" id="libTouched">0 touched</span>
+    <span class="pill" id="libDone">0 finished</span>
+    <span class="pill" id="libPinned">0 pinned</span>
+    <span class="pill" id="libEdited">0 edited</span>
+    <span class="spacer"></span>
+    <span class="tiny">✏️ edit any · 📌 pins · <b style="color:var(--acc2)">+ Log</b> · ⏱ timer · ↩ undo · 📍 books · <b style="color:var(--gold)">/</b> search · <b style="color:var(--gold)">q</b> quick log</span>
+  </div>
+  <div id="libList"></div>
+</section>
+
+<section id="tab-sheet" class="hide">
+  <div class="sheet-wrap">
+    <div class="sheet-toolbar">
+      <div class="row" style="justify-content:space-between;margin-bottom:12px">
+        <div><h3 style="margin:0;font-size:15px">📋 Master Roadmap</h3><p style="margin:3px 0 0;font-size:12px;color:var(--mut)">All rows. Rows you add here appear in Library under their category.</p></div>
+        <div class="row"><span class="pill" id="sheetCount">0 rows</span><button class="btn sm" onclick="showAddRowForm()">+ Add row</button><button class="btn sm ghost" onclick="exportSheetCSV()">⬇ CSV</button></div>
+      </div>
+      <div id="addRowForm" class="hide" style="padding:14px;background:rgba(34,211,166,.05);border:1px solid rgba(34,211,166,.35);border-radius:10px;margin-bottom:12px">
+        <div class="row" style="justify-content:space-between;margin-bottom:10px"><b style="color:var(--acc2);font-size:13px">➕ Add new resource — will appear in Library under its category</b><button class="btn sm ghost" onclick="hideAddRowForm()">×</button></div>
+        <div class="grid g3">
+          <div><label class="fl">Pillar *</label><select id="arPillar"><option value="1. BOOKS TO READ">1. Books to Read</option><option value="2. YOUTUBE CHANNELS">2. YouTube Channels</option><option value="3. PUBLICATIONS">3. Publications</option><option value="4. PODCASTS">4. Podcasts</option><option value="5. CERTIFICATIONS">5. Certifications</option><option value="6. TECHNICAL">6. Technical Knowledge</option><option value="7. LEADERSHIP">7. Leadership &amp; Communication</option><option value="8. NETWORKING">8. Networking</option><option value="9. TECH & AI">9. Tech &amp; AI</option><option value="10. HABITS">10. Habits</option><option value="11. CAREER">11. Career</option><option value="12. QUICK REF">12. Quick Reference</option><option value="13. HABIT MATRIX">13. Habit Matrix</option><option value="14. FILINGS">14. Filings &amp; Statements</option></select></div>
+          <div><label class="fl">Category</label><input type="text" id="arCat" placeholder="e.g. My Custom Reading List"></div>
+          <div><label class="fl">Priority</label><select id="arPri"><option value="must">★ Must</option><option value="rec" selected>Recommended</option><option value="ess">Essential</option><option value="high">High Value</option><option value="med">Important</option></select></div>
+        </div>
+        <div class="grid g3" style="margin-top:10px">
+          <div><label class="fl">Title *</label><input type="text" id="arTitle" placeholder="e.g. My new book"></div>
+          <div><label class="fl">Author / Provider</label><input type="text" id="arProvider" placeholder="e.g. Author name"></div>
+          <div><label class="fl">Link (optional)</label><input type="text" id="arUrl" placeholder="https://…"></div>
+        </div>
+        <div style="margin-top:10px"><label class="fl">Description</label><textarea id="arDesc" placeholder="What is this and why does it matter?"></textarea></div>
+        <div class="grid g3" style="margin-top:10px">
+          <div><label class="fl">Timeline</label><input type="text" id="arTimeline" placeholder="e.g. Ongoing / Self-Paced"></div>
+          <div><label class="fl">Cost</label><input type="text" id="arCost" placeholder="e.g. Free"></div>
+          <div style="display:flex;align-items:flex-end;gap:8px"><button class="btn" style="flex:1" onclick="saveNewRow()">Save</button><button class="btn ghost" onclick="hideAddRowForm()">Cancel</button></div>
+        </div>
+      </div>
+      <div class="sheet-filters">
+        <div><label class="fl">Search</label><input type="search" id="sheetSearch" placeholder="Search…" oninput="renderSheet()"></div>
+        <div><label class="fl">Pillar</label><select id="sheetPillar" onchange="onPillarChange()"></select></div>
+        <div><label class="fl">Category</label><select id="sheetCat" onchange="renderSheet()"></select></div>
+        <div><label class="fl">Priority</label><select id="sheetPri" onchange="renderSheet()"><option value="">All</option><option value="must">★ Must</option><option value="ess">Essential</option><option value="high">High Value</option><option value="rec">Recommended</option><option value="med">Important</option></select></div>
+        <div><label class="fl">Status</label><select id="sheetStatus" onchange="renderSheet()"><option value="">Any</option><option value="0">Not Started</option><option value="1">In Progress</option><option value="2">Completed</option></select></div>
+        <div style="display:flex;align-items:flex-end"><button class="btn sm ghost" style="width:100%" onclick="resetSheetFilters()">Reset</button></div>
+      </div>
+    </div>
+    <div class="sheet-scroll">
+      <table class="sheet">
+        <thead><tr><th>#</th><th>Pillar</th><th>Category</th><th>Item</th><th>Provider</th><th>Description</th><th>Priority</th><th>Timeline</th><th>Cost</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody id="sheetBody"></tbody>
+      </table>
+    </div>
+    <div class="sheet-footer"><span id="sheetStats"></span></div>
+  </div>
+</section>
+
+<section id="tab-flashcards" class="hide">
+  <div class="card" style="margin-bottom:14px">
+    <div class="row" style="justify-content:space-between;margin-bottom:12px">
+      <div><h3 style="margin:0;font-size:15px">🔄 Flashcards</h3><p style="margin:3px 0 0;font-size:12px;color:var(--mut)">SM-2 spaced repetition.</p></div>
+      <button class="btn" onclick="toggleCardForm()">+ New card</button>
+    </div>
+    <div id="cardForm" class="hide" style="padding-top:12px;border-top:1px solid #1e2a4e">
+      <div class="grid g2">
+        <div><label class="fl">Question *</label><textarea id="fcQ" placeholder="e.g. 5 steps of IFRS 15?"></textarea></div>
+        <div><label class="fl">Answer *</label><textarea id="fcA" placeholder="Answer"></textarea></div>
+      </div>
+      <div class="grid g3" style="margin-top:10px">
+        <div><label class="fl">Linked resource</label><select id="fcRes"><option value="">None</option></select></div>
+        <div><label class="fl">Category</label><select id="fcCat"></select></div>
+        <div><label class="fl">Topic tag</label><input type="text" id="fcTag" placeholder="e.g. IFRS 15"></div>
+      </div>
+      <div class="row" style="margin-top:10px"><button class="btn" onclick="saveCard()">Save</button><button class="btn ghost" onclick="toggleCardForm()">Cancel</button></div>
+    </div>
+  </div>
+  <div class="grid g4" style="margin-bottom:14px" id="fcKpis"></div>
+  <div class="card" style="margin-bottom:14px"><h3>Due for review</h3><p class="sub">Grade honestly — 0=forgot, 5=perfect</p><div id="fcDue"></div></div>
+  <div class="card"><h3>All cards</h3><div id="fcAll"></div></div>
+</section>
+
+<section id="tab-goals" class="hide">
+  <div class="card" style="margin-bottom:14px">
+    <div class="row" style="justify-content:space-between;margin-bottom:12px">
+      <div><h3 style="margin:0;font-size:15px">🎯 Goals &amp; OKRs</h3><p style="margin:3px 0 0;font-size:12px;color:var(--mut)">Measurable goals with deadlines and key results.</p></div>
+      <button class="btn" onclick="toggleGoalForm()">+ New goal</button>
+    </div>
+    <div id="goalForm" class="hide" style="padding-top:12px;border-top:1px solid #1e2a4e">
+      <div class="grid g3">
+        <div><label class="fl">Goal title *</label><input type="text" id="goalTitle" placeholder="e.g. Complete DipIFR"></div>
+        <div><label class="fl">Target date</label><input type="date" id="goalDate"></div>
+        <div><label class="fl">Category</label><select id="goalCat"><option value="">All</option></select></div>
+      </div>
+      <div style="margin-top:10px"><label class="fl">Key results (one per line)</label><textarea id="goalKRs" placeholder="Read Wiley IFRS cover to cover&#10;Complete IFRS Foundation modules&#10;Pass mock exam"></textarea></div>
+      <div class="row" style="margin-top:10px"><button class="btn" onclick="saveGoal()">Save</button><button class="btn ghost" onclick="toggleGoalForm()">Cancel</button></div>
+    </div>
+  </div>
+  <div id="goalList"></div>
+</section>
+
+<section id="tab-reports" class="hide">
+  <div class="cats scrollable" id="reportCats"></div>
+  <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <button class="btn sm ghost" onclick="exportSessionLogCSV()">📥 Session Log CSV</button>
+    <button class="btn sm ghost" onclick="window.print()">🖨 Print / PDF</button>
+  </div>
+  <div id="reportContent"></div>
+</section>
+
+<section id="tab-settings" class="hide">
+  <div class="grid g2">
+    <div class="card">
+      <h3>Backup &amp; Restore</h3>
+      <p class="sub">Export regularly — data lives in your browser.</p>
+      <div class="row"><button class="btn" onclick="exportJSON()">⬇ Export JSON</button><button class="btn ghost" onclick="document.getElementById('importFile').click()">⬆ Import JSON</button><input type="file" id="importFile" accept=".json" style="display:none" onchange="importJSON(event)"></div>
+      <hr><h3 style="color:var(--bad)">Danger Zone</h3><button class="btn danger" onclick="resetAll()">Reset everything</button>
+    </div>
+    <div class="card">
+      <h3>Reminders &amp; Daily Target</h3>
+      <label class="fl">Daily reminder time</label>
+      <input type="time" id="reminderTime" onchange="saveReminder()">
+      <button class="btn sm ghost" style="margin-top:10px" onclick="requestNotifications()">Enable notifications</button>
+      <div class="tiny" style="margin-top:10px">⚠️ The reminder only fires while this app's tab is open in your browser. If you close the app, no reminder will appear. Consider using your phone's alarm as a backup.</div>
+      <hr>
+      <label class="fl">Daily minutes target</label>
+      <input type="number" id="dailyTargetInput" min="15" max="600" step="15" onchange="saveDailyTarget(this.value)">
+      <div class="tiny" style="margin-top:6px">Shown as a progress bar in the Today box on the Library tab.</div>
+    </div>
+    <div class="card" id="backupStatusCard" style="grid-column:1/-1"></div>
+    <div class="card" id="trashCard" style="grid-column:1/-1"></div>
+    <div class="card" id="editResetCard" style="grid-column:1/-1">
+      <h3>✏️ Edits to Built-in Resources</h3>
+      <p class="sub">Any edits you make to the built-in resources are saved as overrides. Reset them here to return to the originals.</p>
+      <button class="btn ghost" onclick="resetOverrides()">↺ Reset all built-in edits</button>
+      <div class="tiny" style="margin-top:8px">Your custom resources are never affected by this reset.</div>
+    </div>
+    <div class="card" style="grid-column:1/-1">
+      <h3>📥 Session Log Export</h3>
+      <p class="sub">Download every session: date, resource, category, minutes, focus rating, note.</p>
+      <button class="btn" onclick="exportSessionLogCSV()">⬇ Export all sessions as CSV</button>
+    </div>
+    <div class="card" style="grid-column:1/-1">
+      <h3>📥 Bulk Import from CSV</h3>
+      <p class="sub">Upload your Excel roadmap as CSV. Matched rows update status &amp; notes. New rows are added to Library under their pillar's category.</p>
+      <input type="file" id="csvImport" accept=".csv" onchange="importCSV(event)">
+      <div class="tiny" style="margin-top:10px;line-height:1.7">
+        <b style="color:var(--txt)">How to use:</b> Open your Excel → Save As → CSV UTF-8 → upload here.<br>
+        <b style="color:var(--txt)">Columns expected:</b> #, Pillar, Category, Item, Provider, Description, Priority, Timeline, Cost, Status, Notes<br>
+        <b style="color:var(--txt)">Matching:</b> Existing rows matched by title → status and notes updated. Blank Status cells leave existing completion untouched.<br>
+        <b style="color:var(--txt)">New rows:</b> Any title that doesn't match is added as a custom resource under its pillar's category.
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+</div>
+
+<button class="fab" onclick="openQuickLog()" title="Quick log (q)">+</button>
+
+<div id="undoModal" class="modal-overlay hide" onclick="if(event.target===this)closeUndoModal()"><div class="modal-card"><h3 id="undoModalTitle">Edit entries</h3><p class="modal-sub" id="undoModalSub"></p><div id="undoModalBody"></div><div class="modal-footer"><span class="modal-total" id="undoModalTotal"></span><button class="btn ghost" onclick="closeUndoModal()">Close</button></div></div></div>
+
+<div id="timerModal" class="modal-overlay hide" onclick="if(event.target===this)closeTimer()"><div class="modal-card"><h3>⏱ Focus Timer</h3><p class="modal-sub" id="timerSub"></p><div id="timerBody"></div></div></div>
+
+<div id="quickLogModal" class="modal-overlay hide" onclick="if(event.target===this)closeQuickLog()"><div class="modal-card"><h3>⚡ Quick Log</h3><p class="modal-sub">Log a session from anywhere</p><div style="margin-bottom:10px"><label class="fl">Resource</label><select id="qlRes"></select></div><div style="margin-bottom:10px"><label class="fl">Date (defaults to today)</label><input type="date" id="qlDate"></div><div class="grid g2" style="margin-bottom:10px"><div><label class="fl">Minutes</label><input type="number" id="qlMin" value="30" min="1" max="600" style="font-size:20px;font-weight:800;text-align:center;color:var(--gold)"></div><div><label class="fl">Focus</label><div class="row" id="qlFocus" style="gap:5px"></div></div></div><div><label class="fl">Note (optional)</label><input type="text" id="qlNote" placeholder="What did you cover?"></div><div class="row" style="margin-top:14px"><button class="btn log" onclick="saveQuickLog()">+ Log</button><button class="btn ghost" onclick="closeQuickLog()">Cancel</button></div></div></div>
+
+<div id="editModal" class="modal-overlay hide" onclick="if(event.target===this)closeEditModal()"><div class="modal-card"><h3 id="editModalTitle">✏️ Edit resource</h3><p class="modal-sub" id="editModalSub"></p><div class="grid g2" style="margin-top:14px"><div><label class="fl">Title *</label><input type="text" id="edTitle"></div><div><label class="fl">Provider</label><input type="text" id="edBy"></div></div><div class="grid g2" style="margin-top:10px"><div><label class="fl">Category</label><select id="edCat"></select></div><div><label class="fl">Priority</label><select id="edPri"><option value="must">★ Must</option><option value="rec">Recommended</option><option value="ess">Essential</option><option value="high">High Value</option><option value="med">Important</option></select></div></div><div class="grid g2" style="margin-top:10px"><div><label class="fl">Subcategory</label><input type="text" id="edSub"></div><div><label class="fl">Link</label><input type="text" id="edUrl"></div></div><div style="margin-top:10px"><label class="fl">Description</label><textarea id="edDesc"></textarea></div><div class="row" style="margin-top:14px"><button class="btn" onclick="saveEdit()">Save changes</button><button class="btn ghost" onclick="closeEditModal()">Cancel</button></div></div></div>
+
+<script>
+const RAW=`1§1. BOOKS TO READ§1A. Finance Core & Accounting§Financial Intelligence§Berman & Knight§makes P&L and cash flow click at a deep level.§Must-Read (★)§Ongoing§Free
+2§1. BOOKS TO READ§1A. Finance Core & Accounting§The Intelligent Investor§Benjamin Graham§the bible of value thinking.§Must-Read (★)§Ongoing§Free
+3§1. BOOKS TO READ§1A. Finance Core & Accounting§Security Analysis§Graham & Dodd§deep-dive on financial statement analysis.§Recommended§Ongoing§Free
+4§1. BOOKS TO READ§1A. Finance Core & Accounting§Financial Statement Analysis§Fridson & Alvarez§line-by-line deconstruction.§Recommended§Ongoing§Free
+5§1. BOOKS TO READ§1A. Finance Core & Accounting§Valuation§McKinsey§definitive guide.§Must-Read (★)§Ongoing§Free
+6§1. BOOKS TO READ§1A. Finance Core & Accounting§Financial Modelling§Simon Benninga§Excel modelling.§Recommended§Ongoing§Free
+7§1. BOOKS TO READ§1A. Finance Core & Accounting§Corporate Finance§Berk & DeMarzo§graduate-level.§Recommended§Ongoing§Free
+8§1. BOOKS TO READ§1A. Finance Core & Accounting§The Dhandho Investor§Mohnish Pabrai§value investing.§Recommended§Ongoing§Free
+9§1. BOOKS TO READ§1A. Finance Core & Accounting§More Than You Know§Michael Mauboussin§probabilistic thinking.§Recommended§Ongoing§Free
+10§1. BOOKS TO READ§1B. Controller & Management Accounting§The Controller's Function§Steven Bragg§definitive Controller textbook.§Must-Read (★)§Ongoing§Free
+11§1. BOOKS TO READ§1B. Controller & Management Accounting§Controllership§Roehl-Anderson§full role.§Recommended§Ongoing§Free
+12§1. BOOKS TO READ§1B. Controller & Management Accounting§Wiley IFRS§Greuning§standard IFRS reference.§Must-Read (★)§Ongoing§Free
+13§1. BOOKS TO READ§1B. Controller & Management Accounting§Cost Accounting§Horngren§management accounting.§Must-Read (★)§Ongoing§Free
+14§1. BOOKS TO READ§1B. Controller & Management Accounting§The Goal§Goldratt§throughput thinking.§Recommended§Ongoing§Free
+15§1. BOOKS TO READ§1B. Controller & Management Accounting§Transfer Pricing§Feinschreiber§UAE-India structure.§Recommended§Ongoing§Free
+16§1. BOOKS TO READ§1B. Controller & Management Accounting§IFRS Workbook§IASB§free workbooks.§Recommended§Ongoing§Free
+17§1. BOOKS TO READ§1B. Controller & Management Accounting§Treasury Management§ACT§FX and cash.§Recommended§Ongoing§Free
+18§1. BOOKS TO READ§1B. Controller & Management Accounting§UAE Corporate Tax Guide§FTA§CT guide.§Recommended§Ongoing§Free
+19§1. BOOKS TO READ§1C. Strategy & Business Thinking§Thinking, Fast and Slow§Kahneman§decision biases.§Must-Read (★)§Ongoing§Free
+20§1. BOOKS TO READ§1C. Strategy & Business Thinking§Competitive Advantage§Porter§sustainable profitability.§Recommended§Ongoing§Free
+21§1. BOOKS TO READ§1C. Strategy & Business Thinking§Balanced Scorecard§Kaplan§KPIs.§Recommended§Ongoing§Free
+22§1. BOOKS TO READ§1C. Strategy & Business Thinking§Beyond Budgeting§Hope§rolling forecasts.§Recommended§Ongoing§Free
+23§1. BOOKS TO READ§1C. Strategy & Business Thinking§Good Strategy Bad Strategy§Rumelt§CFO thinking.§Recommended§Ongoing§Free
+24§1. BOOKS TO READ§1C. Strategy & Business Thinking§Thinking in Systems§Meadows§systems.§Recommended§Ongoing§Free
+25§1. BOOKS TO READ§1C. Strategy & Business Thinking§The Outsiders§Thorndike§capital allocation.§Recommended§Ongoing§Free
+26§1. BOOKS TO READ§1C. Strategy & Business Thinking§Poor Charlie's Almanack§Munger§mental models.§Recommended§Ongoing§Free
+27§1. BOOKS TO READ§1C. Strategy & Business Thinking§The Black Swan§Taleb§tail risk.§Recommended§Ongoing§Free
+28§1. BOOKS TO READ§1C. Strategy & Business Thinking§Lean Startup§Ries§unit economics.§Recommended§Ongoing§Free
+29§1. BOOKS TO READ§1C. Strategy & Business Thinking§Zero to One§Thiel§contrarian.§Recommended§Ongoing§Free
+30§1. BOOKS TO READ§1C. Strategy & Business Thinking§Good to Great§Collins§elite companies.§Recommended§Ongoing§Free
+31§1. BOOKS TO READ§1C. Strategy & Business Thinking§Principles§Dalio§decision-making.§Recommended§Ongoing§Free
+32§1. BOOKS TO READ§1D. Leadership & People§Leaders Eat Last§Sinek§trust leadership.§Must-Read (★)§Ongoing§Free
+33§1. BOOKS TO READ§1D. Leadership & People§Extreme Ownership§Willink§accountability.§Recommended§Ongoing§Free
+34§1. BOOKS TO READ§1D. Leadership & People§Five Dysfunctions§Lencioni§team.§Recommended§Ongoing§Free
+35§1. BOOKS TO READ§1D. Leadership & People§High Output Management§Grove§productivity.§Recommended§Ongoing§Free
+36§1. BOOKS TO READ§1D. Leadership & People§Measure What Matters§Doerr§OKRs.§Recommended§Ongoing§Free
+37§1. BOOKS TO READ§1D. Leadership & People§Radical Candor§Scott§feedback.§Recommended§Ongoing§Free
+38§1. BOOKS TO READ§1D. Leadership & People§Drive§Pink§motivation.§Recommended§Ongoing§Free
+39§1. BOOKS TO READ§1D. Leadership & People§First 90 Days§Watkins§transitions.§Recommended§Ongoing§Free
+40§1. BOOKS TO READ§1D. Leadership & People§Making of a Manager§Zhuo§mid-level.§Recommended§Ongoing§Free
+41§1. BOOKS TO READ§1E. Communication & Negotiation§Crucial Conversations§Patterson§high-stakes.§Must-Read (★)§Ongoing§Free
+42§1. BOOKS TO READ§1E. Communication & Negotiation§Never Split the Difference§Voss§negotiation.§Recommended§Ongoing§Free
+43§1. BOOKS TO READ§1E. Communication & Negotiation§Pyramid Principle§Minto§McKinsey comms.§Must-Read (★)§Ongoing§Free
+44§1. BOOKS TO READ§1E. Communication & Negotiation§Influence§Cialdini§persuasion.§Recommended§Ongoing§Free
+45§1. BOOKS TO READ§1E. Communication & Negotiation§Made to Stick§Heath§sticky ideas.§Recommended§Ongoing§Free
+46§1. BOOKS TO READ§1E. Communication & Negotiation§Talk Like TED§Gallo§presentations.§Recommended§Ongoing§Free
+47§1. BOOKS TO READ§1E. Communication & Negotiation§How to Win Friends§Carnegie§human relations.§Recommended§Ongoing§Free
+48§1. BOOKS TO READ§1E. Communication & Negotiation§Presence§Cuddy§executive presence.§Recommended§Ongoing§Free
+49§1. BOOKS TO READ§1F. Productivity & Peak Performance§Atomic Habits§Clear§habits.§Must-Read (★)§Ongoing§Free
+50§1. BOOKS TO READ§1F. Productivity & Peak Performance§Deep Work§Newport§focus.§Recommended§Ongoing§Free
+51§1. BOOKS TO READ§1F. Productivity & Peak Performance§The One Thing§Keller§priority.§Recommended§Ongoing§Free
+52§1. BOOKS TO READ§1F. Productivity & Peak Performance§Essentialism§McKeown§less better.§Recommended§Ongoing§Free
+53§1. BOOKS TO READ§1F. Productivity & Peak Performance§Mindset§Dweck§growth.§Recommended§Ongoing§Free
+54§1. BOOKS TO READ§1F. Productivity & Peak Performance§Man's Search for Meaning§Frankl§purpose.§Recommended§Ongoing§Free
+55§2. YOUTUBE CHANNELS§2A. Finance & Valuation§Aswath Damodaran§YouTube§valuation courses.§Recommended§3+/wk§Free
+56§2. YOUTUBE CHANNELS§2A. Finance & Valuation§CFI§YouTube§financial modelling.§Recommended§3+/wk§Free
+57§2. YOUTUBE CHANNELS§2A. Finance & Valuation§Accounting Stuff§YouTube§visual accounting.§Recommended§3+/wk§Free
+58§2. YOUTUBE CHANNELS§2A. Finance & Valuation§Plain Bagel§YouTube§finance concepts.§Recommended§3+/wk§Free
+59§2. YOUTUBE CHANNELS§2A. Finance & Valuation§Patrick Boyle§YouTube§hedge fund.§Recommended§3+/wk§Free
+60§2. YOUTUBE CHANNELS§2A. Finance & Valuation§Ben Felix§YouTube§investing.§Recommended§3+/wk§Free
+61§2. YOUTUBE CHANNELS§2A. Finance & Valuation§Wall Street Oasis§YouTube§career.§Recommended§3+/wk§Free
+62§2. YOUTUBE CHANNELS§2A. Finance & Valuation§Financial Edge§YouTube§training.§Recommended§3+/wk§Free
+63§2. YOUTUBE CHANNELS§2A. Finance & Valuation§CPA Exam Guy§YouTube§IFRS.§Recommended§3+/wk§Free
+64§2. YOUTUBE CHANNELS§2B. Controller & Compliance§FTA UAE§YouTube§tax.§Recommended§3+/wk§Free
+65§2. YOUTUBE CHANNELS§2B. Controller & Compliance§ICAI§YouTube§Ind AS.§Recommended§3+/wk§Free
+66§2. YOUTUBE CHANNELS§2B. Controller & Compliance§IFRS Foundation§YouTube§IFRS.§Recommended§3+/wk§Free
+67§2. YOUTUBE CHANNELS§2B. Controller & Compliance§Big 4§YouTube§updates.§Recommended§3+/wk§Free
+68§2. YOUTUBE CHANNELS§2B. Controller & Compliance§Steven Bragg§YouTube§controllership.§Recommended§3+/wk§Free
+69§2. YOUTUBE CHANNELS§2C. Business Strategy§McKinsey§YouTube§strategy.§Recommended§3+/wk§Free
+70§2. YOUTUBE CHANNELS§2C. Business Strategy§HBR§YouTube§C-suite.§Recommended§3+/wk§Free
+71§2. YOUTUBE CHANNELS§2C. Business Strategy§Y Combinator§YouTube§startups.§Recommended§3+/wk§Free
+72§2. YOUTUBE CHANNELS§2C. Business Strategy§CNBC§YouTube§news.§Recommended§3+/wk§Free
+73§2. YOUTUBE CHANNELS§2C. Business Strategy§Bloomberg TV§YouTube§news.§Recommended§3+/wk§Free
+74§2. YOUTUBE CHANNELS§2C. Business Strategy§TED Business§YouTube§insights.§Recommended§3+/wk§Free
+75§2. YOUTUBE CHANNELS§2D. Public Speaking§TED§YouTube§gold standard.§Must-Watch (★)§3+/wk§Free
+76§2. YOUTUBE CHANNELS§2D. Public Speaking§TEDx§YouTube§topics.§Recommended§3+/wk§Free
+77§2. YOUTUBE CHANNELS§2D. Public Speaking§Charisma on Command§YouTube§body language.§Recommended§3+/wk§Free
+78§2. YOUTUBE CHANNELS§2D. Public Speaking§Toastmasters§YouTube§tips.§Recommended§3+/wk§Free
+79§2. YOUTUBE CHANNELS§2D. Public Speaking§Vanessa Van Edwards§YouTube§charisma.§Recommended§3+/wk§Free
+80§2. YOUTUBE CHANNELS§2D. Public Speaking§Simon Sinek§YouTube§leadership.§Recommended§3+/wk§Free
+81§2. YOUTUBE CHANNELS§2E. Peak Performance§Huberman§YouTube§performance.§Recommended§3+/wk§Free
+82§2. YOUTUBE CHANNELS§2E. Peak Performance§Ali Abdaal§YouTube§productivity.§Recommended§3+/wk§Free
+83§2. YOUTUBE CHANNELS§2E. Peak Performance§Lex Fridman§YouTube§deep.§Recommended§3+/wk§Free
+84§2. YOUTUBE CHANNELS§2E. Peak Performance§Tim Ferriss§YouTube§tools.§Recommended§3+/wk§Free
+85§2. YOUTUBE CHANNELS§2E. Peak Performance§Thomas Frank§YouTube§study.§Recommended§3+/wk§Free
+86§2. YOUTUBE CHANNELS§2F. AI & Technology§AI Explained§YouTube§AI.§Recommended§3+/wk§Free
+87§2. YOUTUBE CHANNELS§2F. AI & Technology§Matthew Berman§YouTube§AI tools.§Recommended§3+/wk§Free
+88§2. YOUTUBE CHANNELS§2F. AI & Technology§David Shapiro§YouTube§LLM.§Recommended§3+/wk§Free
+89§2. YOUTUBE CHANNELS§2F. AI & Technology§Two Minute Papers§YouTube§research.§Recommended§3+/wk§Free
+90§3. PUBLICATIONS§3A. Daily & Weekly§HBR§hbr.org§weekly.§★★★ Essential§Daily§Free
+91§3. PUBLICATIONS§3A. Daily & Weekly§McKinsey Quarterly§mckinsey.com§CFO.§★★★ Essential§Daily§Free
+92§3. PUBLICATIONS§3A. Daily & Weekly§CIMA Insight§cimaglobal.com§member.§★★★ Essential§Daily§Free
+93§3. PUBLICATIONS§3A. Daily & Weekly§CFO.com§cfo.com§senior finance.§★★★ Essential§Daily§Free
+94§3. PUBLICATIONS§3A. Daily & Weekly§Deloitte Insights§deloitte.com§GCC.§★★ Very Important§Daily§Free
+95§3. PUBLICATIONS§3A. Daily & Weekly§PwC Strategy&§pwc.com§transformation.§★★ Very Important§Daily§Free
+96§3. PUBLICATIONS§3A. Daily & Weekly§EY Insights§ey.com§risk.§★★ Very Important§Daily§Free
+97§3. PUBLICATIONS§3A. Daily & Weekly§KPMG Insights§kpmg.com§tax.§★★ Very Important§Daily§Free
+98§3. PUBLICATIONS§3A. Daily & Weekly§Reuters§reuters.com§global.§★★★ Essential§Daily§Free
+99§3. PUBLICATIONS§3A. Daily & Weekly§MarketWatch§marketwatch.com§data.§★★ Very Important§Daily§Free
+100§3. PUBLICATIONS§3A. Daily & Weekly§Bloomberg§bloomberg.com§free.§★★ Very Important§Daily§Free
+101§3. PUBLICATIONS§3A. Daily & Weekly§Fortune§fortune.com§long-form.§★★ Important§Daily§Free
+102§3. PUBLICATIONS§3A. Daily & Weekly§Khaleej Times§khaleejtimes.com§UAE.§★★ Important§Daily§Free
+103§3. PUBLICATIONS§3A. Daily & Weekly§Arabian Business§arabianbusiness.com§GCC.§★★ Important§Daily§Free
+104§3. PUBLICATIONS§3A. Daily & Weekly§Gulf News§gulfnews.com§GCC.§★★ Important§Daily§Free
+105§3. PUBLICATIONS§3A. Daily & Weekly§Investopedia News§investopedia.com§education.§★★ Important§Daily§Free
+106§3. PUBLICATIONS§3A. Daily & Weekly§CNBC§cnbc.com§news.§★★★ Essential§Daily§Free
+107§3. PUBLICATIONS§3A. Daily & Weekly§BBC Business§bbc.com§macro.§★★★ Essential§Daily§Free
+108§3. PUBLICATIONS§3A. Daily & Weekly§Project Syndicate§project-syndicate.org§economists.§★★★ Essential§Daily§Free
+109§3. PUBLICATIONS§3A. Daily & Weekly§MIT Sloan§sloanreview.mit.edu§analysis.§★★ Very Important§Daily§Free
+110§3. PUBLICATIONS§3A. Daily & Weekly§IMF Blog§imf.org§macro.§★★ Important§Daily§Free
+111§3. PUBLICATIONS§3B. Regulatory§FTA UAE§uaetax.gov.ae§guidance.§Top Priority (★)§Ongoing§Free
+112§3. PUBLICATIONS§3B. Regulatory§IFRS Foundation§ifrs.org§standards.§High Priority§Ongoing§Free
+113§3. PUBLICATIONS§3B. Regulatory§IASB Updates§ifrs.org§alerts.§High Priority§Ongoing§Free
+114§3. PUBLICATIONS§3B. Regulatory§MCA India§mca.gov.in§Companies Act.§High Priority§Ongoing§Free
+115§3. PUBLICATIONS§3B. Regulatory§ICAI§icai.org§Ind AS.§High Priority§Ongoing§Free
+116§3. PUBLICATIONS§3B. Regulatory§CBIC§cbic.gov.in§GST.§High Priority§Ongoing§Free
+117§3. PUBLICATIONS§3B. Regulatory§DIFC§difclaw.org§compliance.§High Priority§Ongoing§Free
+118§3. PUBLICATIONS§3B. Regulatory§CBUAE§centralbank.ae§treasury.§High Priority§Ongoing§Free
+119§3. PUBLICATIONS§3B. Regulatory§AccountingTools§accountingtools.com§reference.§High Priority§Ongoing§Free
+120§3. PUBLICATIONS§3B. Regulatory§Controllers Council§controllerscouncil.org§community.§High Priority§Ongoing§Free
+121§3. PUBLICATIONS§3B. Regulatory§OECD TP§oecd.org§TP.§High Priority§Ongoing§Free
+122§3. PUBLICATIONS§3C. Newsletters§Morning Brew§morningbrew.com§daily.§High Priority§Ongoing§Free
+123§3. PUBLICATIONS§3C. Newsletters§CFO Brew§cfo.com§senior.§High Priority§Ongoing§Free
+124§3. PUBLICATIONS§3C. Newsletters§The Hustle§thehustle.co§trends.§High Priority§Ongoing§Free
+125§3. PUBLICATIONS§3C. Newsletters§Finimize§finimize.com§insights.§High Priority§Ongoing§Free
+126§3. PUBLICATIONS§3C. Newsletters§The Profile§theprofile.com§profiles.§High Priority§Ongoing§Free
+127§3. PUBLICATIONS§3C. Newsletters§Stratechery§stratechery.com§tech.§High Priority§Ongoing§Free
+128§3. PUBLICATIONS§3C. Newsletters§CIMA Newsletter§cimaglobal.com§member.§High Priority§Ongoing§Free
+129§3. PUBLICATIONS§3C. Newsletters§FTA Newsletter§uaetax.gov.ae§UAE tax.§High Priority§Ongoing§Free
+130§3. PUBLICATIONS§3C. Newsletters§IFRS Newsletter§ifrs.org§standards.§High Priority§Ongoing§Free
+131§3. PUBLICATIONS§3C. Newsletters§AI for Finance§substack.com§AI.§High Priority§Ongoing§Free
+132§3. PUBLICATIONS§3D. Blogs§Damodaran Online§nyu.edu§data.§High Priority§Ongoing§Free
+133§3. PUBLICATIONS§3D. Blogs§AccountingCoach§accountingcoach.com§reference.§High Priority§Ongoing§Free
+134§3. PUBLICATIONS§3D. Blogs§AccountingTools§accountingtools.com§controller.§High Priority§Ongoing§Free
+135§3. PUBLICATIONS§3D. Blogs§A Wealth of Common Sense§awealthofcommonsense.com§Carlson.§High Priority§Ongoing§Free
+136§3. PUBLICATIONS§3D. Blogs§Collaborative Fund§collabfund.com§Housel.§High Priority§Ongoing§Free
+137§3. PUBLICATIONS§3D. Blogs§Musings on Markets§blogspot.com§Damodaran.§High Priority§Ongoing§Free
+138§3. PUBLICATIONS§3D. Blogs§Investopedia§investopedia.com§terms.§High Priority§Ongoing§Free
+139§3. PUBLICATIONS§3D. Blogs§IFRSbox§ifrsbox.com§IFRS.§High Priority§Ongoing§Free
+140§3. PUBLICATIONS§3D. Blogs§KPMG IFRS§kpmg.com§templates.§High Priority§Ongoing§Free
+141§3. PUBLICATIONS§3D. Blogs§OpenCorporates§opencorporates.com§company.§High Priority§Ongoing§Free
+142§4. PODCASTS§4A. Finance & Business§Acquired§Podcast§deep dives.§Must-Listen (★)§Monthly§Free
+143§4. PODCASTS§4A. Finance & Business§CFO Thought Leader§Podcast§CFO.§Must-Listen (★)§Weekly§Free
+144§4. PODCASTS§4A. Finance & Business§We Study Billionaires§Podcast§investing.§Recommended§Weekly§Free
+145§4. PODCASTS§4A. Finance & Business§Planet Money§Podcast§economics.§Must-Listen (★)§Weekly§Free
+146§4. PODCASTS§4A. Finance & Business§How I Built This§Podcast§founders.§Recommended§Weekly§Free
+147§4. PODCASTS§4A. Finance & Business§Invest Like the Best§Podcast§investors.§Recommended§Weekly§Free
+148§4. PODCASTS§4A. Finance & Business§Knowledge Project§Podcast§models.§Recommended§Weekly§Free
+149§4. PODCASTS§4A. Finance & Business§Capital Allocators§Podcast§managers.§Recommended§Weekly§Free
+150§4. PODCASTS§4A. Finance & Business§Finance & Accounting§Podcast§Controller.§Recommended§Weekly§Free
+151§4. PODCASTS§4A. Finance & Business§Hidden Brain§Podcast§psychology.§Recommended§Weekly§Free
+152§4. PODCASTS§4A. Finance & Business§Tim Ferriss§Podcast§performers.§Recommended§Weekly§Free
+153§4. PODCASTS§4A. Finance & Business§Revisionist History§Podcast§contrarian.§Recommended§Seasonal§Free
+154§4. PODCASTS§4A. Finance & Business§Freakonomics§Podcast§economics.§Recommended§Weekly§Free
+155§4. PODCASTS§4A. Finance & Business§Masters in Business§Podcast§interviews.§Recommended§Weekly§Free
+156§4. PODCASTS§4B. AI§AI Daily Brief§Podcast§daily.§Recommended§Daily§Free
+157§4. PODCASTS§4B. AI§Practical AI§Podcast§practitioner.§Recommended§Weekly§Free
+158§4. PODCASTS§4B. AI§No Priors§Podcast§researchers.§Recommended§Weekly§Free
+159§4. PODCASTS§4B. AI§Lex Fridman§Podcast§AI.§Recommended§Weekly§Free
+160§4. PODCASTS§4B. AI§Hard Fork§Podcast§impact.§Recommended§Weekly§Free
+161§5. CERTIFICATIONS§5A. Controller Certs§ACCA DipIFR§ACCA§IFRS.§Priority (★)§4-6 mo§Exam Fee
+162§5. CERTIFICATIONS§5A. Controller Certs§UAE CT Qualification§FTA§mandatory.§High Value§1-3 mo§Exam Fee
+163§5. CERTIFICATIONS§5A. Controller Certs§CMA§IMA§Controller/CFO.§Priority (★)§12-18 mo§Exam Fee
+164§5. CERTIFICATIONS§5A. Controller Certs§SAP FICO§SAP§on paper.§High Value§3-6 mo§Exam Fee
+165§5. CERTIFICATIONS§5A. Controller Certs§Odoo Functional§Odoo§fast.§High Value§1-3 mo§Exam Fee
+166§5. CERTIFICATIONS§5B. General Certs§Power BI Data Analyst§Microsoft§gap.§Priority (★)§2-4 mo§Exam Fee
+167§5. CERTIFICATIONS§5B. General Certs§CFA§CFA Institute§credibility.§High Value§3-5 yr§Exam Fee
+168§5. CERTIFICATIONS§5B. General Certs§CIA§IIA§audit.§High Value§1-2 yr§Exam Fee
+169§5. CERTIFICATIONS§5B. General Certs§PMP§PMI§projects.§High Value§6-12 mo§Exam Fee
+170§5. CERTIFICATIONS§5B. General Certs§Google Data Analytics§Google§data.§High Value§3-6 mo§Exam Fee
+171§5. CERTIFICATIONS§5C. Free Courses§Damodaran's Valuation§YouTube§free.§Start now§Self-Paced§Free
+172§5. CERTIFICATIONS§5C. Free Courses§UAE CT E-Learning§FTA§official.§Start now§Self-Paced§Free
+173§5. CERTIFICATIONS§5C. Free Courses§Power BI Finance§Microsoft§free.§Start now§Self-Paced§Free
+174§5. CERTIFICATIONS§5C. Free Courses§IFRS Standards§IFRS Foundation§free.§High§Self-Paced§Free
+175§5. CERTIFICATIONS§5C. Free Courses§IFRSbox§ifrsbox.com§free.§High§Self-Paced§Free
+176§5. CERTIFICATIONS§5C. Free Courses§Wharton Analytics§Coursera§audit.§Medium§Self-Paced§Free
+177§5. CERTIFICATIONS§5C. Free Courses§Yale Markets§Coursera§Shiller.§Medium§Self-Paced§Free
+178§5. CERTIFICATIONS§5C. Free Courses§Google Garage§Google§short.§Medium§Self-Paced§Free
+179§5. CERTIFICATIONS§5C. Free Courses§KPMG Templates§KPMG§IFRS.§High§Self-Paced§Free
+180§5. CERTIFICATIONS§5C. Free Courses§OpenLearn§Open Univ§free.§Medium§Self-Paced§Free
+181§5. CERTIFICATIONS§5C. Free Courses§CFI§CFI§intro.§High§Self-Paced§Free
+182§5. CERTIFICATIONS§5C. Free Courses§Python Finance§DataCamp§basics.§Medium-High§Self-Paced§Free
+183§5. CERTIFICATIONS§5C. Free Courses§CIMA CPD§CIMA§CPD.§Ongoing§Self-Paced§Member
+184§6. TECHNICAL§6A. IFRS§IFRS 9§IFRS§instruments.§Controller Essential§Ongoing§Free
+185§6. TECHNICAL§6A. IFRS§IFRS 15§IFRS§revenue.§Controller Essential§Ongoing§Free
+186§6. TECHNICAL§6A. IFRS§IFRS 16§IFRS§leases.§Controller Essential§Ongoing§Free
+187§6. TECHNICAL§6A. IFRS§IFRS 10§IFRS§consolidation.§Controller Essential§Ongoing§Free
+188§6. TECHNICAL§6A. IFRS§IAS 21§IFRS§FX.§Controller Essential§Ongoing§Free
+189§6. TECHNICAL§6A. IFRS§IAS 36§IFRS§impairment.§Controller Essential§Ongoing§Free
+190§6. TECHNICAL§6A. IFRS§IAS 37§IFRS§provisions.§Controller Essential§Ongoing§Free
+191§6. TECHNICAL§6A. IFRS§IAS 12§IFRS§taxes.§Controller Essential§Ongoing§Free
+192§6. TECHNICAL§6A. IFRS§IFRS 3§IFRS§combinations.§Controller Essential§Ongoing§Free
+193§6. TECHNICAL§6B. UAE§UAE CT§FTA§9%.§Mandatory§Ongoing§Free
+194§6. TECHNICAL§6B. UAE§UAE VAT§FTA§5%.§Mandatory§Ongoing§Free
+195§6. TECHNICAL§6B. UAE§ESR§MoF§substance.§Mandatory§Ongoing§Free
+196§6. TECHNICAL§6B. UAE§UBO§MoE§disclosure.§Mandatory§Ongoing§Free
+197§6. TECHNICAL§6B. UAE§Transfer Pricing§OECD+FTA§intercompany.§Mandatory§Ongoing§Free
+198§6. TECHNICAL§6B. UAE§Free Zone§FTA§0%.§Mandatory§Ongoing§Free
+199§6. TECHNICAL§6C. India§GST§CBIC§credit.§Mandatory§Ongoing§Free
+200§6. TECHNICAL§6C. India§Ind AS§ICAI§IFRS.§Mandatory§Ongoing§Free
+201§6. TECHNICAL§6C. India§Companies Act§MCA§directors.§Mandatory§Ongoing§Free
+202§6. TECHNICAL§6C. India§TDS§IT India§source.§Mandatory§Ongoing§Free
+203§6. TECHNICAL§6C. India§FEMA§RBI§forex.§Mandatory§Ongoing§Free
+204§6. TECHNICAL§6C. India§PF/ESI§EPFO§labour.§Mandatory§Ongoing§Free
+205§6. TECHNICAL§6D. Controls§COSO§coso.org§framework.§High§Ongoing§Free
+206§6. TECHNICAL§6D. Controls§SoD§Practice§segregation.§High§Ongoing§Free
+207§6. TECHNICAL§6D. Controls§Close Optimisation§Big 4§3-day.§High§Ongoing§Free
+208§6. TECHNICAL§6D. Controls§RCM§Practice§matrix.§High§Ongoing§Free
+209§6. TECHNICAL§6D. Controls§Treasury§ACT§cash.§High§Ongoing§Free
+210§6. TECHNICAL§6D. Controls§Intercompany§Practice§recon.§High§Ongoing§Free
+211§7. LEADERSHIP§7A. Public Speaking§Toastmasters§Toastmasters§weekly.§Top Priority (★)§Ongoing§Free
+212§7. LEADERSHIP§7A. Public Speaking§Record weekly§Practice§review.§High§Ongoing§Free
+213§7. LEADERSHIP§7A. Public Speaking§Present every chance§Practice§volunteer.§High§Ongoing§Free
+214§7. LEADERSHIP§7A. Public Speaking§Study CFO calls§IR§how CFOs present.§High§Ongoing§Free
+215§7. LEADERSHIP§7A. Public Speaking§Toastmasters YT§YouTube§masterclass.§High§Ongoing§Free
+216§7. LEADERSHIP§7A. Public Speaking§TED Masterclass§YouTube§structure.§High§Ongoing§Free
+217§7. LEADERSHIP§7B. Written§Pyramid§Minto§answer first.§High§Ongoing§Free
+218§7. LEADERSHIP§7B. Written§MIS summaries§Practice§2 sentences.§High§Ongoing§Free
+219§7. LEADERSHIP§7B. Written§LinkedIn weekly§LinkedIn§500 words.§Top Priority (★)§Ongoing§Free
+220§7. LEADERSHIP§7B. Written§Data storytelling§Books/TED§3-slide.§High§Ongoing§Free
+221§7. LEADERSHIP§7B. Written§Monthly reflection§Practice§summarise.§High§Ongoing§Free
+222§7. LEADERSHIP§7B. Written§Purdue OWL§Reference§writing.§High§Ongoing§Free
+223§7. LEADERSHIP§7C. Leadership§CFO mentor§Networking§quarterly.§High§Ongoing§Free
+224§7. LEADERSHIP§7C. Leadership§CIMA events§CIMA§attend.§High§Ongoing§Free
+225§7. LEADERSHIP§7C. Leadership§Cross-functional§Practice§beyond JD.§High§Ongoing§Free
+226§7. LEADERSHIP§7C. Leadership§Coach junior§Practice§teaching.§High§Ongoing§Free
+227§7. LEADERSHIP§7C. Leadership§Harvard ManageMentor§HBR§frameworks.§High§Ongoing§Free
+228§8. NETWORKING§8A. Bodies§CIMA UAE§CIMA§hiring.§Core Network (★)§Monthly§Member
+229§8. NETWORKING§8A. Bodies§IMA Gulf§IMA§management.§High Value§Monthly§Member
+230§8. NETWORKING§8A. Bodies§Controllers Council§controllerscouncil.org§global.§High Value§Monthly§Member
+231§8. NETWORKING§8A. Bodies§CFA Emirates§CFA§investment.§High Value§Monthly§Member
+232§8. NETWORKING§8A. Bodies§ACCA UAE§ACCA§audit.§High Value§Monthly§Member
+233§8. NETWORKING§8A. Bodies§Dubai Chamber§dubaichamber.com§cross-sector.§High Value§Monthly§Member
+234§8. NETWORKING§8A. Bodies§DIFC Events§difc.ae§district.§High Value§Monthly§Member
+235§8. NETWORKING§8A. Bodies§CFO Connect§Community§peer.§High Value§Monthly§Member
+236§8. NETWORKING§8A. Bodies§GCC CFO Summit§Event§annual.§High Value§Monthly§Member
+237§8. NETWORKING§8B. LinkedIn§Optimise profile§LinkedIn§headline.§High§Ongoing§Free
+238§8. NETWORKING§8B. LinkedIn§5 new weekly§LinkedIn§personalised.§High§Ongoing§Free
+239§8. NETWORKING§8B. LinkedIn§Post weekly§LinkedIn§52/year.§High§Ongoing§Free
+240§8. NETWORKING§8B. LinkedIn§Comment daily§LinkedIn§depth.§High§Ongoing§Free
+241§8. NETWORKING§8B. LinkedIn§Follow leaders§LinkedIn§Damodaran.§High§Ongoing§Free
+242§9. TECH & AI§9A. Tech§Power BI§Microsoft§#1 gap.§Start now§Immediate§Free
+243§9. TECH & AI§9A. Tech§Tableau Public§Tableau§alternative.§High§Immediate§Free
+244§9. TECH & AI§9A. Tech§ERP (Odoo+SAP)§Odoo+SAP§expert.§Ongoing§Immediate§Free
+245§9. TECH & AI§9A. Tech§Advanced Modelling§Excel§scenario.§High§Immediate§Free
+246§9. TECH & AI§9A. Tech§Python Finance§Python§automation.§Medium-High§Immediate§Free
+247§9. TECH & AI§9A. Tech§SQL§SQL§query.§Medium§Immediate§Free
+248§9. TECH & AI§9A. Tech§Cloud Accounting§Zoho§deepen.§Ongoing§Immediate§Free
+249§9. TECH & AI§9B. AI Tools§Claude§claude.ai§documents.§Start now§Daily§Free
+250§9. TECH & AI§9B. AI Tools§ChatGPT§openai.com§concepts.§Start now§Daily§Free
+251§9. TECH & AI§9B. AI Tools§Copilot§microsoft.com§Excel/Word.§High§Daily§Free
+252§9. TECH & AI§9B. AI Tools§Gemini§google.com§Sheets.§High§Daily§Free
+253§9. TECH & AI§9B. AI Tools§Perplexity§perplexity.ai§research.§High§Daily§Free
+254§9. TECH & AI§9B. AI Tools§DeepSeek§deepseek.com§math.§Medium-High§Daily§Free
+255§9. TECH & AI§9B. AI Tools§NotebookLM§google.com§Q&A.§High§Daily§Free
+256§9. TECH & AI§9C. AI Apps§Variance Commentary§App§narrative.§High§Ongoing§Free
+257§9. TECH & AI§9C. AI Apps§IFRS Interpretation§App§plain.§High§Ongoing§Free
+258§9. TECH & AI§9C. AI Apps§Report Drafting§App§Pyramid.§High§Ongoing§Free
+259§9. TECH & AI§9C. AI Apps§Reconciliation Review§App§hypothesis.§High§Ongoing§Free
+260§9. TECH & AI§9C. AI Apps§Regulatory Research§App§FTA.§High§Ongoing§Free
+261§9. TECH & AI§9C. AI Apps§Board Presentation§App§3-slide.§High§Ongoing§Free
+262§9. TECH & AI§9C. AI Apps§Excel Formula§App§plain→formula.§High§Ongoing§Free
+263§9. TECH & AI§9C. AI Apps§Contract Review§App§upload.§High§Ongoing§Free
+264§9. TECH & AI§9C. AI Apps§Quiz Yourself§App§IFRS.§High§Ongoing§Free
+265§9. TECH & AI§9D. AI Learning§Generative AI§Coursera§audit.§High§Ongoing§Free
+266§9. TECH & AI§9D. AI Learning§CFI AI§CFI§free.§High§Ongoing§Free
+267§9. TECH & AI§9D. AI Learning§Copilot Finance§Microsoft§free.§High§Ongoing§Free
+268§9. TECH & AI§9D. AI Learning§Claude Prompts§Anthropic§templates.§High§Ongoing§Free
+269§9. TECH & AI§9D. AI Learning§YouTube AI§YouTube§tutorials.§High§Ongoing§Free
+270§9. TECH & AI§9D. AI Learning§Prompt Guide§promptingguide.ai§free.§High§Ongoing§Free
+271§10. HABITS§10A. Daily§Wake before 6§5:30§focus.§Non-Negotiable§Daily§Free
+272§10. HABITS§10A. Daily§Read news§6:00§advantage.§Non-Negotiable§Daily§Free
+273§10. HABITS§10A. Daily§Read 1 chapter§6:30§books.§Non-Negotiable§Daily§Free
+274§10. HABITS§10A. Daily§30-45 exercise§Morning§cognition.§Non-Negotiable§Daily§Free
+275§10. HABITS§10A. Daily§Podcast§Commute§passive.§Non-Negotiable§Daily§Free
+276§10. HABITS§10A. Daily§1 AI tool§Workday§fluency.§Non-Negotiable§Daily§Free
+277§10. HABITS§10A. Daily§Apply insight§Workday§connect.§Non-Negotiable§Daily§Free
+278§10. HABITS§10A. Daily§Write 3 things§End§reflection.§Non-Negotiable§Daily§Free
+279§10. HABITS§10A. Daily§Review 1 statement§Evening§patterns.§Non-Negotiable§Daily§Free
+280§10. HABITS§10B. Weekly§LinkedIn post§Weekly§brand.§Essential§Weekly§Free
+281§10. HABITS§10B. Weekly§Watch 2-3 videos§Weekly§deepen.§Essential§Weekly§Free
+282§10. HABITS§10B. Weekly§Toastmasters§Weekly§speaking.§Essential§Weekly§Free
+283§10. HABITS§10B. Weekly§Read HBR§Weekly§strategic.§Essential§Weekly§Free
+284§10. HABITS§10B. Weekly§Review IFRS§Weekly§current.§Essential§Weekly§Free
+285§10. HABITS§10B. Weekly§1 hour course§Weekly§build.§Essential§Weekly§Free
+286§10. HABITS§10B. Weekly§AI real problem§Weekly§habit.§Essential§Weekly§Free
+287§10. HABITS§10B. Weekly§Reach 3-5§Weekly§network.§Essential§Weekly§Free
+288§10. HABITS§10C. Monthly§Finish 1 book§Monthly§12/yr.§Recommended§Monthly§Free
+289§10. HABITS§10C. Monthly§1-page reflection§Monthly§learn.§Recommended§Monthly§Free
+290§10. HABITS§10C. Monthly§Finance chat§Monthly§exposure.§Recommended§Monthly§Free
+291§10. HABITS§10C. Monthly§Speaking act§Monthly§growth.§Recommended§Monthly§Free
+292§10. HABITS§10C. Monthly§Review AI tool§Monthly§ahead.§Recommended§Monthly§Free
+293§10. HABITS§10C. Monthly§Personal finances§Monthly§discipline.§Recommended§Monthly§Free
+294§11. CAREER§11A. Progression§NOW: Finance Manager§Milestone§excellence.§Career§Present§Career
+295§11. CAREER§11A. Progression§Sr Finance Manager§Milestone§IFRS.§Career§1-2 yr§Career
+296§11. CAREER§11A. Progression§Head of Finance§Milestone§strategic.§Career§3-4 yr§Career
+297§11. CAREER§11A. Progression§VP Finance§Milestone§P&L.§Career§5-6 yr§Career
+298§11. CAREER§11A. Progression§CFO§Milestone§board.§Career§7-10 yr§Career
+299§11. CAREER§11B. Leverage§Power BI 90d§Action§gap.§Recommended§Ongoing§Free
+300§11. CAREER§11B. Leverage§FTA CT E-Learning§Action§risk.§Recommended§Ongoing§Free
+301§11. CAREER§11B. Leverage§Toastmasters§Action§comms.§Recommended§Ongoing§Free
+302§11. CAREER§11B. Leverage§AI daily§Action§fluency.§Recommended§Ongoing§Free
+303§11. CAREER§11B. Leverage§CFO mentor§Action§quarterly.§Recommended§Ongoing§Free
+304§11. CAREER§11C. 12M§M1: Controller + Power BI + Toastmasters§Month 1§foundations.§12-Month§M1§Free
+305§11. CAREER§11C. 12M§M2: Financial Intelligence§Month 2§build.§12-Month§M2§Free
+306§11. CAREER§11C. 12M§M3: Valuation + Power BI exam§Month 3§advanced.§12-Month§M3§Free
+307§11. CAREER§11C. 12M§M4: Wiley IFRS + DipIFR§Month 4§IFRS.§12-Month§M4§Free
+308§11. CAREER§11C. 12M§M5: Never Split§Month 5§negotiation.§12-Month§M5§Free
+309§11. CAREER§11C. 12M§M6: Leaders Eat Last + DipIFR§Month 6§leadership.§12-Month§M6§Free
+310§11. CAREER§11C. 12M§M7: Pyramid + DipIFR exam§Month 7§comms.§12-Month§M7§Free
+311§11. CAREER§11C. 12M§M8: Kahneman + SAP§Month 8§decisions.§12-Month§M8§Free
+312§11. CAREER§11C. 12M§M9: Extreme Ownership + SAP§Month 9§tech.§12-Month§M9§Free
+313§11. CAREER§11C. 12M§M10: Atomic Habits + CMA§Month 10§habits.§12-Month§M10§Free
+314§11. CAREER§11C. 12M§M11: Good Strategy + CMA§Month 11§strategy.§12-Month§M11§Free
+315§11. CAREER§11C. 12M§M12: Outsiders + review§Month 12§capital.§12-Month§M12§Free
+316§12. QUICK REF§Quick§IFRS interpretation§IFRSbox§free.§Desk§On-Demand§Free
+317§12. QUICK REF§Quick§UAE CT§uaetax.gov.ae§FTA.§Desk§On-Demand§Free
+318§12. QUICK REF§Quick§UAE VAT§uaetax.gov.ae§FTA.§Desk§On-Demand§Free
+319§12. QUICK REF§Quick§India GST§cbic.gov.in§portal.§Desk§On-Demand§Free
+320§12. QUICK REF§Quick§India accounting§icai.org§Ind AS.§Desk§On-Demand§Free
+321§12. QUICK REF§Quick§Accounting concept§AccountingTools§free.§Desk§On-Demand§Free
+322§12. QUICK REF§Quick§Valuation§Damodaran§free.§Desk§On-Demand§Free
+323§12. QUICK REF§Quick§Daily news§Reuters+HBR§free.§Desk§On-Demand§Free
+324§12. QUICK REF§Quick§Controller community§controllerscouncil§free.§Desk§On-Demand§Free
+325§12. QUICK REF§Quick§Speaking§Toastmasters§weekly.§Desk§On-Demand§Free
+326§12. QUICK REF§Quick§Modelling§CFI§free.§Desk§On-Demand§Free
+327§12. QUICK REF§Quick§IFRS videos§IFRS Foundation§free.§Desk§On-Demand§Free
+328§12. QUICK REF§Quick§UAE tax videos§FTA YouTube§free.§Desk§On-Demand§Free
+329§12. QUICK REF§Quick§Career§CFO Thought Leader§weekly.§Desk§On-Demand§Free
+330§12. QUICK REF§Quick§Business models§Acquired§monthly.§Desk§On-Demand§Free
+331§12. QUICK REF§Quick§Leadership§HBR§free.§Desk§On-Demand§Free
+332§12. QUICK REF§Quick§McKinsey§mckinsey.com§free.§Desk§On-Demand§Free
+333§12. QUICK REF§Quick§Performance§Huberman§free.§Desk§On-Demand§Free
+334§12. QUICK REF§Quick§Productivity§Atomic Habits§book.§Desk§On-Demand§Free
+335§12. QUICK REF§Quick§Networking§CIMA§weekly.§Desk§On-Demand§Free
+336§12. QUICK REF§Quick§AI documents§Claude§free.§Desk§On-Demand§Free
+337§12. QUICK REF§Quick§AI Excel§Copilot§free.§Desk§On-Demand§Free
+338§12. QUICK REF§Quick§AI research§Perplexity§free.§Desk§On-Demand§Free
+339§12. QUICK REF§Quick§AI quizzing§ChatGPT§free.§Desk§On-Demand§Free
+340§12. QUICK REF§Quick§Modelling course§CFI§free.§Desk§On-Demand§Free
+341§12. QUICK REF§Quick§Power BI§Microsoft Learn§free.§Desk§On-Demand§Free
+342§12. QUICK REF§Quick§Python§CS50P§free.§Desk§On-Demand§Free
+343§13. HABIT MATRIX§Read§Reuters daily§Daily§habit.§Essential§Daily§Free
+344§13. HABIT MATRIX§Watch§Damodaran weekly§Daily§habit.§Essential§Daily§Free
+345§13. HABIT MATRIX§Listen§Acquired monthly§Daily§habit.§Essential§Daily§Free
+346§13. HABIT MATRIX§Do§LinkedIn weekly§Daily§habit.§Essential§Daily§Free
+347§13. HABIT MATRIX§Read§1 book monthly§Daily§habit.§Essential§Daily§Free
+348§13. HABIT MATRIX§Watch§TED§Daily§habit.§Essential§Daily§Free
+349§13. HABIT MATRIX§Listen§CFO Thought§Daily§habit.§Essential§Daily§Free
+350§13. HABIT MATRIX§Do§Toastmasters§Daily§habit.§Essential§Daily§Free
+351§13. HABIT MATRIX§Read§McKinsey§Daily§habit.§Essential§Daily§Free
+352§13. HABIT MATRIX§Watch§Earnings§Daily§habit.§Essential§Daily§Free
+353§13. HABIT MATRIX§Listen§Knowledge§Daily§habit.§Essential§Daily§Free
+354§13. HABIT MATRIX§Do§Network§Daily§habit.§Essential§Daily§Free
+355§13. HABIT MATRIX§Read§HBR§Daily§habit.§Essential§Daily§Free
+356§13. HABIT MATRIX§Watch§Charisma§Daily§habit.§Essential§Daily§Free
+357§13. HABIT MATRIX§Listen§Planet Money§Daily§habit.§Essential§Daily§Free
+358§13. HABIT MATRIX§Do§AI daily§Daily§habit.§Essential§Daily§Free
+359§13. HABIT MATRIX§Read§CIMA§Daily§habit.§Essential§Daily§Free
+360§13. HABIT MATRIX§Watch§CFI§Daily§habit.§Essential§Daily§Free
+361§13. HABIT MATRIX§Listen§How I Built This§Daily§habit.§Essential§Daily§Free
+362§13. HABIT MATRIX§Do§Reflections§Daily§habit.§Essential§Daily§Free
+363§13. HABIT MATRIX§Read§FTA§Daily§habit.§Essential§Daily§Free
+364§13. HABIT MATRIX§Watch§FTA channel§Daily§habit.§Essential§Daily§Free
+365§13. HABIT MATRIX§Listen§Huberman§Daily§habit.§Essential§Daily§Free
+366§13. HABIT MATRIX§Do§Mentor§Daily§habit.§Essential§Daily§Free
+367§13. HABIT MATRIX§Read§IFRS§Daily§habit.§Essential§Daily§Free
+368§13. HABIT MATRIX§Watch§IFRS Foundation§Daily§habit.§Essential§Daily§Free
+369§13. HABIT MATRIX§Listen§Tim Ferriss§Daily§habit.§Essential§Daily§Free
+370§13. HABIT MATRIX§Do§Document§Daily§habit.§Essential§Daily§Free
+371§13. HABIT MATRIX§Read§IFRSbox§Daily§habit.§Essential§Daily§Free
+372§13. HABIT MATRIX§Watch§Big 4§Daily§habit.§Essential§Daily§Free
+373§13. HABIT MATRIX§Listen§AI Brief§Daily§habit.§Essential§Daily§Free
+374§13. HABIT MATRIX§Do§FTA guides§Daily§habit.§Essential§Daily§Free
+375§8. NETWORKING§8A. Bodies§ICAEW ME§ICAEW§network.§High§Monthly§Member
+376§8. NETWORKING§8A. Bodies§CPA ME§CPA§network.§High§Monthly§Member
+377§8. NETWORKING§8A. Bodies§IIA UAE§IIA§audit.§High§Monthly§Member
+378§8. NETWORKING§8A. Bodies§ACFE UAE§ACFE§fraud.§High§Monthly§Member
+379§8. NETWORKING§8A. Bodies§ICAI Dubai§ICAI§India.§High§Monthly§Member
+380§8. NETWORKING§8A. Bodies§ICAI Abu Dhabi§ICAI§India.§High§Monthly§Member
+381§8. NETWORKING§8A. Bodies§AD Chamber§adcc§network.§High§Monthly§Member
+382§8. NETWORKING§8A. Bodies§Sharjah Chamber§sharjah§north.§Medium§Monthly§Member
+383§8. NETWORKING§8A. Bodies§IBPC§ibpcdubai§India-UAE.§High§Monthly§Member
+384§8. NETWORKING§8A. Bodies§Kerala Forum§KBF§Kerala.§High§Monthly§Member
+385§8. NETWORKING§8A. Bodies§Startup Hub§Dubai Chamber§SME.§Medium§Monthly§Member
+386§8. NETWORKING§8A. Bodies§MoE Events§moec§policy.§Medium§Monthly§Member
+387§8. NETWORKING§8A. Bodies§ADGM§adgm§regulation.§High§Monthly§Member
+388§8. NETWORKING§8A. Bodies§CFO ME Forum§Event§regional.§High§Monthly§Member
+389§8. NETWORKING§8A. Bodies§Fintech Summit§Event§fintech.§High§Monthly§Member
+390§8. NETWORKING§8A. Bodies§GITEX§Event§tech.§High§Monthly§Member
+391§8. NETWORKING§8A. Bodies§Deloitte CFO§Deloitte§roundtables.§High§Monthly§Member
+392§8. NETWORKING§8A. Bodies§PwC CFO§PwC§roundtables.§High§Monthly§Member
+393§8. NETWORKING§8A. Bodies§EY CFO§EY§forum.§High§Monthly§Member
+394§8. NETWORKING§8A. Bodies§KPMG CFO§KPMG§roundtables.§High§Monthly§Member
+395§8. NETWORKING§8A. Bodies§Toastmasters SO§Toastmasters§weekly.§Core Network (★)§Weekly§Member
+396§8. NETWORKING§8A. Bodies§Toastmasters DIFC§Toastmasters§weekly.§Core Network (★)§Weekly§Member
+397§8. NETWORKING§8A. Bodies§Toastmasters BB§Toastmasters§weekly.§High§Weekly§Member
+398§8. NETWORKING§8A. Bodies§Toastmasters DT§Toastmasters§weekly.§High§Weekly§Member
+399§8. NETWORKING§8B. LinkedIn§CIMA group§LinkedIn§CIMA.§High§Ongoing§Free
+400§8. NETWORKING§8B. LinkedIn§CFO group§LinkedIn§CFO.§High§Daily§Free
+401§8. NETWORKING§8B. LinkedIn§UAE group§LinkedIn§UAE.§High§Ongoing§Free
+402§8. NETWORKING§8B. LinkedIn§McKinsey webinars§McKinsey§free.§High§Monthly§Free
+403§14. FILINGS§14. EDGAR§SEC Full-Text§sec.gov§search.§Must-Use (★)§Ongoing§Free
+404§14. FILINGS§14. EDGAR§SEC Company§sec.gov§lookup.§Must-Use (★)§Ongoing§Free
+405§14. FILINGS§14. EDGAR§10-K§sec.gov§annual.§Must-Read (★)§Ongoing§Free
+406§14. FILINGS§14. EDGAR§20-F (IFRS)§sec.gov§IFRS.§Must-Read (★)§Ongoing§Free
+407§14. FILINGS§14. EDGAR§8-K§sec.gov§events.§High§Ongoing§Free
+408§14. FILINGS§14. EDGAR§10-Q§sec.gov§quarterly.§High§Ongoing§Free
+409§14. FILINGS§14. Multi§AnnualReports§annualreports.com§free.§High§Ongoing§Free
+410§14. FILINGS§14. Multi§Macrotrends§macrotrends.net§data.§High§Ongoing§Free
+411§14. FILINGS§14. Multi§Stock Analysis§stockanalysis.com§statements.§High§Ongoing§Free
+412§14. FILINGS§14. Multi§Yahoo Finance§finance.yahoo.com§statements.§Medium§Ongoing§Free
+413§14. FILINGS§14. Multi§Investing§investing.com§multi-year.§Medium§Ongoing§Free
+414§14. FILINGS§14. IFRS Ref§IFRS Illustrative§ifrs.org§reference.§Must-Read (★)§Ongoing§Free
+415§14. FILINGS§14. IFRS Ref§KPMG Models§KPMG§templates.§High§Ongoing§Free
+416§14. FILINGS§14. IFRS Ref§Deloitte Models§Deloitte§templates.§High§Ongoing§Free
+417§14. FILINGS§14. IFRS Ref§PwC Illustrative§PwC§templates.§High§Ongoing§Free
+418§14. FILINGS§14. IFRS Ref§EY Illustrative§EY§templates.§High§Ongoing§Free
+419§14. FILINGS§14. UAE§DFM§dfm.ae§UAE.§High§Ongoing§Free
+420§14. FILINGS§14. UAE§ADX§adx.ae§Abu Dhabi.§High§Ongoing§Free
+421§14. FILINGS§14. India§NSE§nseindia.com§Ind AS.§High§Ongoing§Free
+422§14. FILINGS§14. India§BSE§bseindia.com§Ind AS.§High§Ongoing§Free
+423§14. FILINGS§14. Other§Companies House§gov.uk§UK.§Medium§Ongoing§Free
+424§14. FILINGS§14. Other§HKEX§Various§Asia.§Medium§Ongoing§Free
+425§14. FILINGS§14. Letters§Berkshire§Buffett§capital.§Must-Read (★)§Ongoing§Free`;
+
+const SPREAD=RAW.trim().split('\n').map(line=>{const p=line.split('§');return {n:parseInt(p[0]),pillar:p[1]||'',cat:p[2]||'',item:p[3]||'',provider:p[4]||'',desc:p[5]||'',pri:p[6]||'',timeline:p[7]||'',cost:p[8]||''};});
+function priClass(p){if(/Must|Top Priority|Priority \(★\)|Core Network|Must-Use/.test(p))return 'must';if(/Essential|Non-Negotiable/.test(p))return 'ess';if(/Very Important|High Priority|High Value|High —|^High$/.test(p))return 'high';if(/Recommended/.test(p))return 'rec';return 'med';}
+function priLabel(cls){return {must:'★ Must Read',ess:'Essential',high:'High Value',rec:'Recommended',med:'Important'}[cls]||'Important';}
+const PILLAR_TO_CAT={'1. BOOKS TO READ':'Books','2. YOUTUBE CHANNELS':'YouTube','3. PUBLICATIONS':'Publications','4. PODCASTS':'Podcasts','5. CERTIFICATIONS':'Certifications','6. TECHNICAL':'Technical','7. LEADERSHIP':'Leadership','8. NETWORKING':'Networking','9. TECH & AI':'Tech & AI','10. HABITS':'Habits','11. CAREER':'Career','12. QUICK REF':'Reference','13. HABIT MATRIX':'Habit Matrix','14. FILINGS':'Filings & Statements'};
+const CAT_TO_PILLAR={};for(const p in PILLAR_TO_CAT)CAT_TO_PILLAR[PILLAR_TO_CAT[p]]=p;
+const LIB_BASE=SPREAD.filter(r=>PILLAR_TO_CAT[r.pillar]).map(r=>({id:'r'+r.n,n:r.n,cat:PILLAR_TO_CAT[r.pillar],sub:r.cat,t:r.item,by:r.provider,p:priClass(r.pri),d:r.desc}));
+
+const KEY='t1p_master_v12';
+let S=load();
+function blank(){return {log:{},completed:{},pinned:{},notes:{},progress:{},overrides:{},trash:[],lastBackupDate:'',custom:[],tab:'lib',filterCat:'All',activeReport:'master',flashcards:[],goals:[],reminderTime:'',lastDigestDate:'',dailyTarget:45};}
+function load(){
+  try{const r=localStorage.getItem(KEY);if(r){const d=JSON.parse(r);if(d.status&&!d.completed){d.completed={};for(const id in d.status)if(d.status[id]===2)d.completed[id]=true;}delete d.status;if(!d.pinned)d.pinned={};if(!d.flashcards)d.flashcards=[];if(!d.goals)d.goals=[];if(!d.progress)d.progress={};if(!d.trash)d.trash=[];if(!d.overrides)d.overrides={};return Object.assign(blank(),d);}}catch(e){}
+  for(const k of ['t1p_master_v11','t1p_master_v10','t1p_master_v9','t1p_master_v8']){try{const old=localStorage.getItem(k);if(old){const d=JSON.parse(old);if(d.status&&!d.completed){d.completed={};for(const id in d.status)if(d.status[id]===2)d.completed[id]=true;}delete d.status;if(!d.pinned)d.pinned={};if(!d.flashcards)d.flashcards=[];if(!d.goals)d.goals=[];if(!d.progress)d.progress={};if(!d.trash)d.trash=[];if(!d.overrides)d.overrides={};return Object.assign(blank(),d);}}catch(e){}}
+  return blank();
+}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+function dayKey(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function prettyDate(d){d=d||new Date();return d.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+function fmtMin(m){m=Math.round(m||0);if(m<60)return m+'m';const h=Math.floor(m/60),r=m%60;return r?h+'h '+r+'m':h+'m';}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+function allLib(){
+  const withOverrides=LIB_BASE.map(r=>{const o=S.overrides&&S.overrides[r.id];return o?{...r,...o}:r;});
+  return withOverrides.concat(S.custom);
+}
+function entryMin(e){return typeof e==='object'?e.min:e||0;}
+function sessionMap(){const m={};for(const d in S.log){const rec=S.log[d];for(const id in rec){if(!m[id])m[id]={n:0,min:0,last:''};m[id].n++;m[id].min+=entryMin(rec[id]);if(d>m[id].last)m[id].last=d;}}return m;}
+function todayRec(){return S.log[dayKey()]||{};}
+function dayTotalMin(k){const rec=S.log[k]||{};return Object.values(rec).reduce((a,b)=>a+entryMin(b),0);}
+function dayCount(k){return Object.keys(S.log[k]||{}).length;}
+function statusFor(id,sm){if(S.completed[id])return 2;if(sm&&sm[id])return 1;return 0;}
+function statusTxt(s){return ['Not Started','In Progress','Completed'][s||0];}
+function buildStatusMap(){const m={};const sm=sessionMap();for(const id in sm)m[id]=1;for(const id in S.completed)if(S.completed[id])m[id]=2;return m;}
+function resourceInfo(id){return allLib().find(r=>r.id===id)||null;}
+function linkFor(r){if(r.u)return r.u;if(r.cat==='Books')return 'https://www.goodreads.com/search?q='+encodeURIComponent(r.t);if(r.cat==='YouTube')return 'https://www.youtube.com/results?search_query='+encodeURIComponent(r.t);if(r.cat==='Podcasts')return 'https://open.spotify.com/search/'+encodeURIComponent(r.t);if(r.cat==='Filings & Statements')return 'https://www.sec.gov/edgar/searchedgar/companysearch';return 'https://www.google.com/search?q='+encodeURIComponent(r.t+' '+r.by);}
+function isoWeek(ds){const d=new Date(ds+'T00:00:00');const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);const ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));const wk=Math.ceil((((t-ys)/86400000)+1)/7);return t.getUTCFullYear()+'-W'+String(wk).padStart(2,'0');}
+function monthOf(ds){return ds.slice(0,7);}
+function kpiCard(label,value,note,color){return `<div class="kpi"><div class="lbl">${label}</div><div class="val" ${color?`style="color:${color}"`:''}>${value}</div>${note?`<div class="note">${note}</div>`:''}</div>`;}
+function svgLine(data,color){
+  if(!data.length)return '';
+  const w=600,h=100;const maxV=Math.max(...data.map(v=>v),1);
+  if(data.length===1){const cy=h-(data[0]/maxV)*h*0.9;return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:${h}px;margin-bottom:8px"><line x1="0" y1="${cy}" x2="${w}" y2="${cy}" stroke="${color}" stroke-width="2" stroke-dasharray="4 4"/><circle cx="${w/2}" cy="${cy}" r="4" fill="${color}"/></svg>`;}
+  const pts=data.map((v,i)=>`${(i/(data.length-1))*w},${h-(v/maxV)*h*0.9}`).join(' ');
+  const areaPts=`0,${h} ${pts} ${w},${h}`;
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="width:100%;height:${h}px;margin-bottom:8px"><polygon points="${areaPts}" fill="${color}" opacity="0.12"/><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2"/></svg>`;
+}
+function isEdited(id){return !!(S.overrides && S.overrides[id] && Object.keys(S.overrides[id]).length>0);}
+
+const TABS=[['lib','📚 Library'],['sheet','📋 Spreadsheet'],['flashcards','🔄 Flashcards'],['goals','🎯 Goals'],['reports','📊 Reports'],['settings','⚙ Settings']];
+function buildNav(){document.getElementById('nav').innerHTML=TABS.map(([id,l])=>`<button data-tab="${id}" class="${S.tab===id?'on':''}" onclick="go('${id}')">${l}</button>`).join('');}
+function go(tab){S.tab=tab;save();document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));TABS.forEach(([id])=>document.getElementById('tab-'+id).classList.toggle('hide',id!==tab));window.scrollTo({top:0,behavior:'smooth'});renderTab(tab);}
+function renderTab(tab){renderHeader();if(tab==='lib'){renderDigest();renderLib();}if(tab==='sheet'){initSheetFilters();renderSheet();}if(tab==='flashcards'){initFCForm();renderFlashcards();}if(tab==='goals'){initGoalForm();renderGoals();}if(tab==='reports')renderReports();if(tab==='settings')renderSettings();}
+
+function renderHeader(){const sm=sessionMap();let totalMin=0,totalSess=0;for(const id in sm){totalMin+=sm[id].min;totalSess+=sm[id].n;}const touched=Object.keys(sm).length;const done=Object.keys(S.completed).filter(id=>S.completed[id]).length;const pinned=Object.keys(S.pinned).filter(id=>S.pinned[id]).length;const days=Object.keys(S.log).filter(d=>dayCount(d)>0).length;document.getElementById('hstats').innerHTML=`<div class="hstat"><b style="color:var(--acc2)">${fmtMin(totalMin)}</b><span>Total Time</span></div><div class="hstat"><b>${totalSess}</b><span>Sessions</span></div><div class="hstat"><b>${touched}</b><span>Touched</span></div><div class="hstat"><b style="color:var(--gold)">${pinned}</b><span>Pinned</span></div><div class="hstat"><b>${days}</b><span>Active Days</span></div>`;}
+
+function renderDigest(){const today=dayKey();if(S.lastDigestDate===today)return;const el=document.getElementById('digestBox');if(!el)return;const streak=calcStreak();const dueFC=S.flashcards.filter(c=>c.due<=today).length;const mustBacklog=allLib().filter(r=>r.p==='must'&&!S.completed[r.id]).length;const todayMin=dayTotalMin(today);const pinned=allLib().filter(r=>S.pinned[r.id]);let msg=[];if(streak>0)msg.push(`🔥 ${streak}-day streak`);if(todayMin>0)msg.push(`✅ ${fmtMin(todayMin)} logged today`);else msg.push(`⚡ Nothing logged yet — start with 15 min`);if(dueFC>0)msg.push(`🔄 ${dueFC} flashcard${dueFC>1?'s':''} due`);if(mustBacklog>0)msg.push(`⭐ ${mustBacklog} must-reads pending`);if(pinned.length)msg.push(`📌 ${pinned.length} pinned`);const hour=new Date().getHours();const greet=hour<12?'morning':hour<17?'afternoon':'evening';el.innerHTML=`<div class="digest"><div class="digest-icon">☀️</div><div class="digest-body"><div class="digest-title">Good ${greet} — ${new Date().toLocaleDateString('en',{weekday:'long',day:'numeric',month:'short'})}</div><div class="digest-text">${msg.join(' · ')}</div></div><button class="digest-close" onclick="dismissDigest()">×</button></div>`;}
+function dismissDigest(){S.lastDigestDate=dayKey();save();document.getElementById('digestBox').innerHTML='';}
+
+function checkBackup(){const el=document.getElementById('backupBanner');if(!el)return;if(window._backupDismissed){el.classList.add('hide');return;}if(!S.lastBackupDate){S.lastBackupDate=dayKey();save();el.classList.add('hide');return;}const days=Math.floor((new Date()-new Date(S.lastBackupDate))/86400000);if(days>=7){el.innerHTML=`<div class="digest" style="border-color:rgba(255,176,32,.5);background:linear-gradient(135deg,rgba(255,176,32,.15),rgba(255,93,108,.10))"><div class="digest-icon">💾</div><div class="digest-body"><div class="digest-title">Backup reminder — ${days} days since last export</div><div class="digest-text">Your data lives in this browser only. Export a JSON backup to keep it safe.</div><div style="margin-top:8px"><button class="btn sm" onclick="exportJSON()">Export now</button></div></div><button class="digest-close" onclick="dismissBackupBanner()">×</button></div>`;el.classList.remove('hide');}else{el.classList.add('hide');}}
+function dismissBackupBanner(){window._backupDismissed=true;document.getElementById('backupBanner').classList.add('hide');}
+function markBackedUp(){S.lastBackupDate=dayKey();save();window._backupDismissed=false;checkBackup();}
+
+const CATS=['All','Books','YouTube','Publications','Podcasts','Certifications','Technical','Leadership','Networking','Tech & AI','Filings & Statements','Habits','Career','Reference','Habit Matrix'];
+const PRI_RANK={must:0,ess:1,high:2,rec:3,med:4};
+function renderLib(){
+  checkBackup();
+  const sm=sessionMap();const list=allLib();const today=todayRec();
+  const tIds=Object.keys(today);const tBox=document.getElementById('todayBox');
+  const target=S.dailyTarget||45;
+  const todayTotal=dayTotalMin(dayKey());
+  const targetPct=Math.min(100,Math.round(todayTotal/target*100));
+  const targetColor=targetPct>=100?'var(--acc2)':targetPct>=50?'var(--gold)':'var(--warn)';
+  const targetBar=`<div style="margin-top:10px"><div class="row" style="justify-content:space-between;font-size:11.5px;color:var(--mut);margin-bottom:4px"><span>Daily target: ${fmtMin(target)}</span><b style="color:${targetColor}">${targetPct}%</b></div><div class="bar thin"><i style="width:${targetPct}%;background:${targetColor}"></i></div></div>`;
+  if(tIds.length){const total=tIds.reduce((a,id)=>a+entryMin(today[id]),0);const chips=tIds.map(id=>{const r=list.find(x=>x.id===id);return r?`<span class="today-chip">${esc(r.t)}<b>${fmtMin(entryMin(today[id]))}</b></span>`:'';}).join('');tBox.innerHTML=`<div class="tlabel">Today · ${prettyDate()}</div><div style="font-size:13px;color:var(--mut)">${tIds.length} resource${tIds.length>1?'s':''} · <b style="color:var(--acc2)">${fmtMin(total)}</b></div><div class="today-chips">${chips}</div>${targetBar}`;}
+  else{tBox.innerHTML=`<div class="tlabel">Today · ${prettyDate()}</div><div style="font-size:13px;color:var(--mut)">Nothing logged yet. Type minutes + click <b style="color:var(--acc2)">+ Log</b>, or use ⚡ button.</div>${targetBar}`;}
+  document.getElementById('cats').innerHTML=CATS.map(c=>{const n=c==='All'?list.length:list.filter(r=>r.cat===c).length;return `<button class="${S.filterCat===c?'on':''}" onclick="setCat('${c.replace(/'/g,"\\'")}')">${esc(c)} <span style="opacity:.65;font-size:11px">(${n})</span></button>`;}).join('');
+  document.getElementById('libCount').textContent=list.length+' resources';
+  document.getElementById('libTouched').textContent=Object.keys(sm).length+' touched';
+  document.getElementById('libDone').textContent=Object.keys(S.completed).filter(id=>S.completed[id]).length+' finished';
+  document.getElementById('libPinned').textContent=Object.keys(S.pinned).filter(id=>S.pinned[id]).length+' pinned';
+  const editedCount=Object.keys(S.overrides||{}).filter(id=>isEdited(id)).length;
+  document.getElementById('libEdited').textContent=editedCount+' edited';
+  const q=(document.getElementById('libSearch').value||'').toLowerCase().trim();const priF=document.getElementById('priFilter').value;const sortBy=document.getElementById('libSort').value;
+  let filtered=list.filter(r=>{if(S.filterCat!=='All'&&r.cat!==S.filterCat)return false;if(priF==='pinned'){if(!S.pinned[r.id])return false;}else if(priF&&r.p!==priF)return false;if(q){const hay=(r.t+' '+r.by+' '+r.d+' '+(r.sub||'')+' '+r.cat).toLowerCase();if(!hay.includes(q))return false;}return true;});
+  const catOrder=CATS.filter(c=>c!=='All');
+  filtered.sort((a,b)=>{const pa=S.pinned[a.id]?1:0,pb=S.pinned[b.id]?1:0;if(pa!==pb)return pb-pa;if(sortBy==='priority')return(PRI_RANK[a.p]??4)-(PRI_RANK[b.p]??4)||a.t.localeCompare(b.t);if(sortBy==='time')return(sm[b.id]?sm[b.id].min:0)-(sm[a.id]?sm[a.id].min:0);if(sortBy==='recent'){const la=sm[a.id]?sm[a.id].last:'',lb=sm[b.id]?sm[b.id].last:'';return lb.localeCompare(la);}if(sortBy==='az')return a.t.localeCompare(b.t);const sa=statusFor(a.id,sm),sb=statusFor(b.id,sm);if(sa!==sb)return sa-sb;const ca=catOrder.indexOf(a.cat),cb=catOrder.indexOf(b.cat);if(ca!==cb)return ca-cb;return a.t.localeCompare(b.t);});
+  const el=document.getElementById('libList');if(!filtered.length){el.innerHTML=`<div class="empty">No resources match.</div>`;return;}
+  const PRI={must:'p-must',rec:'p-rec',ess:'p-ess',high:'p-high',med:'p-med'};
+  el.innerHTML=filtered.map(r=>{
+    const s=statusFor(r.id,sm);const todayVal=today[r.id];const hasToday=todayVal!=null;const todayMin=hasToday?entryMin(todayVal):0;const sess=sm[r.id];const hasAnyLog=sess&&sess.n>0;const cls=PRI[r.p]||'p-rec';const link=linkFor(r);const isPinned=!!S.pinned[r.id];
+    const progressVal=S.progress&&S.progress[r.id]?S.progress[r.id]:'';
+    const isBook=r.cat==='Books';const isCustom=r.id.startsWith('x');const edited=isEdited(r.id);
+    return `<div class="res ${hasToday?'logged':''} ${s===2?'done':''} ${isPinned?'pinned':''} ${edited?'edited':''}">
+      <div class="res-top">
+        <button class="pin-btn ${isPinned?'on':''}" onclick="togglePin('${r.id}')">📌</button>
+        <span class="st st-${s}">${statusTxt(s)}</span>
+        <span class="res-title">${esc(r.t)}</span>
+        <span class="res-by">— ${esc(r.by)}</span>
+        <span class="chip ${cls}">${priLabel(r.p)}</span>
+        ${edited?'<span class="chip" style="background:rgba(255,176,32,.18);color:var(--warn);border:1px solid rgba(255,176,32,.45);font-size:9px">EDITED</span>':''}
+        <span class="spacer"></span>
+        <button class="edit-btn" onclick="editCustom('${r.id}')" title="Edit">✏️</button>
+        <button class="timer-btn" onclick="openTimer('${r.id}')" title="Timer">⏱</button>
+        <div class="logbox ${hasToday?'on':''}">
+          <input type="number" id="min_${r.id}" placeholder="min" min="1" max="600" onkeypress="if(event.key==='Enter'){addLog('${r.id}')}">
+          <span class="unit">min</span>
+          <button class="btn sm log" onclick="addLog('${r.id}')">+ Log</button>
+          ${hasAnyLog?`<button class="btn sm btn-undo" onclick="openUndoModal('${r.id}')">↩ Undo</button>`:''}
+        </div>
+        ${isCustom?`<button class="btn sm ghost" onclick="delCustom('${r.id}')" title="Delete">×</button>`:''}
+      </div>
+      <div class="res-desc">${esc(r.d)}</div>
+      ${isBook && progressVal ? `<div class="res-progress">📍 <b>Current position:</b> ${esc(progressVal)} <button class="btn xs ghost" style="float:right;margin-top:-2px" onclick="setProgress('${r.id}')">Edit</button></div>` : ''}
+      <div class="res-meta">
+        <span>${esc(r.cat)}${r.sub?' · '+esc(r.sub):''}</span>
+        ${isBook?`<button class="btn xs ghost" onclick="setProgress('${r.id}')">📍 ${progressVal?'Update':'Set'} progress</button>`:''}
+        <button class="btn xs ${s===2?'ghost':'complete'}" onclick="toggleComplete('${r.id}')">${s===2?'↺ Reopen':'✓ Mark Finished'}</button>
+        ${hasToday?`<span class="today-tag">Today: ${fmtMin(todayMin)}</span>`:''}
+        ${sess?`<span class="mins">Total: ${fmtMin(sess.min)}</span><span class="sess">${sess.n} day${sess.n>1?'s':''}</span><span>last ${esc(sess.last)}</span>`:'<span style="opacity:.6">never logged</span>'}
+        <a href="${link}" target="_blank" rel="noopener">Open →</a>
+      </div>
+    </div>`;
+  }).join('');
+}
+function setCat(c){S.filterCat=c;save();renderLib();}
+function addLog(id,minutes,focus,note,dateStr){
+  let m=minutes;
+  if(m===undefined){const inp=document.getElementById('min_'+id);m=parseInt(inp?inp.value:'');if(!m||m<1){if(inp)inp.focus();return;}if(inp)inp.value='';}
+  m=Math.min(600,m);const k=dateStr||dayKey();if(!S.log[k])S.log[k]={};
+  const ex=S.log[k][id];
+  if(ex!=null&&typeof ex==='object'){ex.min=(ex.min||0)+m;if(focus!==undefined)ex.focus=focus;if(note)ex.note=note;}
+  else S.log[k][id]={min:m,focus:focus||0,note:note||''};
+  save();renderLib();renderHeader();
+}
+function setProgress(id){if(!S.progress)S.progress={};const cur=S.progress[id]||'';const v=prompt('Where are you in this book?\n(e.g. "Chapter 3, pg 47" or "45%" or "Section 2.1")',cur);if(v===null)return;if(v.trim())S.progress[id]=v.trim();else delete S.progress[id];save();renderLib();}
+function togglePin(id){if(S.pinned[id])delete S.pinned[id];else S.pinned[id]=true;save();const y=window.scrollY;renderLib();renderHeader();window.scrollTo(0,y);}
+
+let undoModalId=null;
+function openUndoModal(id){const r=allLib().find(x=>x.id===id);if(!r)return;undoModalId=id;document.getElementById('undoModalTitle').textContent='Edit entries';document.getElementById('undoModalSub').textContent=r.t;renderUndoBody();document.getElementById('undoModal').classList.remove('hide');}
+function renderUndoBody(){const id=undoModalId;if(!id)return;const entries=getHistory(id);const body=document.getElementById('undoModalBody');const totalEl=document.getElementById('undoModalTotal');if(!entries.length){body.innerHTML='<div class="empty">No entries.</div>';totalEl.innerHTML='';return;}const todayStr=dayKey();body.innerHTML=entries.map(e=>{const isToday=e.date===todayStr;const minVal=entryMin(e.entry);return `<div class="undo-entry ${isToday?'today':''}"><div class="undo-date">${isToday?'<span class="today-lbl">TODAY</span>':''}<span>${esc(e.date)}</span></div><input type="number" value="${minVal}" min="1" max="600" onchange="updateEntry('${id}','${e.date}',this.value,event)"><span class="undo-unit">min</span><button class="btn sm danger" onclick="deleteEntryFromModal('${id}','${e.date}')">Delete</button></div>`;}).join('');const total=entries.reduce((a,e)=>a+entryMin(e.entry),0);totalEl.innerHTML=`Total: <b>${fmtMin(total)}</b> across ${entries.length} day${entries.length>1?'s':''}`;}
+function getHistory(id){const days=[];for(const k in S.log){if(S.log[k]&&S.log[k][id]!=null)days.push({date:k,entry:S.log[k][id]});}days.sort((a,b)=>b.date.localeCompare(a.date));return days;}
+function updateEntry(id,date,val,ev){const m=parseInt(val);if(!m||m<1||m>600){if(ev&&ev.target)ev.target.value=entryMin(S.log[date][id]);return;}if(S.log[date]&&S.log[date][id]!=null){const e=S.log[date][id];if(typeof e==='object')e.min=m;else S.log[date][id]={min:m,focus:0,note:''};save();renderUndoBody();renderLib();renderHeader();}}
+function deleteEntryFromModal(id,date){if(!S.log[date]||S.log[date][id]==null)return;delete S.log[date][id];if(Object.keys(S.log[date]).length===0)delete S.log[date];save();renderUndoBody();renderLib();renderHeader();}
+function closeUndoModal(){document.getElementById('undoModal').classList.add('hide');undoModalId=null;}
+
+function toggleComplete(id){if(S.completed[id])delete S.completed[id];else S.completed[id]=true;save();renderLib();renderHeader();if(S.tab==='sheet')renderSheet();if(S.tab==='reports')renderReports();}
+
+let editId=null;let editIsCustom=false;
+function editCustom(id){
+  const r=allLib().find(x=>x.id===id);if(!r)return;
+  editId=id;editIsCustom=id.startsWith('x');
+  document.getElementById('editModalTitle').textContent=editIsCustom?'✏️ Edit custom resource':'✏️ Edit built-in resource';
+  document.getElementById('editModalSub').textContent=editIsCustom?'This is your own custom resource. Changes are saved directly.':'This is a built-in resource. Changes are saved as overrides and can be reset in Settings.';
+  const edCat=document.getElementById('edCat');
+  edCat.innerHTML=CATS.filter(c=>c!=='All').map(c=>`<option>${esc(c)}</option>`).join('');
+  edCat.value=r.cat||'Books';
+  document.getElementById('edTitle').value=r.t||'';
+  document.getElementById('edBy').value=r.by||'';
+  document.getElementById('edPri').value=r.p||'rec';
+  document.getElementById('edSub').value=r.sub||'';
+  document.getElementById('edUrl').value=r.u||'';
+  document.getElementById('edDesc').value=r.d||'';
+  document.getElementById('editModal').classList.remove('hide');
+}
+function saveEdit(){
+  const title=document.getElementById('edTitle').value.trim();
+  if(!title){alert('Title required');return;}
+  const cat=document.getElementById('edCat').value;
+  const updates={t:title,by:document.getElementById('edBy').value.trim()||'Custom',cat,pillar:CAT_TO_PILLAR[cat]||'15. CUSTOM',p:document.getElementById('edPri').value,sub:document.getElementById('edSub').value.trim()||'Custom',u:document.getElementById('edUrl').value.trim(),d:document.getElementById('edDesc').value.trim()||'Custom resource.'};
+  if(editIsCustom){const r=S.custom.find(x=>x.id===editId);if(!r){closeEditModal();return;}Object.assign(r,updates);}
+  else{if(!S.overrides)S.overrides={};S.overrides[editId]=Object.assign(S.overrides[editId]||{},updates);}
+  save();closeEditModal();renderLib();renderSheet();renderHeader();renderSettings();
+}
+function closeEditModal(){document.getElementById('editModal').classList.add('hide');editId=null;editIsCustom=false;}
+function resetOverrides(){
+  const count=Object.keys(S.overrides||{}).filter(id=>isEdited(id)).length;
+  if(count===0){alert('No edits to reset — all built-in resources are original.');return;}
+  if(!confirm(`Reset all ${count} edits made to built-in resources?\n\nThis undoes any changes you made to the original resources. Your custom resources and all logs are NOT affected.`))return;
+  S.overrides={};save();renderLib();renderSheet();renderSettings();renderHeader();
+  alert(`All ${count} built-in edits reset to original.`);
+}
+
+function delCustom(id){
+  const r=S.custom.find(x=>x.id===id);if(!r)return;
+  if(!confirm('Move "'+r.t+'" to trash?\n\nYou have 7 days to restore it from Settings → Trash.'))return;
+  if(!S.trash)S.trash=[];
+  S.trash.push({...r,deletedAt:dayKey()});
+  S.custom=S.custom.filter(x=>x.id!==id);
+  if(S.overrides)delete S.overrides[id];
+  save();renderLib();renderSheet();renderHeader();renderSettings();
+}
+function restoreFromTrash(id){
+  if(!S.trash)return;
+  const r=S.trash.find(x=>x.id===id);if(!r)return;
+  S.trash=S.trash.filter(x=>x.id!==id);
+  const {deletedAt,...clean}=r;
+  S.custom.push(clean);
+  save();renderLib();renderSheet();renderHeader();renderSettings();
+}
+function permanentlyDelete(id){
+  if(!confirm('Permanently delete?\n\nAll logs, completions and notes for this resource will also be removed. This cannot be undone.'))return;
+  S.trash=S.trash.filter(x=>x.id!==id);
+  for(const k in S.log){if(S.log[k]&&S.log[k][id]!=null)delete S.log[k][id];}
+  delete S.completed[id];delete S.pinned[id];if(S.progress)delete S.progress[id];if(S.notes)delete S.notes[id];if(S.overrides)delete S.overrides[id];
+  save();renderSettings();renderHeader();
+}
+function purgeOldTrash(){
+  if(!S.trash)return;
+  const cutoff=new Date();cutoff.setDate(cutoff.getDate()-7);
+  const cutoffStr=dayKey(cutoff);
+  const before=S.trash.length;
+  S.trash=S.trash.filter(r=>r.deletedAt>cutoffStr);
+  if(S.trash.length!==before)save();
+}
+
+function renderSettings(){
+  const bEl=document.getElementById('backupStatusCard');if(!bEl)return;
+  const dt=document.getElementById('dailyTargetInput');if(dt)dt.value=S.dailyTarget||45;
+  const lastBackup=S.lastBackupDate||'Never';
+  const daysSince=lastBackup==='Never'?0:Math.floor((new Date()-new Date(lastBackup))/86400000);
+  bEl.innerHTML=`<h3>💾 Backup Status</h3><div class="row" style="margin-top:10px;justify-content:space-between"><span style="color:var(--mut)">Last backup:</span><b>${lastBackup}</b></div>${lastBackup!=='Never'?`<div class="row" style="justify-content:space-between"><span style="color:var(--mut)">Days since:</span><b style="color:${daysSince>=7?'var(--warn)':'var(--acc2)'}">${daysSince} days</b></div>`:''}<div class="tiny" style="margin-top:10px">A backup reminder appears at the top of the Library if 7+ days have passed since your last JSON export.</div><button class="btn sm" style="margin-top:10px" onclick="exportJSON()">Export now</button>`;
+  const tEl=document.getElementById('trashCard');if(!tEl)return;
+  const trash=S.trash||[];
+  tEl.innerHTML=`<h3>🗑️ Trash <span class="pill">${trash.length}</span></h3><div class="tiny" style="margin-bottom:10px">Deleted custom resources stay here for 7 days. After that they're auto-removed.</div>${trash.length?trash.map(r=>{const daysLeft=7-Math.floor((new Date()-new Date(r.deletedAt))/86400000);return `<div style="display:flex;align-items:center;gap:8px;padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:6px;font-size:12px;flex-wrap:wrap"><span style="flex:1;min-width:180px"><b>${esc(r.t)}</b><br><span style="color:var(--dim);font-size:10.5px">${esc(r.cat)} · deleted ${esc(r.deletedAt)} · auto-removes in ${daysLeft} day${daysLeft>1?'s':''}</span></span><button class="btn xs ghost" onclick="restoreFromTrash('${r.id}')">↺ Restore</button><button class="btn xs danger" onclick="permanentlyDelete('${r.id}')">Delete forever</button></div>`;}).join(''):'<div class="empty" style="padding:20px">Trash is empty</div>'}`;
+  const eEl=document.getElementById('editResetCard');if(!eEl)return;
+  const editCount=Object.keys(S.overrides||{}).filter(id=>isEdited(id)).length;
+  eEl.querySelector('button').textContent=editCount>0?`↺ Reset ${editCount} edit${editCount>1?'s':''} on built-in resources`:'↺ Reset all built-in edits';
+  eEl.querySelector('button').disabled=editCount===0;
+  eEl.querySelector('button').style.opacity=editCount===0?0.4:1;
+}
+
+function saveDailyTarget(v){const n=Math.max(15,Math.min(600,parseInt(v)||45));S.dailyTarget=n;save();const el=document.getElementById('dailyTargetInput');if(el)el.value=n;renderLib();}
+
+function toggleAdd(){document.getElementById('addForm').classList.toggle('hide');}
+function addCustom(){
+  const t=document.getElementById('fTitle').value.trim();if(!t){alert('Title required');return;}
+  const cat=document.getElementById('fCat').value;
+  const r={id:'x'+Date.now(),pillar:CAT_TO_PILLAR[cat]||'15. CUSTOM',cat,sub:document.getElementById('fSub').value.trim()||'Custom',t,by:document.getElementById('fBy').value.trim()||'Custom',p:document.getElementById('fPri').value,d:document.getElementById('fDesc').value.trim()||'Custom resource.',u:document.getElementById('fUrl').value.trim(),timeline:'Custom',cost:'Custom'};
+  S.custom.push(r);save();
+  ['fTitle','fBy','fSub','fDesc','fUrl'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('addForm').classList.add('hide');renderLib();renderHeader();
+}
+
+function showAddRowForm(){document.getElementById('addRowForm').classList.remove('hide');document.getElementById('arTitle').focus();}
+function hideAddRowForm(){document.getElementById('addRowForm').classList.add('hide');['arCat','arTitle','arProvider','arDesc','arUrl','arTimeline','arCost'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});}
+function saveNewRow(){
+  const title=document.getElementById('arTitle').value.trim();
+  if(!title){alert('Title is required');return;}
+  const pillar=document.getElementById('arPillar').value;
+  const cat=PILLAR_TO_CAT[pillar]||'Books';
+  const sub=document.getElementById('arCat').value.trim()||'Custom';
+  const provider=document.getElementById('arProvider').value.trim()||'Custom';
+  const desc=document.getElementById('arDesc').value.trim()||'Custom resource.';
+  const pri=document.getElementById('arPri').value;
+  const url=document.getElementById('arUrl').value.trim();
+  const timeline=document.getElementById('arTimeline').value.trim()||'Custom';
+  const cost=document.getElementById('arCost').value.trim()||'Custom';
+  S.custom.push({id:'x'+Date.now(),pillar,cat,sub,t:title,by:provider,p:pri,d:desc,u:url,timeline,cost});
+  save();hideAddRowForm();renderSheet();renderHeader();
+}
+
+let timerInt=null,timerSec=0,timerMax=0,timerResource=null,timerRunning=false;
+function openTimer(id){const r=allLib().find(x=>x.id===id);if(!r)return;timerResource=id;timerSec=0;timerMax=0;timerRunning=false;if(timerInt)clearInterval(timerInt);document.getElementById('timerSub').textContent=r.t;document.getElementById('timerModal').classList.remove('hide');renderTimerBody();}
+function renderTimerBody(){const el=document.getElementById('timerBody');if(!timerMax){el.innerHTML=`<div class="timer-presets"><button onclick="setTimer(25)">25 min</button><button onclick="setTimer(45)">45 min</button><button onclick="setTimer(60)">60 min</button><button onclick="setTimer(90)">90 min</button></div><div class="timer-display" id="timerDisplay">00:00</div><div class="tiny" style="text-align:center;margin-top:12px">Logs automatically when finished.</div>`;}else{el.innerHTML=`<div class="timer-display" id="timerDisplay">${fmtTimer(timerSec)}</div><div class="row" style="justify-content:center;margin-top:16px"><button class="btn ${timerRunning?'ghost':'log'}" onclick="toggleTimer()">${timerRunning?'⏸ Pause':'▶ Resume'}</button><button class="btn ghost" onclick="stopTimer()">Stop</button><button class="btn danger" onclick="cancelTimer()">Cancel</button></div>`;}}
+function setTimer(min){timerMax=min*60;timerSec=0;timerRunning=true;renderTimerBody();if(timerInt)clearInterval(timerInt);timerInt=setInterval(()=>{if(!timerRunning)return;timerSec++;const d=document.getElementById('timerDisplay');if(d)d.textContent=fmtTimer(timerSec);if(timerSec>=timerMax){clearInterval(timerInt);completeTimer();}},1000);}
+function toggleTimer(){timerRunning=!timerRunning;renderTimerBody();}
+function stopTimer(){if(timerSec>0)addLog(timerResource,Math.round(timerSec/60),0,'Timer session');clearInterval(timerInt);timerResource=null;timerMax=0;timerSec=0;closeTimer();}
+function cancelTimer(){clearInterval(timerInt);timerResource=null;timerMax=0;timerSec=0;closeTimer();}
+function completeTimer(){if(timerResource)addLog(timerResource,Math.round(timerMax/60),0,'Timer completed');clearInterval(timerInt);timerResource=null;timerMax=0;timerSec=0;closeTimer();}
+function closeTimer(){document.getElementById('timerModal').classList.add('hide');}
+function fmtTimer(s){const m=Math.floor(s/60),r=s%60;return String(m).padStart(2,'0')+':'+String(r).padStart(2,'0');}
+
+function initFCForm(){const sel=document.getElementById('fcRes');if(!sel)return;if(sel.options.length<=1){sel.innerHTML='<option value="">None</option>'+allLib().map(r=>`<option value="${r.id}">${esc(r.t)}</option>`).join('');}const cat=document.getElementById('fcCat');if(cat&&cat.options.length===0){cat.innerHTML=CATS.filter(c=>c!=='All').map(c=>`<option>${esc(c)}</option>`).join('');}}
+function toggleCardForm(){document.getElementById('cardForm').classList.toggle('hide');}
+function saveCard(){const q=document.getElementById('fcQ').value.trim();const a=document.getElementById('fcA').value.trim();if(!q||!a){alert('Question and answer required');return;}S.flashcards.push({id:'fc'+Date.now(),q,a,res:document.getElementById('fcRes').value,cat:document.getElementById('fcCat').value,tag:document.getElementById('fcTag').value.trim(),created:dayKey(),due:dayKey(),interval:0,reps:0,lapses:0});save();['fcQ','fcA','fcTag'].forEach(i=>document.getElementById(i).value='');document.getElementById('cardForm').classList.add('hide');renderFlashcards();}
+function renderFlashcards(){const today=dayKey();const due=S.flashcards.filter(c=>c.due<=today);const kpi=document.getElementById('fcKpis');if(!kpi)return;kpi.innerHTML=`${kpiCard('Total',S.flashcards.length,'in deck')}${kpiCard('Due Today',due.length,due.length?'review now':'caught up',due.length?'var(--warn)':'var(--acc2)')}${kpiCard('Reviewed',S.flashcards.filter(c=>c.reps>0).length,'at least once')}${kpiCard('Mastered',S.flashcards.filter(c=>c.interval>=21).length,'21+ interval','var(--gold)')}`;const dueEl=document.getElementById('fcDue');if(!due.length){dueEl.innerHTML='<div class="empty">No cards due 🎉</div>';}else{dueEl.innerHTML=due.slice(0,20).map(c=>`<div class="fc"><div class="fc-q">${esc(c.q)}</div><div class="fc-a">${esc(c.a)}</div><div class="fc-meta"><span>${esc(c.cat)}${c.tag?' · '+esc(c.tag):''}</span><span>Reps: ${c.reps}</span><span>Interval: ${c.interval}d</span></div><div class="fc-grade"><button class="g0" onclick="gradeCard('${c.id}',0)">0 Forgot</button><button class="g0" onclick="gradeCard('${c.id}',1)">1 Hard</button><button class="g2" onclick="gradeCard('${c.id}',3)">3 OK</button><button class="g4" onclick="gradeCard('${c.id}',4)">4 Good</button><button class="g4" onclick="gradeCard('${c.id}',5)">5 Easy</button></div></div>`).join('');}const allEl=document.getElementById('fcAll');allEl.innerHTML=S.flashcards.length?S.flashcards.map(c=>`<div class="fc" style="padding:10px 14px"><div class="row" style="justify-content:space-between"><div style="flex:1"><b style="font-size:13px">${esc(c.q)}</b><div style="font-size:11px;color:var(--mut);margin-top:3px">${esc(c.cat)}${c.tag?' · '+esc(c.tag):''} · Due: ${c.due} · Interval: ${c.interval}d</div></div><button class="btn xs ghost" onclick="delCard('${c.id}')">×</button></div></div>`).join(''):'<div class="empty">No cards yet.</div>';}
+function gradeCard(id,grade){const c=S.flashcards.find(x=>x.id===id);if(!c)return;if(grade<3){c.reps=0;c.lapses++;c.interval=0;const d=new Date();d.setDate(d.getDate()+1);c.due=dayKey(d);}else{c.reps++;if(c.interval===0)c.interval=1;else if(c.reps===1)c.interval=3;else c.interval=Math.round(c.interval*(grade===5?2.5:grade===4?2:1.5));const d=new Date();d.setDate(d.getDate()+c.interval);c.due=dayKey(d);}save();renderFlashcards();}
+function delCard(id){if(!confirm('Delete card?'))return;S.flashcards=S.flashcards.filter(c=>c.id!==id);save();renderFlashcards();}
+
+function initGoalForm(){const sel=document.getElementById('goalCat');if(!sel)return;if(sel.options.length<=1){sel.innerHTML='<option value="">All</option>'+CATS.filter(c=>c!=='All').map(c=>`<option>${esc(c)}</option>`).join('');}}
+function toggleGoalForm(){document.getElementById('goalForm').classList.toggle('hide');}
+function saveGoal(){const t=document.getElementById('goalTitle').value.trim();if(!t){alert('Title required');return;}const krs=document.getElementById('goalKRs').value.split('\n').map(x=>x.trim()).filter(Boolean).map((x,i)=>({id:'kr'+i,text:x,done:false}));S.goals.push({id:'g'+Date.now(),title:t,date:document.getElementById('goalDate').value,cat:document.getElementById('goalCat').value,krs,created:dayKey()});save();['goalTitle','goalDate','goalKRs'].forEach(i=>document.getElementById(i).value='');document.getElementById('goalForm').classList.add('hide');renderGoals();}
+function renderGoals(){const el=document.getElementById('goalList');if(!el)return;if(!S.goals.length){el.innerHTML='<div class="card"><div class="empty">No goals yet.</div></div>';return;}el.innerHTML=S.goals.map(g=>{const done=g.krs.filter(k=>k.done).length;const pct=g.krs.length?Math.round(done/g.krs.length*100):0;const daysLeft=g.date?Math.ceil((new Date(g.date+'T00:00:00')-new Date())/86400000):null;return `<div class="goal"><div class="goal-header"><div><div class="goal-title">${esc(g.title)}</div><div class="goal-deadline">${g.date?`Due ${g.date}${daysLeft!==null?` · ${daysLeft>=0?daysLeft+' days left':Math.abs(daysLeft)+' overdue'}`:''}`:'No deadline'} · ${esc(g.cat)}</div></div><div style="text-align:right"><b style="font-size:20px;color:${pct>=100?'var(--acc2)':pct>=50?'var(--gold)':'var(--warn)'}">${pct}%</b><div style="font-size:10px;color:var(--dim)">${done}/${g.krs.length} KRs</div></div></div><div class="bar thin" style="margin-bottom:8px"><i style="width:${pct}%"></i></div>${g.krs.map(k=>`<div class="goal-kr"><input type="checkbox" ${k.done?'checked':''} onchange="toggleKR('${g.id}','${k.id}')" style="width:auto"><span style="${k.done?'text-decoration:line-through;color:var(--dim)':''}">${esc(k.text)}</span></div>`).join('')}<div class="row" style="margin-top:8px"><button class="btn xs ghost" onclick="delGoal('${g.id}')">Delete</button></div></div>`;}).join('');}
+function toggleKR(gid,krid){const g=S.goals.find(x=>x.id===gid);if(!g)return;const kr=g.krs.find(k=>k.id===krid);if(kr){kr.done=!kr.done;save();renderGoals();}}
+function delGoal(id){if(!confirm('Delete goal?'))return;S.goals=S.goals.filter(g=>g.id!==id);save();renderGoals();}
+
+function openQuickLog(){const sel=document.getElementById('qlRes');sel.innerHTML=allLib().map(r=>`<option value="${r.id}">${esc(r.t)} — ${esc(r.cat)}</option>`).join('');const f=document.getElementById('qlFocus');f.innerHTML=[1,2,3,4,5].map(n=>`<button class="btn xs ${n===3?'log':'ghost'}" onclick="setQLFocus(${n})" data-f="${n}">${n}</button>`).join('');window._qlFocus=3;const dEl=document.getElementById('qlDate');if(dEl){dEl.value=dayKey();dEl.max=dayKey();}document.getElementById('quickLogModal').classList.remove('hide');}
+function setQLFocus(n){window._qlFocus=n;document.querySelectorAll('#qlFocus button').forEach(b=>{b.className='btn xs '+(parseInt(b.dataset.f)===n?'log':'ghost');});}
+function saveQuickLog(){const id=document.getElementById('qlRes').value;const m=parseInt(document.getElementById('qlMin').value)||30;const note=document.getElementById('qlNote').value.trim();const dEl=document.getElementById('qlDate');const dateStr=dEl&&dEl.value?dEl.value:undefined;if(dateStr&&dateStr>dayKey()){alert('Date cannot be in the future');return;}addLog(id,m,window._qlFocus,note,dateStr);closeQuickLog();}
+function closeQuickLog(){document.getElementById('quickLogModal').classList.add('hide');}
+
+let _reminderTimer=null;
+function saveReminder(){const t=document.getElementById('reminderTime').value;S.reminderTime=t;save();if(t)scheduleReminder(t);}
+function requestNotifications(){if(!('Notification' in window)){alert('Not supported');return;}Notification.requestPermission().then(p=>{if(p==='granted')alert('Notifications enabled');});}
+function scheduleReminder(t){
+  if(_reminderTimer){clearTimeout(_reminderTimer);_reminderTimer=null;}
+  if(!('Notification' in window)||Notification.permission!=='granted')return;
+  if(!t)return;
+  const [h,m]=t.split(':').map(Number);const now=new Date();const target=new Date();target.setHours(h,m,0,0);
+  if(target<=now)target.setDate(target.getDate()+1);
+  _reminderTimer=setTimeout(()=>{new Notification('Top 1% Finance',{body:dayTotalMin(dayKey())===0?'Nothing logged yet today.':'Keep your streak alive.'});scheduleReminder(t);},target-now);
+}
+
+function importCSV(e){
+  const f=e.target.files[0];if(!f)return;
+  const rd=new FileReader();
+  rd.onload=()=>{
+    try{
+      const text=rd.result;const lines=text.split(/\r?\n/).filter(l=>l.trim());
+      if(lines.length<2){alert('CSV appears empty');return;}
+      const all=allLib();const byTitle={};all.forEach(r=>{if(r.t)byTitle[r.t.toLowerCase().trim()]=r;});
+      let matched=0,added=0,statusUpdates=0,noteUpdates=0;const unmatched=[];
+      for(let i=1;i<lines.length;i++){
+        const cols=parseCSVLine(lines[i]);if(cols.length<4)continue;
+        const pillar=(cols[1]||'').trim();const category=(cols[2]||'').trim();const item=(cols[3]||'').trim();if(!item)continue;
+        const provider=(cols[4]||'').trim();const desc=(cols[5]||'').trim();const pri=(cols[6]||'').trim();const timeline=(cols[7]||'').trim();const cost=(cols[8]||'').trim();const status=(cols[9]||'').toLowerCase().trim();const notes=(cols[10]||'').trim();
+        const key=item.toLowerCase();const match=byTitle[key];
+        if(match){
+          matched++;
+          if(status.includes('complet')){S.completed[match.id]=true;statusUpdates++;}
+          else if(status.includes('progress')||status.includes('not started')){delete S.completed[match.id];statusUpdates++;}
+          if(notes && notes!==(S.notes[match.id]||'')){S.notes[match.id]=notes;noteUpdates++;}
+        }else{
+          const cat=PILLAR_TO_CAT[pillar]||detectCategory(pillar,category);
+          if(cat){
+            const newRes={id:'x'+Date.now()+'_'+i,pillar,cat,sub:category||'Custom',t:item,by:provider||'Custom',p:priClass(pri),d:desc||'Imported from CSV',u:'',timeline:timeline||'Custom',cost:cost||'Custom'};
+            S.custom.push(newRes);
+            if(status.includes('complet'))S.completed[newRes.id]=true;
+            if(notes)S.notes[newRes.id]=notes;
+            added++;
+          }else{unmatched.push(item+' (pillar: '+pillar+')');}
+        }
+      }
+      save();
+      let msg=`Import complete:\n✓ ${matched} matched and updated\n✓ ${added} new rows added\n✓ ${statusUpdates} status updates\n✓ ${noteUpdates} note updates`;
+      if(unmatched.length)msg+=`\n\n⚠ ${unmatched.length} could not be categorised:\n`+unmatched.slice(0,10).join('\n')+(unmatched.length>10?'\n…':'');
+      alert(msg);location.reload();
+    }catch(err){alert('Import failed: '+err.message);}
+  };
+  rd.readAsText(f);
+}
+function detectCategory(pillar,category){
+  const p=(pillar+' '+category).toLowerCase();
+  if(p.includes('book'))return 'Books';if(p.includes('youtube'))return 'YouTube';
+  if(p.includes('publication')||p.includes('article')||p.includes('newsletter'))return 'Publications';
+  if(p.includes('podcast'))return 'Podcasts';if(p.includes('certif')||p.includes('course'))return 'Certifications';
+  if(p.includes('technical')||p.includes('ifrs')||p.includes('compliance')||p.includes('regulatory'))return 'Technical';
+  if(p.includes('leadership')||p.includes('speaking')||p.includes('communication'))return 'Leadership';
+  if(p.includes('network'))return 'Networking';if(p.includes('tech')||p.includes(' ai '))return 'Tech & AI';
+  if(p.includes('habit'))return 'Habits';if(p.includes('career'))return 'Career';
+  if(p.includes('quick ref')||p.includes('reference'))return 'Reference';
+  if(p.includes('filing')||p.includes('edgar')||p.includes('statement'))return 'Filings & Statements';
+  return null;
+}
+function parseCSVLine(line){const result=[];let cur='';let inQ=false;for(let i=0;i<line.length;i++){const c=line[i];if(c==='"'){if(inQ&&line[i+1]==='"'){cur+='"';i++;continue;}inQ=!inQ;continue;}if(c===','&&!inQ){result.push(cur);cur='';continue;}cur+=c;}result.push(cur);return result;}
+
+function exportSessionLogCSV(){
+  const rows=[['Date','Resource','Category','Minutes','Focus','Note']];
+  const allDates=Object.keys(S.log).sort();
+  allDates.forEach(date=>{const rec=S.log[date];Object.keys(rec).forEach(id=>{const e=rec[id];const r=resourceInfo(id);rows.push([date,r?r.t:id,r?r.cat:'',entryMin(e),(typeof e==='object'&&e.focus)||'',(typeof e==='object'&&e.note)||'']);});});
+  if(rows.length===1){alert('No sessions logged yet.');return;}
+  const csv=rows.map(row=>row.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  download('session-log-'+dayKey()+'.csv',csv,'text/csv');
+}
+
+function calcStreak(){let s=0,d=new Date();if(dayCount(dayKey(d))===0)d.setDate(d.getDate()-1);while(dayCount(dayKey(d))>0){s++;d.setDate(d.getDate()-1);if(s>3650)break;}return s;}
+function longestStreak(){const days=Object.keys(S.log).filter(d=>dayCount(d)>0).sort();let best=0,cur=0,prev=null;for(const d of days){if(prev){const p=new Date(prev+'T00:00:00');p.setDate(p.getDate()+1);const exp=dayKey(p);cur=(exp===d)?cur+1:1;}else cur=1;if(cur>best)best=cur;prev=d;}return best;}
+
+const REPORT_TABS=[
+  {id:'master',label:'📊 Master Overview',render:renderMasterReport},
+  {id:'daily',label:'📅 Daily Activity',render:renderDailyReport},
+  {id:'weekly',label:'📈 Weekly Productivity',render:renderWeeklyReport},
+  {id:'monthly',label:'📆 Monthly Skill Mastery',render:renderMonthlyReport},
+  {id:'completion',label:'✅ Completion & Backlog',render:renderCompletionReport},
+  {id:'priority',label:'⭐ Priority Compliance',render:renderPriorityReport},
+  {id:'topics',label:'🎯 Topic & Knowledge Gap',render:renderTopicsReport},
+  {id:'habit',label:'🔥 Habit & Streak',render:renderHabitReport},
+  {id:'career',label:'🏆 Career & Certification',render:renderCareerReport},
+  {id:'networking',label:'🤝 Networking & Visibility',render:renderNetworkingReport},
+  {id:'notes',label:'📝 Notes & Takeaways',render:renderNotesReport},
+  {id:'audit',label:'🪞 30-Day Self-Audit',render:renderAuditReport},
+  {id:'history',label:'📋 Full Session History',render:renderHistoryReport},
+  {id:'resource',label:'🔍 Resource Detail',render:renderResourceDetailReport},
+  {id:'category',label:'🗂️ Category Deep Dive',render:renderCategoryDeepDive},
+  {id:'focus',label:'🎯 Pinned & Focus',render:renderFocusReport},
+  {id:'trends',label:'📉 Trends & Projections',render:renderTrendsReport},
+  {id:'achievements',label:'🏅 Achievements',render:renderAchievementsReport},
+  {id:'focus_quality',label:'⏱ Focus & Quality',render:renderFocusQualityReport},
+  {id:'backfill',label:'📅 Backfill Log',render:renderBackfillReport},
+  {id:'goal_alignment',label:'⚖️ Goal Alignment',render:renderGoalAlignmentReport}
+];
+function renderReports(){if(!S.activeReport)S.activeReport='master';document.getElementById('reportCats').innerHTML=REPORT_TABS.map(r=>`<button class="${S.activeReport===r.id?'on':''}" onclick="setReport('${r.id}')">${r.label}</button>`).join('');const r=REPORT_TABS.find(x=>x.id===S.activeReport)||REPORT_TABS[0];r.render();}
+function setReport(id){S.activeReport=id;save();renderReports();}
+
+function renderMasterReport(){const el=document.getElementById('reportContent');const sm=sessionMap();const list=allLib();let totalMin=0,totalSess=0;for(const id in sm){totalMin+=sm[id].min;totalSess+=sm[id].n;}const touched=Object.keys(sm).length;const done=Object.keys(S.completed).filter(id=>S.completed[id]).length;const days=Object.keys(S.log).filter(d=>dayCount(d)>0).length;const streak=calcStreak();const longest=longestStreak();const todayMin=dayTotalMin(dayKey());const catOrder=CATS.filter(c=>c!=='All');const catStats=catOrder.map(c=>{const items=list.filter(r=>r.cat===c);const tc=items.filter(r=>sm[r.id]&&sm[r.id].n>0).length;const dc=items.filter(r=>S.completed[r.id]).length;const sess=items.reduce((a,r)=>a+(sm[r.id]?sm[r.id].n:0),0);const mins=items.reduce((a,r)=>a+(sm[r.id]?sm[r.id].min:0),0);return {cat:c,total:items.length,touched:tc,done:dc,sessions:sess,mins};});const hm=[];let maxM=1;for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dayKey(d);const m=dayTotalMin(k);hm.push({date:k,min:m});if(m>maxM)maxM=m;}const top=Object.entries(sm).map(([id,v])=>({id,...v})).sort((a,b)=>b.min-a.min).slice(0,12);const statusCounts={0:0,1:0,2:0};const statusMap=buildStatusMap();allSheetRows().forEach(r=>{statusCounts[statusMap[r.id]||0]++;});const recentDays=Object.keys(S.log).filter(d=>dayCount(d)>0).sort().reverse().slice(0,10);el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Total Time',fmtMin(totalMin),totalSess+' sessions','var(--acc2)')}${kpiCard('Today',fmtMin(todayMin),dayCount(dayKey())+' resources')}${kpiCard('Streak',streak,'longest: '+longest,'var(--gold)')}${kpiCard('Active Days',days,'days with log')}${kpiCard('Library',touched+'/'+list.length,done+' finished')}</div><div class="grid g2" style="margin-bottom:14px"><div class="card"><h3>Category Breakdown</h3>${catStats.map(s=>{const pct=s.total?Math.round(s.touched/s.total*100):0;return `<div style="margin-bottom:11px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:4px"><span><b>${esc(s.cat)}</b> <span style="color:var(--dim)">${s.touched}/${s.total}</span></span><span style="color:var(--acc2);font-weight:700">${fmtMin(s.mins)} · ${s.sessions} sess</span></div><div class="bar thin"><i style="width:${pct}%"></i></div><div style="font-size:10.5px;color:var(--dim);margin-top:3px">${s.done} finished · ${pct}% touched</div></div>`;}).join('')}</div><div class="card"><h3>Last 30 Days</h3><div class="heat">${hm.map(h=>{const pct=h.min/maxM;const bg=h.min===0?'rgba(255,255,255,.05)':pct<0.34?'rgba(79,140,255,.4)':pct<0.67?'rgba(34,211,166,.55)':'rgba(34,211,166,1)';return `<div title="${h.date}: ${fmtMin(h.min)}" style="background:${bg}"></div>`;}).join('')}</div><div class="tiny" style="margin-top:10px">Peak: ${fmtMin(maxM)}</div></div></div><div class="grid g2" style="margin-bottom:14px"><div class="card"><h3>Top 12 Resources</h3>${top.length?top.map((t,i)=>{const r=list.find(x=>x.id===t.id);if(!r)return '';return `<div class="row" style="padding:7px 0;border-bottom:1px solid #1e2a4e;font-size:12.5px"><span style="color:var(--dim);width:18px;font-weight:700">${i+1}</span><span style="flex:1"><b>${esc(r.t)}</b><br><span style="color:var(--dim);font-size:11px">${esc(r.cat)} · ${t.n} day${t.n>1?'s':''}</span></span><b style="color:var(--gold)">${fmtMin(t.min)}</b></div>`;}).join(''):'<div class="empty">No sessions.</div>'}</div><div class="card"><h3>Status Summary</h3>${['Not Started','In Progress','Completed'].map((lbl,i)=>{const v=statusCounts[i]||0;const total=statusCounts[0]+statusCounts[1]+statusCounts[2];const pct=total?Math.round(v/total*100):0;const col=i===2?'var(--acc2)':i===1?'var(--warn)':'var(--dim)';return `<div style="margin-bottom:11px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:4px"><span>${lbl}</span><b style="color:${col}">${v} (${pct}%)</b></div><div class="bar thin"><i style="width:${pct}%;background:${col}"></i></div></div>`;}).join('')}<hr><div class="row"><button class="btn" onclick="exportSheetCSV()">⬇ CSV</button><button class="btn ghost" onclick="exportSessionLogCSV()">⬇ Sessions</button><button class="btn ghost" onclick="exportJSON()">⬇ JSON</button></div></div></div><div class="card"><h3>Recent Sessions</h3>${recentDays.map(k=>{const rec=S.log[k];const ids=Object.keys(rec);const total=ids.reduce((a,id)=>a+entryMin(rec[id]),0);return `<div style="padding:9px 0;border-bottom:1px solid #1e2a4e"><div class="row" style="justify-content:space-between;margin-bottom:5px"><b style="font-size:12.5px">${k}</b><span style="font-size:11.5px;color:var(--acc2);font-weight:700">${fmtMin(total)} · ${ids.length} item${ids.length>1?'s':''}</span></div><div style="display:flex;gap:5px;flex-wrap:wrap">${ids.map(id=>{const r=resourceInfo(id);if(!r)return '';return `<span style="background:rgba(255,255,255,.05);border:1px solid var(--line);padding:2px 9px;border-radius:99px;font-size:10.5px">${esc(r.t)} <b style="color:var(--gold)">${fmtMin(entryMin(rec[id]))}</b></span>`;}).join('')}</div></div>`;}).join('')||'<div class="empty">No sessions yet.</div>'}</div>`;}
+
+function renderDailyReport(){const el=document.getElementById('reportContent');const days=[];for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dayKey(d);days.push({date:k,min:dayTotalMin(k),count:dayCount(k),resources:Object.keys(S.log[k]||{})});}const activeDays=days.filter(d=>d.min>0);const totalMin=days.reduce((a,d)=>a+d.min,0);const avgMin=activeDays.length?Math.round(totalMin/activeDays.length):0;const today=days[days.length-1];const thisWeek=days.filter(d=>isoWeek(d.date)===isoWeek(dayKey())).reduce((a,d)=>a+d.min,0);const thisMonth=days.filter(d=>monthOf(d.date)===monthOf(dayKey())).reduce((a,d)=>a+d.min,0);el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('30-Day Total',fmtMin(totalMin),activeDays.length+' active days')}${kpiCard('Today',fmtMin(today.min),today.count+' resources','var(--gold)')}${kpiCard('This Week',fmtMin(thisWeek),isoWeek(dayKey()))}${kpiCard('This Month',fmtMin(thisMonth),monthOf(dayKey()))}${kpiCard('Daily Avg',fmtMin(avgMin),'per active day','var(--acc2)')}</div><div class="card" style="margin-bottom:14px"><h3>Daily Minutes — Last 30 Days</h3>${svgLine(days.map(d=>d.min),'#22d3a6')}<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:6px"><span>${days[0].date}</span><span>${days[days.length-1].date}</span></div></div><div class="card"><h3>Day-by-Day</h3><table class="report-table"><thead><tr><th>Date</th><th>Weekday</th><th>Minutes</th><th>Resources</th><th>Details</th></tr></thead><tbody>${days.slice().reverse().filter(d=>d.min>0).map(d=>{const wd=new Date(d.date+'T00:00:00').toLocaleDateString('en',{weekday:'short'});const resNames=d.resources.map(id=>{const r=resourceInfo(id);return r?r.t:id;}).join(', ');return `<tr><td style="font-weight:700">${d.date}${d.date===dayKey()?' <span style="color:var(--acc2);font-size:10px">TODAY</span>':''}</td><td style="color:var(--mut)">${wd}</td><td style="color:var(--gold);font-weight:700">${fmtMin(d.min)}</td><td>${d.count}</td><td style="color:var(--mut);font-size:11.5px">${resNames}</td></tr>`;}).join('')||'<tr><td colspan="5"><div class="empty">No activity.</div></td></tr>'}</tbody></table></div>`;}
+
+function renderWeeklyReport(){const el=document.getElementById('reportContent');const weeks={};Object.keys(S.log).filter(d=>dayCount(d)>0).forEach(d=>{const wk=isoWeek(d);if(!weeks[wk])weeks[wk]={min:0,days:new Set(),sessions:0,cats:{}};weeks[wk].min+=dayTotalMin(d);weeks[wk].days.add(d);const rec=S.log[d]||{};Object.keys(rec).forEach(id=>{weeks[wk].sessions++;const r=resourceInfo(id);if(r)weeks[wk].cats[r.cat]=(weeks[wk].cats[r.cat]||0)+entryMin(rec[id]);});});const now=new Date();const wkList=[];for(let i=11;i>=0;i--){const d=new Date(now);d.setDate(d.getDate()-i*7);wkList.push(isoWeek(dayKey(d)));}const uniq=[...new Set(wkList)];const thisWk=isoWeek(dayKey());const lastWkDate=new Date();lastWkDate.setDate(lastWkDate.getDate()-7);const lastWk=isoWeek(dayKey(lastWkDate));const thisMin=weeks[thisWk]?weeks[thisWk].min:0;const lastMin=weeks[lastWk]?weeks[lastWk].min:0;const change=lastMin?Math.round((thisMin-lastMin)/lastMin*100):(thisMin?100:0);const weeklyData=uniq.map(w=>weeks[w]?weeks[w].min:0);el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('This Week',fmtMin(thisMin),thisWk)}${kpiCard('Last Week',fmtMin(lastMin),lastWk)}${kpiCard('WoW Change',(change>=0?'+':'')+change+'%',change>=0?'growing':'declining',change>=0?'var(--acc2)':'var(--bad)')}${kpiCard('Sessions',weeks[thisWk]?weeks[thisWk].sessions:0,'this week')}${kpiCard('Active Days',weeks[thisWk]?weeks[thisWk].days.size:0,'this week','var(--gold)')}</div><div class="card" style="margin-bottom:14px"><h3>Weekly Minutes</h3>${svgLine(weeklyData,'#4f8cff')}<div style="display:grid;grid-template-columns:repeat(${uniq.length},1fr);gap:6px;font-size:9px;color:var(--dim);margin-top:6px;text-align:center">${uniq.map(w=>`<span>${w.split('-')[1]}</span>`).join('')}</div></div><div class="card"><h3>Week-by-Week</h3><table class="report-table"><thead><tr><th>Week</th><th>Minutes</th><th>Active Days</th><th>Sessions</th><th>Top Cat</th></tr></thead><tbody>${uniq.slice().reverse().filter(w=>weeks[w]).map(w=>{const wk=weeks[w];const topCat=Object.entries(wk.cats).sort((a,b)=>b[1]-a[1])[0];return `<tr><td style="font-weight:700">${w}${w===thisWk?' <span style="color:var(--acc2);font-size:10px">THIS</span>':''}</td><td style="color:var(--gold);font-weight:700">${fmtMin(wk.min)}</td><td>${wk.days.size}</td><td>${wk.sessions}</td><td style="color:var(--mut);font-size:12px">${topCat?topCat[0]:'—'}</td></tr>`;}).join('')||'<tr><td colspan="5"><div class="empty">No weeks.</div></td></tr>'}</tbody></table></div>`;}
+
+function renderMonthlyReport(){const el=document.getElementById('reportContent');const months={};Object.keys(S.log).filter(d=>dayCount(d)>0).forEach(d=>{const m=monthOf(d);if(!months[m])months[m]={min:0,days:new Set(),sessions:0,cats:{}};months[m].min+=dayTotalMin(d);months[m].days.add(d);const rec=S.log[d]||{};Object.keys(rec).forEach(id=>{months[m].sessions++;const r=resourceInfo(id);if(r)months[m].cats[r.cat]=(months[m].cats[r.cat]||0)+entryMin(rec[id]);});});const now=new Date();const mList=[];for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);mList.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'));}const thisM=monthOf(dayKey());const lastMDate=new Date(now.getFullYear(),now.getMonth()-1,1);const lastM=lastMDate.getFullYear()+'-'+String(lastMDate.getMonth()+1).padStart(2,'0');const thisData=months[thisM]||{min:0,days:new Set(),sessions:0,cats:{}};const lastData=months[lastM]||{min:0,days:new Set(),sessions:0,cats:{}};const change=lastData.min?Math.round((thisData.min-lastData.min)/lastData.min*100):(thisData.min?100:0);const velocity=thisData.days.size?Math.round(thisData.min/thisData.days.size):0;const lastVelocity=lastData.days.size?Math.round(lastData.min/lastData.days.size):0;const velChange=lastVelocity?Math.round((velocity-lastVelocity)/lastVelocity*100):0;const monthlyData=mList.map(m=>months[m]?months[m].min:0);el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('This Month',fmtMin(thisData.min),thisM)}${kpiCard('Last Month',fmtMin(lastData.min),lastM)}${kpiCard('MoM Change',(change>=0?'+':'')+change+'%',change>=0?'accelerating':'slowing',change>=0?'var(--acc2)':'var(--bad)')}${kpiCard('Velocity',fmtMin(velocity)+'/day',velChange>=0?'↑ '+velChange+'%':'↓ '+Math.abs(velChange)+'%','var(--gold)')}${kpiCard('Sessions',thisData.sessions,'this month','var(--acc2)')}</div><div class="card" style="margin-bottom:14px"><h3>Monthly Minutes</h3>${svgLine(monthlyData,'#ffd166')}<div style="display:grid;grid-template-columns:repeat(${mList.length},1fr);gap:8px;font-size:10px;color:var(--dim);margin-top:6px;text-align:center">${mList.map(m=>`<span>${m}</span>`).join('')}</div></div><div class="card"><h3>Category Mix</h3>${Object.keys(thisData.cats).length?Object.entries(thisData.cats).sort((a,b)=>b[1]-a[1]).map(([cat,min])=>{const pct=Math.round(min/thisData.min*100);return `<div style="margin-bottom:10px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:3px"><b>${esc(cat)}</b><span style="color:var(--gold);font-weight:700">${fmtMin(min)} · ${pct}%</span></div><div class="bar thin"><i style="width:${pct}%"></i></div></div>`;}).join(''):'<div class="empty">No logs this month.</div>'}</div>`;}
+
+function renderCompletionReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();let ns=0,ip=0,done=0;list.forEach(r=>{const s=statusFor(r.id,sm);if(s===0)ns++;else if(s===1)ip++;else done++;});const total=list.length;const pct=Math.round(done/total*100);const catOrder=CATS.filter(c=>c!=='All');const catStatus={};catOrder.forEach(c=>{const items=list.filter(r=>r.cat===c);const s={n:0,ns:0,ip:0,done:0};items.forEach(r=>{s.n++;const st=statusFor(r.id,sm);if(st===0)s.ns++;else if(st===1)s.ip++;else s.done++;});catStatus[c]=s;});const backlog=list.filter(r=>statusFor(r.id,sm)===0);const backlogByPri={must:[],ess:[],high:[],rec:[],med:[]};backlog.forEach(r=>{if(backlogByPri[r.p])backlogByPri[r.p].push(r);});el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Total',total,'all categories')}${kpiCard('Not Started',ns,Math.round(ns/total*100)+'%','var(--dim)')}${kpiCard('In Progress',ip,Math.round(ip/total*100)+'%','var(--warn)')}${kpiCard('Completed',done,Math.round(done/total*100)+'%','var(--acc2)')}${kpiCard('Progress',pct+'%','completion','var(--gold)')}</div><div class="card" style="margin-bottom:14px"><h3>By Category</h3>${catOrder.map(c=>{const s=catStatus[c];const pDone=s.n?Math.round(s.done/s.n*100):0;const pIP=s.n?Math.round(s.ip/s.n*100):0;return `<div style="margin-bottom:12px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:5px"><b>${esc(c)}</b><span style="color:var(--mut);font-size:11.5px">${s.done}/${s.n} · ${s.ip} active · ${s.ns} not started</span></div><div style="display:flex;height:8px;border-radius:99px;overflow:hidden;border:1px solid #1e2a4e;background:#0a1024"><div style="width:${pDone}%;background:var(--acc2)"></div><div style="width:${pIP}%;background:var(--warn)"></div></div></div>`;}).join('')}</div><div class="card"><h3>Backlog by Priority</h3>${Object.entries(backlogByPri).map(([pri,items])=>{if(!items.length)return '';return `<div style="margin-bottom:16px"><div class="row" style="margin-bottom:8px"><span class="chip p-${pri}">${priLabel(pri)}</span><span style="color:var(--mut);font-size:12px">${items.length} items</span></div>${items.slice(0,8).map(r=>`<div style="padding:6px 10px;border-left:2px solid var(--line);margin-bottom:4px;font-size:12.5px"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.by)}</span><span style="color:var(--dim);font-size:11px"> · ${esc(r.cat)}</span></div>`).join('')}${items.length>8?`<div style="font-size:11px;color:var(--dim);padding:4px 10px">… +${items.length-8} more</div>`:''}</div>`;}).join('')||'<div class="empty">No backlog!</div>'}</div>`;}
+
+function renderPriorityReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();const prior=['must','ess','high','rec','med'];const stats=prior.map(p=>{const items=list.filter(r=>r.p===p);const ns=items.filter(r=>statusFor(r.id,sm)===0).length;const ip=items.filter(r=>statusFor(r.id,sm)===1).length;const done=items.filter(r=>statusFor(r.id,sm)===2).length;return {pri:p,label:priLabel(p),total:items.length,ns,ip,done,items};});const mustStats=stats.find(s=>s.pri==='must');const mustCompliance=mustStats.total?Math.round(mustStats.done/mustStats.total*100):0;el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Must-Read',mustStats.total,'highest priority')}${kpiCard('Must Done',mustStats.done,mustCompliance+'%','var(--acc2)')}${kpiCard('In Progress',mustStats.ip,'active','var(--warn)')}${kpiCard('Backlog',mustStats.ns,'not started',mustStats.ns?'var(--bad)':'var(--acc2)')}${kpiCard('Compliance',mustCompliance+'%','Must completion',mustCompliance>=60?'var(--acc2)':mustCompliance>=30?'var(--warn)':'var(--bad)')}</div><div class="card" style="margin-bottom:14px"><h3>All Priorities</h3>${stats.map(s=>{const pDone=s.total?Math.round(s.done/s.total*100):0;const pIP=s.total?Math.round(s.ip/s.total*100):0;return `<div style="margin-bottom:12px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:5px"><b>${s.label}</b><span style="color:var(--mut);font-size:11.5px">${s.done}/${s.total} · ${s.ip} active · ${s.ns} not started</span></div><div style="display:flex;height:8px;border-radius:99px;overflow:hidden;border:1px solid #1e2a4e;background:#0a1024"><div style="width:${pDone}%;background:var(--acc2)"></div><div style="width:${pIP}%;background:var(--warn)"></div></div></div>`;}).join('')}</div><div class="card"><h3>Must-Read Checklist</h3>${mustStats.items.map(r=>{const s=statusFor(r.id,sm);const cls=s===2?'st-2':s===1?'st-1':'st-0';return `<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid #1a2444;font-size:12.5px"><span class="st ${cls}" style="font-size:10px;min-width:80px;text-align:center">${statusTxt(s)}</span><span style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.by)}</span></span><span style="color:var(--dim);font-size:11px">${esc(r.cat)}</span></div>`;}).join('')}</div>`;}
+
+function renderTopicsReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();const catOrder=CATS.filter(c=>c!=='All');const stats=catOrder.map(c=>{const items=list.filter(r=>r.cat===c);const total=items.length;const touched=items.filter(r=>sm[r.id]&&sm[r.id].n>0).length;const completed=items.filter(r=>S.completed[r.id]).length;const totalMin=items.reduce((a,r)=>a+(sm[r.id]?sm[r.id].min:0),0);const mustItems=items.filter(r=>r.p==='must');const mustDone=mustItems.filter(r=>S.completed[r.id]).length;return {cat:c,total,touched,completed,totalMin,mustCount:mustItems.length,mustDone};});const allMin=stats.reduce((a,s)=>a+s.totalMin,0);const gaps=stats.filter(s=>s.total>3&&s.touched/s.total<0.2);el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Categories',catOrder.length,'all')}${kpiCard('Touched',stats.filter(s=>s.touched>0).length,'at least 1','var(--acc2)')}${kpiCard('Gaps',gaps.length,'<20% touched',gaps.length?'var(--warn)':'var(--acc2)')}${kpiCard('Total Time',fmtMin(allMin),'all')}${kpiCard('Avg/Cat',fmtMin(Math.round(allMin/catOrder.length)),'minutes')}</div><div class="card" style="margin-bottom:14px"><h3>Time Distribution</h3>${stats.sort((a,b)=>b.totalMin-a.totalMin).map(s=>{const pct=allMin?Math.round(s.totalMin/allMin*100):0;return `<div style="margin-bottom:10px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:3px"><b>${esc(s.cat)}</b><span style="color:var(--gold)">${fmtMin(s.totalMin)} · ${pct}%</span></div><div class="bar thin"><i style="width:${pct}%"></i></div></div>`;}).join('')}</div><div class="card" style="margin-bottom:14px"><h3>Coverage %</h3>${catOrder.map(c=>{const s=stats.find(x=>x.cat===c);const pct=s.total?Math.round(s.touched/s.total*100):0;const color=pct>=60?'var(--acc2)':pct>=25?'var(--warn)':'var(--bad)';return `<div style="margin-bottom:10px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:3px"><b>${esc(c)}</b><span style="color:${color}">${s.touched}/${s.total} · ${pct}%</span></div><div class="bar thin"><i style="width:${pct}%;background:${color}"></i></div></div>`;}).join('')}</div>${gaps.length?`<div class="card" style="border-color:rgba(255,176,32,.4)"><h3 style="color:var(--warn)">⚠ Gaps</h3>${gaps.map(g=>`<div style="padding:10px 12px;border-left:3px solid var(--warn);background:rgba(255,176,32,.05);border-radius:8px;margin-bottom:8px"><b>${esc(g.cat)}</b> — ${g.touched}/${g.total} touched</div>`).join('')}</div>`:''}`;}
+
+function renderHabitReport(){const el=document.getElementById('reportContent');const streak=calcStreak();const longest=longestStreak();const cells=[];for(let i=89;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dayKey(d);cells.push({date:k,min:dayTotalMin(k)});}const maxM=Math.max(...cells.map(c=>c.min),1);const dow=[0,0,0,0,0,0,0],dowActive=[0,0,0,0,0,0,0];Object.keys(S.log).forEach(d=>{const dt=new Date(d+'T00:00:00');const wd=dt.getDay();dow[wd]+=dayTotalMin(d);if(dayTotalMin(d)>0)dowActive[wd]++;});const dowNames=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];const maxDow=Math.max(...dow,1);const last90=cells.filter(c=>c.min>0).length;const consistency=Math.round(last90/90*100);const list=allLib();const sm=sessionMap();const cats=CATS.filter(c=>c!=='All');const strength=cats.map(c=>{const items=list.filter(r=>r.cat===c);if(!items.length)return {cat:c,score:0};let total=0;items.forEach(r=>{if(!sm[r.id])return;const days=sm[r.id].n;const recency=Math.max(0,1-(new Date()-new Date(sm[r.id].last+'T00:00:00'))/(30*86400000));const freq=Math.min(1,days/20);const minRatio=Math.min(1,sm[r.id].min/300);total+=(recency*0.4+freq*0.4+minRatio*0.2);});const score=Math.round(total/items.length*100);return {cat:c,score};});el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Current Streak',streak,streak>0?'active':'reset',streak>0?'var(--acc2)':'var(--dim)')}${kpiCard('Longest',longest,'personal best','var(--gold)')}${kpiCard('Consistency',consistency+'%',last90+'/90 days',consistency>=60?'var(--acc2)':consistency>=30?'var(--warn)':'var(--bad)')}${kpiCard('Last 7',fmtMin(cells.slice(-7).reduce((a,c)=>a+c.min,0)),'minutes')}${kpiCard('Last 30',fmtMin(cells.slice(-30).reduce((a,c)=>a+c.min,0)),'minutes')}</div><div class="card" style="margin-bottom:14px"><h3>Habit Strength</h3><p class="sub">Recency × frequency × depth</p>${strength.map(s=>{const color=s.score>=60?'var(--acc2)':s.score>=30?'var(--warn)':'var(--bad)';return `<div style="margin-bottom:10px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:3px"><b>${esc(s.cat)}</b><span style="color:${color};font-weight:700">${s.score}%</span></div><div class="bar thin"><i style="width:${s.score}%;background:${color}"></i></div></div>`;}).join('')}</div><div class="card" style="margin-bottom:14px"><h3>90-Day Heatmap</h3><div style="display:grid;grid-template-columns:repeat(15,1fr);gap:4px">${cells.map(c=>{const pct=c.min/maxM;const bg=c.min===0?'rgba(255,255,255,.05)':pct<0.33?'rgba(79,140,255,.4)':pct<0.67?'rgba(34,211,166,.6)':'rgba(34,211,166,1)';return `<div title="${c.date}: ${fmtMin(c.min)}" style="aspect-ratio:1;border-radius:4px;background:${bg}"></div>`;}).join('')}</div></div><div class="card"><h3>Day of Week</h3>${dowNames.map((n,i)=>{const pct=Math.round(dow[i]/maxDow*100);return `<div style="margin-bottom:9px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:3px"><b>${n}</b><span style="color:var(--gold)">${fmtMin(dow[i])} · ${dowActive[i]} active</span></div><div class="bar thin"><i style="width:${pct}%"></i></div></div>`;}).join('')}</div>`;}
+
+function renderCareerReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();const allRows=allSheetRows();const certs=list.filter(r=>r.cat==='Certifications');const certDone=certs.filter(r=>S.completed[r.id]).length;const certPct=certs.length?Math.round(certDone/certs.length*100):0;const certMin=certs.reduce((a,r)=>a+(sm[r.id]?sm[r.id].min:0),0);const careerItems=allRows.filter(r=>r.pillar==='11. CAREER');const milestoneItems=careerItems.filter(r=>r.cat&&r.cat.includes('11A'));const actionItems=careerItems.filter(r=>r.cat&&r.cat.includes('11B'));const milestoneDone=milestoneItems.filter(r=>S.completed[r.id]).length;const actionDone=actionItems.filter(r=>S.completed[r.id]).length;const mustCerts=certs.filter(r=>r.p==='must');const mustCertDone=mustCerts.filter(r=>S.completed[r.id]).length;const readiness=Math.round(((mustCerts.length?mustCertDone/mustCerts.length:0)*40+(milestoneItems.length?milestoneDone/milestoneItems.length:0)*30+(actionItems.length?actionDone/actionItems.length:0)*30));el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Readiness',readiness+'%','weighted',readiness>=60?'var(--acc2)':readiness>=30?'var(--warn)':'var(--bad)')}${kpiCard('Certs',certDone+'/'+certs.length,certPct+'%')}${kpiCard('Cert Time',fmtMin(certMin),'invested')}${kpiCard('Milestones',milestoneDone+'/'+milestoneItems.length,'career')}${kpiCard('Actions',actionDone+'/'+actionItems.length,'leverage','var(--gold)')}</div><div class="card" style="margin-bottom:14px"><h3>🏆 Certifications</h3>${certs.map(r=>{const s=statusFor(r.id,sm);const sess=sm[r.id];const cls=s===2?'st-2':s===1?'st-1':'st-0';return `<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid #1a2444;font-size:12.5px"><span class="st ${cls}" style="font-size:10px;min-width:80px;text-align:center">${statusTxt(s)}</span><span style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.by)}</span></span><span class="chip p-${r.p}" style="font-size:9.5px">${priLabel(r.p)}</span><span style="color:var(--gold);font-size:11px;min-width:60px;text-align:right">${sess?fmtMin(sess.min):'—'}</span></div>`;}).join('')}</div><div class="grid g2"><div class="card"><h3>🚀 Milestones</h3>${milestoneItems.map(r=>{const s=S.completed[r.id]?2:0;const cls=s===2?'st-2':'st-0';return `<div style="padding:9px 10px;border-bottom:1px solid #1a2444"><div class="row" style="justify-content:space-between;margin-bottom:3px"><span class="st ${cls}" style="font-size:10px">${s===2?'✓ Done':'Pending'}</span><span style="font-size:11px;color:var(--dim)">${esc(r.timeline)}</span></div><div style="font-size:12.5px;font-weight:700">${esc(r.item)}</div><div style="font-size:11px;color:var(--mut);margin-top:2px">${esc(r.desc)}</div></div>`;}).join('')}</div><div class="card"><h3>⚡ Leverage Actions</h3>${actionItems.map(r=>{const s=S.completed[r.id]?2:(sm[r.id]?1:0);const cls=s===2?'st-2':s===1?'st-1':'st-0';return `<div style="display:flex;gap:10px;align-items:center;padding:8px 10px;border-bottom:1px solid #1a2444;font-size:12.5px"><span class="st ${cls}" style="font-size:10px">${s===2?'✓':s===1?'…':'○'}</span><span style="flex:1"><b>${esc(r.item)}</b><br><span style="color:var(--mut);font-size:11px">${esc(r.desc)}</span></span></div>`;}).join('')}</div></div>`;}
+
+function renderNetworkingReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();const netItems=list.filter(r=>r.cat==='Networking');const linkedinItems=netItems.filter(r=>(r.sub||'').toLowerCase().includes('linkedin')||r.t.toLowerCase().includes('linkedin'));const netMin=netItems.reduce((a,r)=>a+(sm[r.id]?sm[r.id].min:0),0);const netDone=netItems.filter(r=>S.completed[r.id]).length;const netTouched=netItems.filter(r=>sm[r.id]&&sm[r.id].n>0).length;const liMin=linkedinItems.reduce((a,r)=>a+(sm[r.id]?sm[r.id].min:0),0);const liTouched=linkedinItems.filter(r=>sm[r.id]&&sm[r.id].n>0).length;const totalMin=Object.values(sm).reduce((a,v)=>a+v.min,0);const netPct=totalMin?Math.round(netMin/totalMin*100):0;el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Networking',fmtMin(netMin),netPct+'% of all','var(--gold)')}${kpiCard('Engaged',netTouched+'/'+netItems.length,'networking')}${kpiCard('LinkedIn',fmtMin(liMin),liTouched+'/'+linkedinItems.length+' touched')}${kpiCard('Completed',netDone,'marked finished','var(--acc2)')}${kpiCard('Visibility',netPct+'%','of learning')}</div><div class="card" style="margin-bottom:14px"><h3>Breakdown</h3>${netItems.sort((a,b)=>(sm[b.id]?sm[b.id].min:0)-(sm[a.id]?sm[a.id].min:0)).map(r=>{const sess=sm[r.id];const min=sess?sess.min:0;const pct=netMin?Math.round(min/netMin*100):0;const s=statusFor(r.id,sm);const cls=s===2?'st-2':s===1?'st-1':'st-0';return `<div style="padding:8px 0;border-bottom:1px solid #1a2444"><div class="row" style="justify-content:space-between;margin-bottom:4px;font-size:12.5px"><div style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.by)}</span></div><span class="st ${cls}" style="font-size:10px">${statusTxt(s)}</span><span style="color:var(--gold);font-size:11.5px;min-width:60px;text-align:right">${min?fmtMin(min):'—'}</span></div>${min?`<div class="bar thin"><i style="width:${pct}%;background:var(--gold)"></i></div>`:''}</div>`;}).join('')}</div><div class="card" style="border-color:rgba(79,140,255,.35)"><h3>💡 Visibility Playbook</h3><div class="tiny" style="line-height:1.9"><b style="color:var(--txt)">Weekly (30 min):</b> Post one LinkedIn insight<br><b style="color:var(--txt)">Weekly (20 min):</b> Comment on 3–5 CFO posts<br><b style="color:var(--txt)">Monthly:</b> Attend one CIMA or Toastmasters<br><b style="color:var(--txt)">Quarterly:</b> One external talk<br><b style="color:var(--txt)">Ongoing:</b> 3–5 personalised LinkedIn requests per week</div></div>`;}
+
+function renderNotesReport(){const el=document.getElementById('reportContent');const rows=allSheetRows();const withNotes=rows.filter(r=>S.notes[r.id]&&S.notes[r.id].trim());const sm=sessionMap();const catCoverage={};withNotes.forEach(r=>{catCoverage[r.cat]=(catCoverage[r.cat]||0)+1;});el.innerHTML=`<div class="grid g4" style="margin-bottom:14px">${kpiCard('Total Notes',withNotes.length,'with notes')}${kpiCard('Categories',Object.keys(catCoverage).length,'covered')}${kpiCard('Note Rate',Math.round(withNotes.length/rows.length*100)+'%','of all')}${kpiCard('Coverage',Object.keys(catCoverage).length===CATS.length-1?'Full':'Partial','categories','var(--gold)')}</div><div class="card"><h3>All Notes</h3><div class="row" style="margin-bottom:12px"><input type="search" id="notesSearch" placeholder="Search…" oninput="filterNotesReport()" style="max-width:400px"><select id="notesCatFilter" onchange="filterNotesReport()" style="max-width:200px"><option value="">All</option>${CATS.filter(c=>c!=='All').map(c=>`<option>${esc(c)}</option>`).join('')}</select></div><div id="notesList">${renderNotesList(withNotes,sm)}</div></div>`;}
+function renderNotesList(items,sm){if(!items.length)return '<div class="empty">No notes yet.</div>';return items.sort((a,b)=>{const la=sm[a.id]?sm[a.id].last:'';const lb=sm[b.id]?sm[b.id].last:'';return lb.localeCompare(la);}).map(r=>{const sess=sm[r.id];const cls=priClass(r.pri);return `<div style="background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-bottom:8px"><div class="row" style="justify-content:space-between;margin-bottom:6px"><div><b style="font-size:13.5px">${esc(r.item)}</b><span style="color:var(--mut);font-size:12px"> — ${esc(r.provider)}</span></div><span class="chip p-${cls}">${esc(r.pri)}</span></div><div style="font-size:11px;color:var(--dim);margin-bottom:8px">${esc(r.cat)}${sess?' · '+fmtMin(sess.min)+' logged · last '+esc(sess.last):''}</div><div style="background:#0a1024;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:12.5px;color:#c3cdf0;white-space:pre-wrap">${esc(S.notes[r.id])}</div></div>`;}).join('');}
+function filterNotesReport(){const q=(document.getElementById('notesSearch').value||'').toLowerCase();const cat=document.getElementById('notesCatFilter').value;const list=allSheetRows().filter(r=>S.notes[r.id]&&S.notes[r.id].trim());const sm=sessionMap();const filtered=list.filter(r=>{if(cat&&r.cat!==cat)return false;if(q&&!(S.notes[r.id]||'').toLowerCase().includes(q)&&!r.item.toLowerCase().includes(q))return false;return true;});document.getElementById('notesList').innerHTML=renderNotesList(filtered,sm);}
+
+function renderAuditReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();const cells=[];let totalMin=0,activeDays=0,sessions=0;const cats={},resources={},missedDays=[];for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dayKey(d);const m=dayTotalMin(k);const rec=S.log[k]||{};const res=Object.keys(rec);cells.push({date:k,min:m});totalMin+=m;if(m>0)activeDays++;else missedDays.push(k);sessions+=res.length;res.forEach(id=>{resources[id]=(resources[id]||0)+entryMin(rec[id]);const r=resourceInfo(id);if(r)cats[r.cat]=(cats[r.cat]||0)+entryMin(rec[id]);});}const avgDay=activeDays?Math.round(totalMin/activeDays):0;const streak=calcStreak();const topCats=Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,5);const topRes=Object.entries(resources).sort((a,b)=>b[1]-a[1]).slice(0,5);const cutoff=new Date();cutoff.setDate(cutoff.getDate()-30);const cutoffStr=dayKey(cutoff);const completedIn30=Object.keys(S.completed).filter(id=>S.completed[id]&&sm[id]&&sm[id].last>=cutoffStr).length;el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('30-Day Time',fmtMin(totalMin),'total','var(--acc2)')}${kpiCard('Active Days',activeDays+'/30',activeDays>=20?'great':activeDays>=10?'okay':'low',activeDays>=20?'var(--acc2)':activeDays>=10?'var(--warn)':'var(--bad)')}${kpiCard('Avg/Day',fmtMin(avgDay),'per active')}${kpiCard('Sessions',sessions,'total')}${kpiCard('Completions',completedIn30,'this period','var(--gold)')}</div><div class="card" style="margin-bottom:14px"><h3>📊 30-Day Reflection</h3>${svgLine(cells.map(c=>c.min),'#22d3a6')}<div class="row" style="gap:20px;font-size:12.5px;color:var(--mut);margin-top:10px"><span><b style="color:var(--acc2)">${activeDays}</b> active</span><span><b style="color:var(--bad)">${missedDays.length}</b> missed</span><span>Streak: <b style="color:var(--gold)">${streak}</b></span></div><div class="grid g2" style="margin-top:14px"><div><h3 style="font-size:13px;margin-bottom:8px">🎯 Top Categories</h3>${topCats.length?topCats.map(([cat,min])=>{const pct=Math.round(min/totalMin*100);return `<div style="margin-bottom:8px"><div class="row" style="justify-content:space-between;font-size:12px;margin-bottom:2px"><span>${esc(cat)}</span><b style="color:var(--gold)">${fmtMin(min)}</b></div><div class="bar thin"><i style="width:${pct}%"></i></div></div>`;}).join(''):'<div class="tiny">No activity.</div>'}</div><div><h3 style="font-size:13px;margin-bottom:8px">📚 Top Resources</h3>${topRes.length?topRes.map(([id,min])=>{const r=resourceInfo(id);if(!r)return '';return `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #1a2444;font-size:12px"><span><b>${esc(r.t)}</b><br><span style="color:var(--dim);font-size:10.5px">${esc(r.cat)}</span></span><b style="color:var(--gold)">${fmtMin(min)}</b></div>`;}).join(''):'<div class="tiny">No activity.</div>'}</div></div></div><div class="card" style="border-color:rgba(34,211,166,.35)"><h3>🪞 Self-Audit Questions</h3><div class="tiny" style="line-height:2">1. <b style="color:var(--txt)">Highest-leverage thing in the last 30 days?</b><br>2. <b style="color:var(--txt)">Which category got neglected?</b><br>3. <b style="color:var(--txt)">Did you finish anything you started?</b><br>4. <b style="color:var(--txt)">One habit to keep?</b><br>5. <b style="color:var(--txt)">One habit to drop?</b><br>6. <b style="color:var(--txt)">ONE thing in the next 30 days that moves your career most?</b><br>7. <b style="color:var(--txt)">Applied any insight at work this month?</b><br>8. <b style="color:var(--txt)">What would your future CFO self say?</b></div>${missedDays.length?`<hr><div class="tiny"><b style="color:var(--bad)">Missed:</b> ${missedDays.map(d=>`<span style="background:rgba(255,93,108,.15);padding:2px 8px;border-radius:6px;margin:2px;display:inline-block;font-size:11px">${d}</span>`).join('')}</div>`:''}</div>`;}
+
+function renderHistoryReport(){const el=document.getElementById('reportContent');const days=Object.keys(S.log).filter(d=>dayCount(d)>0).sort().reverse();const categories=CATS.filter(c=>c!=='All');el.innerHTML=`<div class="card"><h3>📋 Full Session History</h3><div class="row" style="margin-bottom:12px"><input type="search" id="histSearch" placeholder="Search…" oninput="filterHistory()" style="max-width:350px"><select id="histCat" onchange="filterHistory()" style="max-width:200px"><option value="">All</option>${categories.map(c=>`<option>${esc(c)}</option>`).join('')}</select><span class="pill" id="histCount">${days.length} days</span></div><div id="histList">${renderHistoryList(days)}</div></div>`;}
+function renderHistoryList(days){if(!days.length)return '<div class="empty">No history yet.</div>';return days.map(k=>{const rec=S.log[k];const ids=Object.keys(rec);const total=ids.reduce((a,id)=>a+entryMin(rec[id]),0);const wd=new Date(k+'T00:00:00').toLocaleDateString('en',{weekday:'long'});return `<div style="padding:12px 0;border-bottom:1px solid #1a2444"><div class="row" style="justify-content:space-between;margin-bottom:6px"><div><b style="font-size:13.5px">${k}</b> <span style="color:var(--dim);font-size:11.5px">${wd}</span></div><span style="font-size:12px;color:var(--acc2);font-weight:700">${fmtMin(total)} · ${ids.length} item${ids.length>1?'s':''}</span></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px">${ids.map(id=>{const r=resourceInfo(id);if(!r)return '';const e=rec[id];const focus=typeof e==='object'&&e.focus?` · Focus ${e.focus}/5`:'';const note=typeof e==='object'&&e.note?` · "${esc(e.note)}"`:'';return `<div style="background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:11.5px"><b style="color:var(--txt)">${esc(r.t)}</b><div class="row" style="justify-content:space-between;margin-top:3px;font-size:10.5px;color:var(--dim)"><span>${esc(r.cat)}${focus}${note}</span><b style="color:var(--gold)">${fmtMin(entryMin(e))}</b></div></div>`;}).join('')}</div></div>`;}).join('');}
+function filterHistory(){const q=(document.getElementById('histSearch').value||'').toLowerCase();const cat=document.getElementById('histCat').value;const days=Object.keys(S.log).filter(d=>dayCount(d)>0).sort().reverse();const filtered=days.filter(k=>{const rec=S.log[k];return Object.keys(rec).some(id=>{const r=resourceInfo(id);if(!r)return false;if(cat&&r.cat!==cat)return false;if(q&&!r.t.toLowerCase().includes(q))return false;return true;});});document.getElementById('histCount').textContent=filtered.length+' days';document.getElementById('histList').innerHTML=renderHistoryList(filtered);}
+
+function renderResourceDetailReport(){const el=document.getElementById('reportContent');const list=allLib();el.innerHTML=`<div class="card"><h3>🔍 Resource Detail</h3><div class="row" style="margin-bottom:12px"><input type="search" id="rdSearch" placeholder="Search…" oninput="filterResourceDetail()" style="max-width:300px"><select id="rdCat" onchange="filterResourceDetail()" style="max-width:180px"><option value="">All</option>${CATS.filter(c=>c!=='All').map(c=>`<option>${esc(c)}</option>`).join('')}</select><select id="rdStatus" onchange="filterResourceDetail()" style="max-width:160px"><option value="">Any</option><option value="0">Not Started</option><option value="1">In Progress</option><option value="2">Completed</option></select><select id="rdSort" onchange="filterResourceDetail()" style="max-width:180px"><option value="time">Most time</option><option value="sessions">Most sessions</option><option value="recent">Recently logged</option><option value="az">Title A-Z</option><option value="priority">Priority</option></select><span class="pill" id="rdCount">${list.length}</span></div><div style="overflow:auto;max-height:600px"><table class="report-table"><thead style="position:sticky;top:0;background:var(--card);z-index:2"><tr><th>Title</th><th>Category</th><th>Priority</th><th>Status</th><th>Time</th><th>Days</th><th>Last</th></tr></thead><tbody id="rdBody">${renderResourceDetailRows(filterResourceData())}</tbody></table></div></div>`;filterResourceDetail();}
+function filterResourceData(){const sm=sessionMap();return allLib().map(r=>({...r,status:statusFor(r.id,sm),min:sm[r.id]?sm[r.id].min:0,sessions:sm[r.id]?sm[r.id].n:0,last:sm[r.id]?sm[r.id].last:'',pinned:!!S.pinned[r.id]}));}
+function renderResourceDetailRows(items){if(!items.length)return '<tr><td colspan="7"><div class="empty">No matches.</div></td></tr>';const PRI={must:'p-must',ess:'p-ess',high:'p-high',rec:'p-rec',med:'p-med'};return items.map(r=>`<tr><td style="font-weight:600;font-size:12px">${r.pinned?'📌 ':''}${esc(r.t)}</td><td style="font-size:11.5px;color:var(--mut)">${esc(r.cat)}</td><td><span class="chip ${PRI[r.p]||'p-rec'}" style="font-size:9.5px">${priLabel(r.p)}</span></td><td><span class="st st-${r.status}" style="font-size:9.5px">${statusTxt(r.status)}</span></td><td style="color:var(--gold);font-weight:700;font-size:12px">${r.min?fmtMin(r.min):'—'}</td><td style="color:var(--acc2);font-size:12px">${r.sessions||'—'}</td><td style="color:var(--dim);font-size:11px">${r.last||'—'}</td></tr>`).join('');}
+function filterResourceDetail(){const rdSearch=document.getElementById('rdSearch');if(!rdSearch)return;const q=(rdSearch.value||'').toLowerCase();const cat=document.getElementById('rdCat').value;const st=document.getElementById('rdStatus').value;const sortBy=document.getElementById('rdSort').value;let list=filterResourceData();list=list.filter(r=>{if(cat&&r.cat!==cat)return false;if(st!==''&&String(r.status)!==st)return false;if(q&&!(r.t+' '+r.by).toLowerCase().includes(q))return false;return true;});const PRI_RANK={must:0,ess:1,high:2,rec:3,med:4};if(sortBy==='time')list.sort((a,b)=>b.min-a.min);else if(sortBy==='sessions')list.sort((a,b)=>b.sessions-a.sessions);else if(sortBy==='recent')list.sort((a,b)=>b.last.localeCompare(a.last));else if(sortBy==='az')list.sort((a,b)=>a.t.localeCompare(b.t));else if(sortBy==='priority')list.sort((a,b)=>(PRI_RANK[a.p]??4)-(PRI_RANK[b.p]??4));document.getElementById('rdCount').textContent=list.length+' resources';document.getElementById('rdBody').innerHTML=renderResourceDetailRows(list);}
+
+function renderCategoryDeepDive(){const el=document.getElementById('reportContent');const cats=CATS.filter(c=>c!=='All');el.innerHTML=`<div class="card" style="margin-bottom:14px"><h3>🗂️ Category Deep Dive</h3><select id="cdSelect" onchange="renderCategoryDetail()" style="max-width:300px">${cats.map(c=>`<option value="${esc(c)}">${esc(c)}</option>`).join('')}</select></div><div id="cdContent"></div>`;renderCategoryDetail();}
+function renderCategoryDetail(){const cat=document.getElementById('cdSelect').value;if(!cat)return;const el=document.getElementById('cdContent');const list=allLib().filter(r=>r.cat===cat);const sm=sessionMap();const byPri={must:[],ess:[],high:[],rec:[],med:[]};list.forEach(r=>{if(byPri[r.p])byPri[r.p].push(r);});const totalMin=list.reduce((a,r)=>a+(sm[r.id]?sm[r.id].min:0),0);const done=list.filter(r=>S.completed[r.id]).length;const inProgress=list.filter(r=>!S.completed[r.id]&&sm[r.id]).length;const notStarted=list.length-done-inProgress;const top=list.slice().sort((a,b)=>(sm[b.id]?sm[b.id].min:0)-(sm[a.id]?sm[a.id].min:0)).filter(r=>sm[r.id]).slice(0,5);el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('Total',list.length,cat)}${kpiCard('Completed',done,Math.round(done/list.length*100)+'%','var(--acc2)')}${kpiCard('In Progress',inProgress,Math.round(inProgress/list.length*100)+'%','var(--warn)')}${kpiCard('Not Started',notStarted,Math.round(notStarted/list.length*100)+'%','var(--dim)')}${kpiCard('Time',fmtMin(totalMin),'total')}</div>${top.length?`<div class="card" style="margin-bottom:14px"><h3>Top 5 in ${esc(cat)}</h3>${top.map((r,i)=>{const sess=sm[r.id];return `<div class="row" style="padding:8px 0;border-bottom:1px solid #1a2444;font-size:12.5px"><span style="color:var(--dim);width:22px;font-weight:700">${i+1}</span><span style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.by)}</span></span><b style="color:var(--gold)">${fmtMin(sess.min)}</b><span style="color:var(--dim);font-size:11px;min-width:60px;text-align:right">${sess.n} day${sess.n>1?'s':''}</span></div>`;}).join('')}</div>`:''}<div class="card"><h3>All in ${esc(cat)}</h3>${Object.entries(byPri).map(([pri,items])=>{if(!items.length)return '';return `<div style="margin-bottom:16px"><div class="row" style="margin-bottom:8px"><span class="chip p-${pri}">${priLabel(pri)}</span><span style="color:var(--mut);font-size:12px">${items.length}</span></div>${items.map(r=>{const s=statusFor(r.id,sm);const sess=sm[r.id];const prog=cat==='Books'&&S.progress&&S.progress[r.id]?` <span style="color:var(--gold);font-size:10.5px">📍 ${esc(S.progress[r.id])}</span>`:'';return `<div style="display:flex;align-items:center;gap:10px;padding:7px 10px;border-bottom:1px solid #1a2444;font-size:12px"><span class="st st-${s}" style="font-size:9.5px;min-width:75px;text-align:center">${statusTxt(s)}</span><span style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut);font-size:11.5px">— ${esc(r.by)}</span>${prog}</span>${sess?`<span style="color:var(--gold);font-size:11px">${fmtMin(sess.min)} · ${sess.n}d</span>`:''}</div>`;}).join('')}</div>`;}).join('')}</div>`;}
+
+function renderFocusReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();const pinned=list.filter(r=>S.pinned[r.id]);const sevenAgo=new Date();sevenAgo.setDate(sevenAgo.getDate()-7);const sevenStr=dayKey(sevenAgo);const recent=list.filter(r=>sm[r.id]&&sm[r.id].last>=sevenStr);const fourteenAgo=new Date();fourteenAgo.setDate(fourteenAgo.getDate()-14);const fourteenStr=dayKey(fourteenAgo);const stalled=list.filter(r=>sm[r.id]&&!S.completed[r.id]&&sm[r.id].last<fourteenStr);el.innerHTML=`<div class="grid g4" style="margin-bottom:14px">${kpiCard('Pinned',pinned.length,'active focus','var(--gold)')}${kpiCard('Recent',recent.length,'last 7 days','var(--acc2)')}${kpiCard('Stalled',stalled.length,'14+ days idle',stalled.length?'var(--warn)':'var(--acc2)')}${kpiCard('In Progress',list.filter(r=>statusFor(r.id,sm)===1).length,'started not done')}</div>${pinned.length?`<div class="card" style="margin-bottom:14px;border-color:rgba(255,209,102,.4)"><h3>📌 Pinned Focus</h3>${pinned.map(r=>{const sess=sm[r.id];const s=statusFor(r.id,sm);const prog=r.cat==='Books'&&S.progress&&S.progress[r.id]?` · 📍 ${esc(S.progress[r.id])}`:'';return `<div style="padding:10px;border-left:3px solid var(--gold);background:rgba(255,209,102,.05);border-radius:8px;margin-bottom:8px"><div class="row" style="justify-content:space-between;margin-bottom:3px"><b>${esc(r.t)}</b><span class="st st-${s}" style="font-size:10px">${statusTxt(s)}</span></div><div style="font-size:11.5px;color:var(--mut)">${esc(r.by)} · ${esc(r.cat)}${prog}</div>${sess?`<div style="font-size:11px;color:var(--gold);margin-top:4px">${fmtMin(sess.min)} · ${sess.n} day${sess.n>1?'s':''} · last ${sess.last}</div>`:''}</div>`;}).join('')}</div>`:''}${recent.length?`<div class="card" style="margin-bottom:14px"><h3>🔥 Recently Active</h3>${recent.sort((a,b)=>sm[b.id].last.localeCompare(sm[a.id].last)).map(r=>{const sess=sm[r.id];return `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #1a2444;font-size:12.5px"><span style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.cat)}</span></span><span style="color:var(--gold);font-size:11px">${fmtMin(sess.min)}</span><span style="color:var(--dim);font-size:10.5px">${sess.last}</span></div>`;}).join('')}</div>`:''}${stalled.length?`<div class="card" style="border-color:rgba(255,176,32,.35)"><h3 style="color:var(--warn)">⚠ Stalled</h3>${stalled.map(r=>{const sess=sm[r.id];return `<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #1a2444;font-size:12.5px"><span style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.cat)}</span></span><span style="color:var(--dim);font-size:11px">Last: ${sess.last}</span><span style="color:var(--gold);font-size:11px">${fmtMin(sess.min)}</span></div>`;}).join('')}</div>`:'<div class="card"><div class="empty">Nothing stalled!</div></div>'}`;}
+
+function renderTrendsReport(){const el=document.getElementById('reportContent');const days=[];for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);days.push({date:dayKey(d),min:dayTotalMin(dayKey(d))});}const ma7=days.map((d,i)=>{const slice=days.slice(Math.max(0,i-6),i+1);return {date:d.date,avg:Math.round(slice.reduce((a,x)=>a+x.min,0)/slice.length)};});const ma30=Math.round(days.reduce((a,d)=>a+d.min,0)/30);const lastWeek=days.slice(-7).reduce((a,d)=>a+d.min,0);const priorWeek=days.slice(-14,-7).reduce((a,d)=>a+d.min,0);const weeklyDelta=priorWeek?Math.round((lastWeek-priorWeek)/priorWeek*100):0;const today=days[days.length-1].min;const weekAgo=days[days.length-8].min;const dayDelta=weekAgo?Math.round((today-weekAgo)/weekAgo*100):0;const list=allLib();const notDone=list.filter(r=>!S.completed[r.id]).length;const doneCount=list.filter(r=>S.completed[r.id]).length;const avgDailyMin=Math.round(days.reduce((a,d)=>a+d.min,0)/30);const projectedDays=avgDailyMin?Math.round((notDone*60)/avgDailyMin):0;el.innerHTML=`<div class="grid g5" style="margin-bottom:14px">${kpiCard('30-Day Avg',fmtMin(ma30)+'/day','baseline')}${kpiCard('This Week',fmtMin(lastWeek),weeklyDelta>=0?'+'+weeklyDelta+'%':'-'+Math.abs(weeklyDelta)+'%',weeklyDelta>=0?'var(--acc2)':'var(--bad)')}${kpiCard('Today',fmtMin(today),dayDelta>=0?'+'+dayDelta+'%':'-'+Math.abs(dayDelta)+'%')}${kpiCard('Progress',doneCount+'/'+list.length,Math.round(doneCount/list.length*100)+'%')}${kpiCard('ETA',projectedDays?'~'+projectedDays+'d':'—','at current pace','var(--gold)')}</div><div class="card" style="margin-bottom:14px"><h3>📉 Daily Minutes</h3>${svgLine(days.map(d=>d.min),'#22d3a6')}<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:6px"><span>${days[0].date}</span><span>${days[days.length-1].date}</span></div></div><div class="card" style="margin-bottom:14px"><h3>📊 7-Day Moving Average</h3>${svgLine(ma7.map(m=>m.avg),'#ffd166')}<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-top:6px"><span>${days[0].date}</span><span>${days[days.length-1].date}</span></div></div><div class="grid g2"><div class="card"><h3>📈 Analysis</h3><div class="tiny" style="line-height:1.9"><b style="color:var(--txt)">Trend:</b> ${weeklyDelta>10?'Accelerating':weeklyDelta<-10?'Slowing':'Steady'}<br><br><b style="color:var(--txt)">Projection:</b> At ${fmtMin(avgDailyMin)}/day, ${notDone} resources need ~${projectedDays} days.<br><br><b style="color:var(--txt)">Recommendation:</b> ${avgDailyMin<30?'Aim for 30+ min/day minimum.':avgDailyMin>=60?'Strong pace. Focus on Must-Reads.':'Solid pace. Consider pinning 2-3 key items.'}</div></div><div class="card"><h3>🎯 Scenarios</h3>${[30,60,90].map(p=>{const dn=Math.round((notDone*60)/p);const mo=Math.round(dn/30*10)/10;return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1a2444;font-size:12.5px"><span>At <b style="color:var(--gold)">${fmtMin(p)}/day</b></span><span style="color:var(--mut)">~${dn} days (${mo} mo)</span></div>`;}).join('')}</div></div>`;}
+
+function renderAchievementsReport(){const el=document.getElementById('reportContent');const list=allLib();const sm=sessionMap();const completed=list.filter(r=>S.completed[r.id]).map(r=>({...r,last:sm[r.id]?sm[r.id].last:'unknown'})).sort((a,b)=>b.last.localeCompare(a.last));const totalMin=Object.values(sm).reduce((a,v)=>a+v.min,0);const longest=longestStreak();const activeDays=Object.keys(S.log).filter(d=>dayCount(d)>0).length;const milestones=[{icon:'🌱',label:'First day',earn:activeDays>=1},{icon:'🔥',label:'3-day streak',earn:longest>=3},{icon:'🔥',label:'7-day streak',earn:longest>=7},{icon:'🔥',label:'30-day streak',earn:longest>=30},{icon:'🔥',label:'100-day streak',earn:longest>=100},{icon:'⏱️',label:'1 hour',earn:totalMin>=60},{icon:'⏰',label:'10 hours',earn:totalMin>=600},{icon:'🕰️',label:'50 hours',earn:totalMin>=3000},{icon:'⏳',label:'100 hours',earn:totalMin>=6000},{icon:'✅',label:'First completion',earn:completed.length>=1},{icon:'✅',label:'5 finished',earn:completed.length>=5},{icon:'✅',label:'10 finished',earn:completed.length>=10},{icon:'🏅',label:'25 finished',earn:completed.length>=25},{icon:'🥇',label:'50 finished',earn:completed.length>=50}];const earned=milestones.filter(m=>m.earn);el.innerHTML=`<div class="grid g4" style="margin-bottom:14px">${kpiCard('Total Time',fmtMin(totalMin),'all')}${kpiCard('Completions',completed.length,'finished','var(--gold)')}${kpiCard('Best Streak',longest,'days','var(--acc2)')}${kpiCard('Milestones',earned.length+'/'+milestones.length,'unlocked','var(--warn)')}</div><div class="card" style="margin-bottom:14px"><h3>🏅 Milestones</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px">${milestones.map(m=>{const e=m.earn;return `<div style="padding:12px;border-radius:10px;border:1px solid ${e?'rgba(34,211,166,.5)':'var(--line)'};background:${e?'rgba(34,211,166,.08)':'rgba(0,0,0,.2)'};text-align:center;opacity:${e?1:0.5}"><div style="font-size:24px;margin-bottom:5px">${m.icon}</div><div style="font-size:12px;font-weight:700;color:${e?'var(--acc2)':'var(--dim)'}">${m.label}</div><div style="font-size:10px;color:var(--dim);margin-top:3px">${e?'✓ Unlocked':'Locked'}</div></div>`;}).join('')}</div></div>${completed.length?`<div class="card"><h3>✅ Completed (${completed.length})</h3>${completed.slice(0,30).map(r=>{const sess=sm[r.id];return `<div style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid #1a2444;font-size:12.5px"><span class="chip p-${r.p}" style="font-size:9.5px">${priLabel(r.p)}</span><span style="flex:1"><b>${esc(r.t)}</b> <span style="color:var(--mut)">— ${esc(r.by)}</span></span><span style="color:var(--dim);font-size:11px">${esc(r.cat)}</span>${sess?`<span style="color:var(--gold);font-size:11px">${fmtMin(sess.min)} · ${sess.last}</span>`:''}</div>`;}).join('')}${completed.length>30?`<div class="tiny" style="margin-top:8px">… +${completed.length-30} more</div>`:''}</div>`:'<div class="card"><div class="empty">No completions yet.</div></div>'}`;}
+
+function renderFocusQualityReport(){
+  const el=document.getElementById('reportContent');const sm=sessionMap();
+  let focusSum=0,focusCount=0;const dist={1:0,2:0,3:0,4:0,5:0};const catFocus={};const best=[],low=[];
+  for(const date in S.log){const rec=S.log[date];for(const id in rec){const e=rec[id];if(typeof e==='object'&&e.focus&&e.focus>=1&&e.focus<=5){focusSum+=e.focus;focusCount++;dist[e.focus]++;const r=resourceInfo(id);if(r){if(!catFocus[r.cat])catFocus[r.cat]={sum:0,count:0};catFocus[r.cat].sum+=e.focus;catFocus[r.cat].count++;}const entry={date,id,focus:e.focus,note:(typeof e==='object'&&e.note)||'',min:entryMin(e),r};if(e.focus>=4)best.push(entry);if(e.focus<=2)low.push(entry);}}}
+  const avg=focusCount?(focusSum/focusCount).toFixed(1):'—';
+  const catStats=Object.entries(catFocus).map(([cat,v])=>({cat,avg:(v.sum/v.count).toFixed(1),count:v.count})).sort((a,b)=>parseFloat(b.avg)-parseFloat(a.avg));
+  const maxDist=Math.max(...Object.values(dist),1);
+  best.sort((a,b)=>b.date.localeCompare(a.date));low.sort((a,b)=>b.date.localeCompare(a.date));
+  el.innerHTML=`<div class="grid g4" style="margin-bottom:14px">${kpiCard('Avg Focus',avg,focusCount+' rated sessions','var(--acc2)')}${kpiCard('High Focus',best.length,'4–5 ratings','var(--gold)')}${kpiCard('Low Focus',low.length,'1–2 ratings',low.length?'var(--warn)':'var(--acc2)')}${kpiCard('Categories',catStats.length,'with focus data')}</div>
+  <div class="card" style="margin-bottom:14px"><h3>Focus Distribution</h3><p class="sub">1 = distracted, 5 = deep focus</p>${[5,4,3,2,1].map(n=>{const pct=Math.round(dist[n]/maxDist*100);const color=n>=4?'var(--acc2)':n===3?'var(--warn)':'var(--bad)';return `<div style="margin-bottom:9px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:3px"><b>${n} ${'★'.repeat(n)}</b><span style="color:${color}">${dist[n]} session${dist[n]===1?'':'s'}</span></div><div class="bar thin"><i style="width:${pct}%;background:${color}"></i></div></div>`;}).join('')}</div>
+  ${catStats.length?`<div class="card" style="margin-bottom:14px"><h3>Focus by Category</h3>${catStats.map(s=>{const pct=Math.round(parseFloat(s.avg)/5*100);const color=parseFloat(s.avg)>=4?'var(--acc2)':parseFloat(s.avg)>=3?'var(--warn)':'var(--bad)';return `<div style="margin-bottom:10px"><div class="row" style="justify-content:space-between;font-size:12.5px;margin-bottom:3px"><b>${esc(s.cat)}</b><span style="color:${color};font-weight:700">${s.avg}/5 · ${s.count} sess</span></div><div class="bar thin"><i style="width:${pct}%;background:${color}"></i></div></div>`;}).join('')}</div>`:''}
+  ${best.length?`<div class="card" style="margin-bottom:14px"><h3>🏆 Best Sessions (4–5 focus)</h3>${best.slice(0,10).map(e=>`<div style="padding:8px 0;border-bottom:1px solid #1a2444;font-size:12.5px"><div class="row" style="justify-content:space-between;margin-bottom:3px"><b>${e.r?esc(e.r.t):e.id}</b><span style="color:var(--acc2);font-weight:700">${e.focus}/5</span></div><div style="font-size:11px;color:var(--dim)">${esc(e.date)} · ${fmtMin(e.min)}${e.note?' · "'+esc(e.note)+'"':''}</div></div>`).join('')}</div>`:''}
+  ${low.length?`<div class="card" style="border-color:rgba(255,93,108,.4)"><h3 style="color:var(--bad)">⚠ Low Focus Sessions (1–2)</h3><p class="sub">Consider whether these resources or times work for you</p>${low.slice(0,10).map(e=>`<div style="padding:8px 0;border-bottom:1px solid #1a2444;font-size:12.5px"><div class="row" style="justify-content:space-between;margin-bottom:3px"><b>${e.r?esc(e.r.t):e.id}</b><span style="color:var(--bad);font-weight:700">${e.focus}/5</span></div><div style="font-size:11px;color:var(--dim)">${esc(e.date)} · ${fmtMin(e.min)}${e.note?' · "'+esc(e.note)+'"':''}</div></div>`).join('')}</div>`:''}
+  ${!focusCount?`<div class="card"><div class="empty">No focus ratings logged yet. Use the ⚡ Quick Log and set a Focus rating (1–5) to populate this report.</div></div>`:''}`;
+}
+
+function renderBackfillReport(){
+  const el=document.getElementById('reportContent');const days=[];const missed=[];
+  for(let i=29;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const k=dayKey(d);const m=dayTotalMin(k);if(m===0&&i>0)missed.push(k);days.push({date:k,min:m});}
+  const pastEntries=[];
+  for(const date in S.log){if(date>=dayKey())continue;const rec=S.log[date];for(const id in rec){const r=resourceInfo(id);pastEntries.push({date,id,r,min:entryMin(rec[id]),focus:(typeof rec[id]==='object'&&rec[id].focus)||0});}}
+  pastEntries.sort((a,b)=>b.date.localeCompare(a.date));
+  el.innerHTML=`<div class="card" style="margin-bottom:14px"><h3>📅 Log a Session for a Past Date</h3><p class="sub">Forgot to log a session? Add it here without breaking your current streak.</p><div class="grid g2" style="margin-bottom:10px"><div><label class="fl">Date</label><input type="date" id="bfDate" max="${dayKey()}" value="${dayKey()}"></div><div><label class="fl">Resource</label><select id="bfRes"></select></div></div><div class="grid g3"><div><label class="fl">Minutes</label><input type="number" id="bfMin" value="30" min="1" max="600"></div><div><label class="fl">Focus (1–5)</label><select id="bfFocus"><option value="3">3 · OK</option><option value="5">5 · Perfect</option><option value="4">4 · Good</option><option value="2">2 · Hard</option><option value="1">1 · Forgot</option></select></div><div style="display:flex;align-items:flex-end"><button class="btn log" style="width:100%" onclick="saveBackfill()">+ Add entry</button></div></div><div style="margin-top:10px"><label class="fl">Note (optional)</label><input type="text" id="bfNote" placeholder="What did you cover?"></div></div>
+  ${missed.length?`<div class="card" style="margin-bottom:14px"><h3>⚠ Missed Days (last 30)</h3><p class="sub">Click a date to jump to it in the form above</p><div style="display:flex;gap:6px;flex-wrap:wrap">${missed.map(d=>`<button class="btn xs ghost" onclick="document.getElementById('bfDate').value='${d}';window.scrollTo({top:0,behavior:'smooth'})">${d}</button>`).join('')}</div></div>`:''}
+  <div class="card"><h3>Recent Past Entries</h3><p class="sub">Sessions logged with a date earlier than today</p>${pastEntries.length?pastEntries.slice(0,40).map(e=>`<div style="padding:8px 0;border-bottom:1px solid #1a2444;font-size:12.5px"><div class="row" style="justify-content:space-between"><b>${e.r?esc(e.r.t):e.id}</b><span style="color:var(--gold);font-weight:700">${fmtMin(e.min)}</span></div><div style="font-size:11px;color:var(--dim)">${esc(e.date)}${e.r?' · '+esc(e.r.cat):''}${e.focus?' · Focus '+e.focus+'/5':''}</div></div>`).join(''):'<div class="empty">No past entries yet</div>'}</div>`;
+  const sel=document.getElementById('bfRes');
+  sel.innerHTML=allLib().map(r=>`<option value="${r.id}">${esc(r.t)} — ${esc(r.cat)}</option>`).join('');
+}
+function saveBackfill(){
+  const date=document.getElementById('bfDate').value;const id=document.getElementById('bfRes').value;
+  const min=parseInt(document.getElementById('bfMin').value)||30;const focus=parseInt(document.getElementById('bfFocus').value)||3;
+  const note=document.getElementById('bfNote').value.trim();
+  if(!date||!id){alert('Date and resource required');return;}
+  if(date>dayKey()){alert('Date cannot be in the future');return;}
+  addLog(id,min,focus,note,date);
+  document.getElementById('bfNote').value='';
+  renderBackfillReport();renderHeader();
+}
+
+function renderGoalAlignmentReport(){
+  const el=document.getElementById('reportContent');const sm=sessionMap();
+  if(!S.goals.length){el.innerHTML=`<div class="card"><div class="empty">No goals set. Go to the 🎯 Goals tab to create your first OKR.</div></div>`;return;}
+  const rows=S.goals.map(g=>{
+    const done=g.krs.filter(k=>k.done).length;const pct=g.krs.length?Math.round(done/g.krs.length*100):0;
+    const daysLeft=g.date?Math.ceil((new Date(g.date+'T00:00:00')-new Date())/86400000):null;
+    let minInvested=0;
+    if(g.cat){const items=allLib().filter(r=>r.cat===g.cat);minInvested=items.reduce((a,r)=>a+(sm[r.id]?sm[r.id].min:0),0);}
+    else{minInvested=Object.values(sm).reduce((a,v)=>a+v.min,0);}
+    const hoursInvested=(minInvested/60).toFixed(1);
+    const paceNeeded=daysLeft&&daysLeft>0?(pct<100?((100-pct)/daysLeft).toFixed(2):0):null;
+    return {g,done,pct,daysLeft,hoursInvested,minInvested,paceNeeded};
+  });
+  el.innerHTML=`<div class="card" style="margin-bottom:14px"><h3>⚖️ Goal vs. Time Investment</h3><p class="sub">Are you spending time in the categories that match your stated goals?</p></div>
+  ${rows.map(r=>{const g=r.g;const daysColor=r.daysLeft===null?'var(--dim)':r.daysLeft<0?'var(--bad)':r.daysLeft<14?'var(--warn)':'var(--acc2)';const paceWarn=r.paceNeeded&&parseFloat(r.paceNeeded)>1;return `<div class="goal" style="margin-bottom:14px"><div class="goal-header"><div><div class="goal-title">${esc(g.title)}</div><div class="goal-deadline">${g.cat?esc(g.cat):'All categories'}${g.date?' · '+esc(g.date):''}</div></div><div style="text-align:right"><b style="font-size:22px;color:${r.pct>=100?'var(--acc2)':r.pct>=50?'var(--gold)':'var(--warn)'}">${r.pct}%</b><div style="font-size:10px;color:var(--dim)">${r.done}/${g.krs.length} KRs</div></div></div><div class="bar thin" style="margin-bottom:12px"><i style="width:${r.pct}%"></i></div><div class="grid g3" style="gap:10px"><div><div class="tiny" style="margin-bottom:3px">⏱ Time invested</div><b style="color:var(--gold);font-size:16px">${r.hoursInvested} hrs</b></div><div><div class="tiny" style="margin-bottom:3px">📅 Days remaining</div><b style="color:${daysColor};font-size:16px">${r.daysLeft===null?'—':r.daysLeft<0?Math.abs(r.daysLeft)+' overdue':r.daysLeft+' days'}</b></div><div><div class="tiny" style="margin-bottom:3px">🎯 Pace needed</div><b style="color:${paceWarn?'var(--warn)':'var(--acc2)'};font-size:16px">${r.paceNeeded!==null?r.paceNeeded+'%/day':'—'}</b></div></div>${paceWarn?`<div style="margin-top:10px;padding:8px 10px;background:rgba(255,176,32,.08);border:1px solid rgba(255,176,32,.35);border-radius:8px;font-size:12px;color:var(--warn)">⚠ You need ${r.paceNeeded}% of key results per day to finish on time. Consider narrowing your focus or extending the deadline.</div>`:''}${g.krs.length?`<div style="margin-top:10px">${g.krs.map(k=>`<div style="padding:4px 0;font-size:12.5px;color:${k.done?'var(--dim)':'var(--txt)'}">${k.done?'✓':'○'} ${esc(k.text)}</div>`).join('')}</div>`:''}</div>`;}).join('')}`;
+}
+
+function allSheetRows(){
+  const custom=S.custom.map(r=>({n:0,pillar:r.pillar||CAT_TO_PILLAR[r.cat]||'15. CUSTOM',cat:r.sub||r.cat||'Custom',item:r.t,provider:r.by,desc:r.d,pri:priLabel(r.p),timeline:r.timeline||'Custom',cost:r.cost||'Custom',id:r.id,custom:true,customCat:r.cat}));
+  const rows=SPREAD.map(r=>{const base={...r,id:'r'+r.n,custom:false};const o=S.overrides&&S.overrides[base.id];if(o){if(o.t)base.item=o.t;if(o.by)base.provider=o.by;if(o.sub)base.cat=o.sub;if(o.cat)base.pillar=CAT_TO_PILLAR[o.cat]||base.pillar;if(o.p)base.pri=priLabel(o.p);if(o.d)base.desc=o.d;base.edited=true;}return base;});
+  return rows.concat(custom);
+}
+function initSheetFilters(){const rows=allSheetRows();const pillars=[...new Set(rows.map(r=>r.pillar))];const pSel=document.getElementById('sheetPillar');if(pSel.options.length<=1){pSel.innerHTML='<option value="">All</option>'+pillars.map(p=>`<option>${esc(p)}</option>`).join('');}onPillarChange(true);}
+function onPillarChange(silent){const rows=allSheetRows();const p=document.getElementById('sheetPillar').value;const cats=[...new Set(rows.filter(r=>!p||r.pillar===p).map(r=>r.cat))];document.getElementById('sheetCat').innerHTML='<option value="">All</option>'+cats.map(c=>`<option>${esc(c)}</option>`).join('');if(!silent)renderSheet();}
+function resetSheetFilters(){document.getElementById('sheetSearch').value='';document.getElementById('sheetPillar').value='';onPillarChange(true);document.getElementById('sheetCat').value='';document.getElementById('sheetPri').value='';document.getElementById('sheetStatus').value='';renderSheet();}
+function renderSheet(){
+  const rows=allSheetRows();const sm=buildStatusMap();
+  const q=(document.getElementById('sheetSearch').value||'').toLowerCase().trim();const p=document.getElementById('sheetPillar').value;const c=document.getElementById('sheetCat').value;const pr=document.getElementById('sheetPri').value;const st=document.getElementById('sheetStatus').value;
+  let filtered=rows.filter(r=>{if(p&&r.pillar!==p)return false;if(c&&r.cat!==c)return false;if(pr&&priClass(r.pri)!==pr)return false;const s=sm[r.id]||0;if(st!==''&&String(s)!==st)return false;if(q){const hay=(r.n+' '+r.pillar+' '+r.cat+' '+r.item+' '+r.provider+' '+r.desc+' '+r.pri+' '+(S.notes[r.id]||'')).toLowerCase();if(!hay.includes(q))return false;}return true;});
+  filtered.sort((a,b)=>{const pa=S.pinned[a.id]?1:0,pb=S.pinned[b.id]?1:0;if(pa!==pb)return pb-pa;return 0;});
+  document.getElementById('sheetCount').textContent=filtered.length+'/'+rows.length;
+  const body=document.getElementById('sheetBody');const PRI={must:'p-must',rec:'p-rec',ess:'p-ess',high:'p-high',med:'p-med'};
+  body.innerHTML=filtered.map(r=>{const s=sm[r.id]||0;const cls=PRI[priClass(r.pri)]||'p-med';const note=S.notes[r.id]||'';const isPinned=!!S.pinned[r.id];const isCustom=r.custom;const edited=r.edited;return `<tr class="${isPinned?'pinned-row':''} ${isCustom?'custom-row':''} ${edited?'edited-row':''}"><td class="num">${r.n||'✨'}</td><td class="pillar">${esc(r.pillar)}</td><td class="cat">${esc(r.cat)}</td><td class="item">${isPinned?'📌 ':''}${esc(r.item)}${isCustom?' <span style="color:var(--acc2);font-size:9px">NEW</span>':''}${edited?' <span style="color:var(--warn);font-size:9px">EDITED</span>':''} <button class="btn xs ghost" style="padding:1px 5px" onclick="editCustom('${r.id}')" title="Edit">✏️</button>${isCustom?` <button class="btn xs ghost" style="padding:1px 5px" onclick="delCustom('${r.id}')" title="Delete">×</button>`:''}</td><td class="prov">${esc(r.provider)}</td><td class="desc">${esc(r.desc)}</td><td class="pri"><span class="chip ${cls}">${esc(r.pri)}</span></td><td class="tl">${esc(r.timeline)}</td><td class="cost">${esc(r.cost)}</td><td class="status"><span class="st st-${s}">${statusTxt(s)}</span><button class="btn xs ${s===2?'ghost':'complete'}" style="margin-left:5px" onclick="toggleComplete('${r.id}')">${s===2?'↺':'✓'}</button></td><td class="notes"><textarea onchange="saveNote('${r.id}',this.value)" placeholder="Notes…">${esc(note)}</textarea></td></tr>`;}).join('');
+  const counts={0:0,1:0,2:0};rows.forEach(r=>{counts[sm[r.id]||0]++;});
+  const editCount=Object.keys(S.overrides||{}).filter(id=>isEdited(id)).length;
+  document.getElementById('sheetStats').innerHTML=`Showing <b>${filtered.length}</b> · Not Started: <b>${counts[0]}</b> · In Progress: <b style="color:var(--warn)">${counts[1]}</b> · Completed: <b style="color:var(--acc2)">${counts[2]}</b> · <span style="color:var(--acc2)">Custom: ${S.custom.length}</span> · <span style="color:var(--warn)">Edited: ${editCount}</span>`;
+}
+function saveNote(id,val){S.notes[id]=val;save();}
+
+function exportSheetCSV(){const rows=allSheetRows();const statusMap=buildStatusMap();const head=['#','Pillar','Category','Item','Provider','Description','Priority','Timeline','Cost','Status','Notes','Pinned'];const lines=[head];rows.forEach(r=>{lines.push([r.n||'',r.pillar,r.cat,r.item,r.provider,r.desc,r.pri,r.timeline,r.cost,statusTxt(statusMap[r.id]||0),S.notes[r.id]||'',S.pinned[r.id]?'Yes':'']);});const csv=lines.map(row=>row.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');download('finance-roadmap-'+dayKey()+'.csv',csv,'text/csv');}
+function exportJSON(){download('finance-tracker-'+dayKey()+'.json',JSON.stringify(S,null,2),'application/json');markBackedUp();}
+function download(name,content,mime){const blob=new Blob([content],{type:mime});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);}
+function importJSON(e){const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const d=JSON.parse(rd.result);S=Object.assign(blank(),d);save();location.reload();}catch(err){alert('Invalid file');}};rd.readAsText(f);}
+function resetAll(){if(!confirm('Delete ALL data?'))return;if(!confirm('Last chance?'))return;['t1p_master_v12','t1p_master_v11','t1p_master_v10','t1p_master_v9'].forEach(k=>localStorage.removeItem(k));location.reload();}
+
+document.addEventListener('keydown',e=>{
+  if(['INPUT','TEXTAREA','SELECT'].includes(e.target.tagName))return;
+  if(e.target.isContentEditable)return;
+  const anyModalOpen=!!document.querySelector('.modal-overlay:not(.hide)');
+  if(e.key==='Escape'&&anyModalOpen){
+    if(!document.getElementById('undoModal').classList.contains('hide')){closeUndoModal();return;}
+    if(!document.getElementById('timerModal').classList.contains('hide')){closeTimer();return;}
+    if(!document.getElementById('quickLogModal').classList.contains('hide')){closeQuickLog();return;}
+    if(!document.getElementById('editModal').classList.contains('hide')){closeEditModal();return;}
+    return;
+  }
+  if(anyModalOpen)return;
+  if(e.key==='/'){e.preventDefault();go('lib');setTimeout(()=>{const s=document.getElementById('libSearch');if(s)s.focus();},120);}
+  else if(e.key==='q'||e.key==='Q'){e.preventDefault();openQuickLog();}
+});
+
+(function boot(){
+  purgeOldTrash();
+  buildNav();renderHeader();go(S.tab||'lib');
+  const rt=document.getElementById('reminderTime');if(rt&&S.reminderTime)rt.value=S.reminderTime;
+  let lastDay=dayKey();
+  setInterval(()=>{const d=dayKey();if(d!==lastDay){lastDay=d;S.lastDigestDate='';save();renderTab(S.tab);}},60000);
+  if(S.reminderTime)scheduleReminder(S.reminderTime);
+})();
+</script>
+</body>
+</html>
